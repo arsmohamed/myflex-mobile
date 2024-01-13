@@ -1,20 +1,20 @@
-// App.js
+// Container.js
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import Container from './src/Container';
+import { View, Text, StyleSheet } from 'react-native';
 
-export default function App() {
+const Container = () => {
   return (
     <View style={styles.container}>
-      <Container />
+      <Text>Hello</Text>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
 });
+
+export default Container;
