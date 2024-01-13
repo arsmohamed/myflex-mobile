@@ -11,17 +11,29 @@ const Tab = createBottomTabNavigator();
 
 const Container = () => {
   return (
-    <View style={styles.navigationContainer}>
+    <View style={styles.MainContainerStyle}>
        <NavigationContainer>
         <Tab.Navigator
-          tabBarOptions={{
-            activeTintColor: "#D68D4A",
-            inactiveTintColor: "#ffffffff",
+          screenOptions={{
+            tabBarActiveTintColor: "#FFD900",
+            tabBarInactiveTintColor: "#ffffffff",
+            tabBarStyle: {
+              display: 'flex',
+            },
           }}
         >
-          <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="MyList" component={MyListScreen} />
-          <Tab.Screen name="Profile" component={ProfileScreen} />
+          <Tab.Screen 
+            name="Homey" 
+            component={HomeScreen} 
+          />
+          <Tab.Screen 
+            name="MyList" 
+            component={MyListScreen} 
+          />
+          <Tab.Screen 
+            name="Profile" 
+            component={ProfileScreen} 
+          />
         </Tab.Navigator>
       </NavigationContainer>
     </View>
@@ -29,10 +41,10 @@ const Container = () => {
 };
 
 const styles = StyleSheet.create({
-    navigationContainer: {
-        flex: 1,
-        backgroundColor: "#0B1D33", // Background color for NavigationContainer
-    },
+  MainContainerStyle: {
+    flex: 1,
+    backgroundColor: "grey",  
+  },
 });
 
 export default Container;

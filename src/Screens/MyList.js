@@ -14,11 +14,9 @@ const ChatScreen = () => {
   return (
     <View>
       <Text>Chat Screen</Text>
-      <TouchableOpacity onPress={handleIconClick}>
-        {/* Your icon component */}
+      {/* <TouchableOpacity onPress={handleIconClick}>
         <Text>Go to New chat Screen</Text>
-      </TouchableOpacity>
-      {/* Rest of your content */}
+      </TouchableOpacity> */}
     </View>
   );
 };
