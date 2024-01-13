@@ -1,20 +1,14 @@
 // App.js
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import Container from './src/Container';
+import { Provider } from 'react-redux';
+import store from './src/store/store';
 
 export default function App() {
   return (
-    <View style={styles.container}>
+    <Provider store={store}>
       <Container />
-    </View>
+    </Provider>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
+} 
