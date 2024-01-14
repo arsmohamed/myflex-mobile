@@ -1,37 +1,51 @@
-// ChatScreen.js
-import React, {useLayoutEffect} from "react";
-import { View, Text, TouchableOpacity } from "react-native";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import CustomHeaderLeft from "../Components/CustomHeaderLeft";
+// HomeScreen.js
+import React, { useLayoutEffect } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { createStackNavigator } from '@react-navigation/stack';
+import CustomHeaderLeft from '../Components/CustomHeaderLeft';
+import SearchScreen from './SearchScreen';
+
+const Stack = createStackNavigator();
 
 const HomeScreen = ({ navigation }) => {
-  
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: "",
+      headerTitle: '',
       headerRight: () => (
-        <Ionicons
-          name="search"
-          size={25}
-          style={{ marginRight: 10, color: "white" }}
-        />
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Search')}
+          style={{ marginRight: 10 }}
+        >
+          <Ionicons name="search" size={25} style={{ color: 'white' }} />
+        </TouchableOpacity>
       ),
-      headerLeft: () => <CustomHeaderLeft/>,
+      headerLeft: () => <CustomHeaderLeft />,
       headerStyle: {
-        backgroundColor: "#0B1D33",
+        backgroundColor: '#0B1D33',
         borderBottomWidth: 1,
-        borderBottomColor: "yellow",
+        borderBottomColor: 'yellow',
       },
-      headerTintColor: "red",
+      headerTintColor: 'red',
       tabBarStyle: {
-        backgroundColor: "transparent",
+        backgroundColor: 'transparent',
       },
     });
   }, [navigation]);
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#0B1D33" }}> 
-      <Text>Chat Screen</Text>
+    <Stack.Navigator>
+      <Stack.Screen name="Home" component={ChatScreen} />
+      <Stack.Screen name="Search" component={SearchScreen} />
+      {/* Add more screens to the HomeStack if needed */}
+    </Stack.Navigator>
+  );
+};
+
+const ChatScreen = () => {
+  return (
+    <View style={{ flex: 1, backgroundColor: '#0B1D33', justifyContent: 'center', alignItems: 'center' }}>
+      <Text style={{ color: 'white' }}>Chat Screen</Text>
     </View>
   );
 };
