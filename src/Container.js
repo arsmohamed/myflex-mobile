@@ -1,38 +1,70 @@
 // Container.js
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
-import HomeScreen from "./Screens/Home";
-import MyListScreen from "./Screens/MyList";
-import ProfileScreen from "./Screens/Profile";
-
-const Tab = createBottomTabNavigator();
+import { View, StyleSheet, Text } from 'react-native';
 
 const Container = () => {
   return (
-    <View style={styles.navigationContainer}>
-       <NavigationContainer>
-        <Tab.Navigator
-          tabBarOptions={{
-            activeTintColor: "#D68D4A",
-            inactiveTintColor: "#ffffffff",
-          }}
-        >
-          <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="MyList" component={MyListScreen} />
-          <Tab.Screen name="Profile" component={ProfileScreen} />
-        </Tab.Navigator>
-      </NavigationContainer>
+    <View style={styles.Main_Container_Style}>
+
+      <View style={styles.TopNav_Style}>
+        <View style={styles.Top_Top_Style}>
+           <Text >Top-Top</Text>
+        </View>
+        <View style={styles.Top_Bottom_Style}>
+           <Text >Top-Bottom</Text>
+        </View>
+      </View>
+
+      <View style={styles.Canvas_Container_Style}>
+        <Text>Canvas</Text>
+      </View>
+
+      <View style={styles.BttomNav_Style}>
+        <Text>Bottom</Text>
+      </View>
+
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-    navigationContainer: {
-        flex: 1,
-        backgroundColor: "#0B1D33", // Background color for NavigationContainer
-    },
+  Main_Container_Style: {
+    flex: 1,
+    backgroundColor: "grey",  
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column'
+  },
+  TopNav_Style: {
+    borderWidth: 1,
+    borderColor: 'yellow',
+    height: '10%',
+    width: '100%',
+  },
+  Top_Top_Style: {
+    borderWidth: 1,
+    borderColor: 'black',
+    width: '100%',
+    height: '50%'
+  },
+  Top_Bottom_Style: {
+    borderWidth: 1,
+    borderColor: 'blue',
+    width: '100%',
+    height: '50%'
+  },
+  Canvas_Container_Style: {
+    borderWidth: 1,
+    borderColor: 'black',
+    height: '80%',
+    width: '100%',
+  },
+  BttomNav_Style: {
+    borderWidth: 1,
+    borderColor: 'green',
+    height: '10%',
+    width: '100%',
+  }
 });
 
 export default Container;

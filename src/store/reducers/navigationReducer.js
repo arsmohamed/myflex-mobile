@@ -1,14 +1,22 @@
-// navigationReducer.js
+
+import { CHANGE_SCREEN, SELECT_OPTION } from '../actions/actionTypes';
+
 const initialState = {
-  currentScreen: "Marketplace", // Default screen
+  currentScreen: 'Marketplace',
+  selectedOption: null,
 };
 
 const navigationReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "CHANGE_SCREEN":
+    case CHANGE_SCREEN:
       return {
         ...state,
         currentScreen: action.payload.screenName,
+      };
+    case SELECT_OPTION:
+      return {
+        ...state,
+        selectedOption: action.payload,
       };
     default:
       return state;
