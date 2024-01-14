@@ -21,7 +21,8 @@ const TopNav = () => {
   const styles = StyleSheet.create({ 
     Bottom_Nav_Style: {
         flexDirection: 'row',
-        backgroundColor: 'blue',
+        borderWidth: 1,
+        borderColor: 'red',
         width: '90%',
         height: '50%',
         justifyContent: 'space-between',

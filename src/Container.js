@@ -27,7 +27,7 @@ const Container = () => {
 const styles = StyleSheet.create({
   Main_Container_Style: {
     flex: 1,
-    backgroundColor: "grey",  
+    backgroundColor: "black",  
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column'
@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
     height: '10%',
     width: '100%',
     alignItems: 'center',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    backgroundColor: '#31302E'
   },
   Canvas_Container_Style: {
     // borderWidth: 1,
@@ -52,6 +53,7 @@ const styles = StyleSheet.create({
     // borderColor: 'green',
     height: '10%',
     width: '100%',
+    backgroundColor: '#31302E'
   }
 });
 
