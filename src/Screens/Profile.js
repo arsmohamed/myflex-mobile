@@ -12,7 +12,7 @@ const ChatScreen = () => {
   };
 
   return (
-    <View 
+    <View
       style={{
         flex: 1,
         backgroundColor: "black",
@@ -20,7 +20,7 @@ const ChatScreen = () => {
         alignItems: "center",
       }}
     >
-      <Text style={{color: 'white'}}>Chat as Screen</Text>
+      <Text style={{ color: "white" }}>Chat as Screen</Text>
       {/* <TouchableOpacity onPress={handleIconClick}>
         <Text>Go to New chat Screen</Text>
       </TouchableOpacity> */}

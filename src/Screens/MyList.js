@@ -20,7 +20,7 @@ const ChatScreen = () => {
         alignItems: "center",
       }}
     >
-      <Text style={{color: 'white'}}>MyList Screen</Text>
+      <Text style={{ color: "white" }}>MyList Screen</Text>
       {/* <TouchableOpacity onPress={handleIconClick}>
         <Text>Go to New chat Screen</Text>
       </TouchableOpacity> */}

@@ -1,8 +1,7 @@
-
-import { CHANGE_SCREEN, SELECT_OPTION } from '../actions/actionTypes';
+import { CHANGE_SCREEN, SELECT_OPTION } from "../actions/actionTypes";
 
 const initialState = {
-  currentScreen: 'Marketplace',
+  currentScreen: "Marketplace",
   selectedOption: null,
 };
 
