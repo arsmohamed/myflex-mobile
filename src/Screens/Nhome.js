@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
 import { changeScreen } from "../store/actions/NavigationActions";
 
-const ChatScreen = () => {
+const NHome = () => {
   const dispatch = useDispatch();
 
   const handleIconClick = () => {
@@ -20,7 +20,7 @@ const ChatScreen = () => {
         alignItems: "center",
       }}
     >
-      <Text>MyList Screen</Text>
+      <Text>Home Screen</Text>
       {/* <TouchableOpacity onPress={handleIconClick}>
         <Text>Go to New chat Screen</Text>
       </TouchableOpacity> */}
@@ -28,4 +28,4 @@ const ChatScreen = () => {
   );
 };
 
-export default ChatScreen;
+export default NHome;

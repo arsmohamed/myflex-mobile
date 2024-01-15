@@ -12,8 +12,15 @@ const ChatScreen = () => {
   };
 
   return (
-    <View>
-      <Text>Chat Screen</Text>
+    <View 
+      style={{
+        flex: 1,
+        backgroundColor: "#e7e7e7",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Text>Chat as Screen</Text>
       {/* <TouchableOpacity onPress={handleIconClick}>
         <Text>Go to New chat Screen</Text>
       </TouchableOpacity> */}
