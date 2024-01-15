@@ -16,18 +16,49 @@ const NHome = ({ navigation }) => {
     <View
       style={{
         flex: 1,
-        backgroundColor: "yellow",
-        justifyContent: "center",
-        alignItems: "center",
+        backgroundColor: "black",
+        // borderWidth: 1,
+        // borderColor: 'white',
+        flexDirection: 'column',
       }}
     >
-      <Text>Home Screen</Text>
-      <TouchableOpacity
-          onPress={() => navigation.navigate('Search_Screen')}
-          style={{ marginRight: 10 }}
-        >
-          <Ionicons name="search" size={55} style={{ color: 'black' }} />
-        </TouchableOpacity>
+       <View
+        style={{
+          flex: 2,
+          // backgroundColor: "red",
+          alignItems: "center",
+          justifyContent: 'center',
+          // justifyContent: 'flex-end',
+          borderWidth: 1,
+          borderColor: 'yellow',
+          height: '100%',
+          width: '100%',
+          zIndex: 1,
+        }}
+       >
+           <Text style={{color: 'white'}}>Home asdjfadjsfhkjasdhflkjashflkjdh Screen</Text>
+          <TouchableOpacity
+              onPress={() => navigation.navigate('Search_Screen')}
+              style={{ marginRight: 10 }}
+            >
+              <Ionicons name="search" size={55} style={{ color: 'white' }} />
+            </TouchableOpacity>
+       </View>
+       <View
+        style={{
+          flex: 3,
+          backgroundColor: 'transparent',
+          position: 'absolute',
+          bottom: 0,
+          height: '10%',
+          width: '100%',
+          zIndex: 20,
+          borderWidth: 1,
+          borderColor: 'white'
+        }}
+       >
+         {/* <Ionicons name="search" size={55} style={{ color: 'white' }} /> */}
+       </View>
     </View>
   );
 };
