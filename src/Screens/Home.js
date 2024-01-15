@@ -1,9 +1,9 @@
 // ChatScreen.js
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { useDispatch } from "react-redux";
 import { changeScreen } from "../store/actions/NavigationActions";
-import CustomHeaderLeft from "../Components/CustomHeaderLeft";
+import CustomHeaderLeft from "../Components/Custom_Home_Header";
 
 const Home = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     // borderColor: "white",
   },
   Top_Bar_Container_Style: {
-    height: "10%",
+    height: "12%",
     width: "100%",
     flexDirection: "column-reverse",
     alignItems: "center",
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     // borderColor: "white",
   },
   Canvas_Container_Style: {
-    height: "90%",
+    height: "88%",
     width: "100%",
     borderWidth: 1,
     borderColor: "red",

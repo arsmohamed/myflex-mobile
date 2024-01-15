@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectOption } from "../store/actions/NavigationActions";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-const CustomHeaderLeft = ({ navigation }) => {
+const Custom_Home_Header = ({ navigation }) => {
   const selectedOption = useSelector((state) => state.navigation.selectedOption);
   const dispatch = useDispatch();
 
@@ -60,4 +60,4 @@ const styles = StyleSheet.create({
     // borderColor: "red",
   },
 });
-export default CustomHeaderLeft;
+export default Custom_Home_Header;

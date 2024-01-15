@@ -50,7 +50,11 @@ const NewContainer = () => {
       }
       return (
         <View style={styles.Icon_Container_Style}>
-          <Ionicons name={iconName} size={25} style={{ marginRight: 5, color: focused ? "#D68D4A" : "white" }} />
+          <Ionicons
+            name={iconName}
+            size={25}
+            style={{ marginRight: 5, color: focused ? "#D68D4A" : "white" }}
+          />
           <Text style={{ color: focused ? "#D68D4A" : "white", fontSize: 12 }}>{route.name}</Text>
         </View>
       );
