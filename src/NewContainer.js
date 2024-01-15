@@ -32,11 +32,13 @@ const NewContainer = () => {
     tabBarStyle: {
       position: 'absolute',
       padding: 10,
-      backgroundColor: 'grey',
+      backgroundColor: 'transparent',
       borderTopStartRadius: 40,
       borderTopEndRadius: 40,
-
-    },
+      borderWidth: 1,
+      borderColor: 'white',
+      backdropFilter: 'blur(2px)',
+    }, 
     tabBarIcon: ({ focused }) => {
       let iconName;
       if (route.name === 'Home') {

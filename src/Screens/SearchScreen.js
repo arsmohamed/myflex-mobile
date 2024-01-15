@@ -5,7 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const SearchScreen = ({ navigation }) => {
   return (
-    <View style={{ flex: 1, backgroundColor: '#0B1D33', justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{ flex: 1, backgroundColor: 'black', justifyContent: 'center', alignItems: 'center' }}>
       <Text style={{ color: 'white' }}>Here is searching</Text>
 
       <TouchableOpacity
@@ -13,7 +13,7 @@ const SearchScreen = ({ navigation }) => {
           activeOpacity={0.9}
           style={{ marginRight: 10 }}
         >
-          <Ionicons name="arrow-back" size={55} style={{ color: 'black' }} />
+          <Ionicons name="arrow-back" size={55} style={{ color: 'white' }} />
         </TouchableOpacity>
     </View>
   );
