@@ -1,5 +1,5 @@
 // actions.js
-import { CHANGE_SCREEN, SELECT_OPTION } from './actionTypes';
+import { CHANGE_SCREEN, SELECT_OPTION } from "./actionTypes";
 
 export const changeScreen = (screenName) => ({
   type: CHANGE_SCREEN,

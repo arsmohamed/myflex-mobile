@@ -1,17 +1,16 @@
 // CustomHeaderLeft.js
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import { selectOption } from "../store/actions/NavigationActions";
 
 const CustomHeaderLeft = () => {
+  const selectedOption = useSelector((state) => state.navigation.selectedOption);
+  const dispatch = useDispatch();
 
-    const selectedOption = useSelector((state) => state.navigation.selectedOption);
-    const dispatch = useDispatch();
-
-    const handleOptionPress = (option) => {
-        dispatch(selectOption(option));
-      };
+  const handleOptionPress = (option) => {
+    dispatch(selectOption(option));
+  };
 
   const renderOption = (option) => (
     <TouchableOpacity
@@ -21,14 +20,14 @@ const CustomHeaderLeft = () => {
         paddingVertical: 5,
         backgroundColor: "transparent",
         borderWidth: 1,
-        borderColor: selectedOption === option ? 'yellow' : "white",
+        borderColor: selectedOption === option ? "yellow" : "white",
         borderRadius: 15,
         marginLeft: 10,
-        marginBottom: 5
+        marginBottom: 5,
       }}
-      onPress={(() => handleOptionPress(option))}
+      onPress={() => handleOptionPress(option)}
     >
-      <Text style={{ color: selectedOption === option ? 'yellow' : 'white'  }}>{option}</Text>
+      <Text style={{ color: selectedOption === option ? "yellow" : "white" }}>{option}</Text>
     </TouchableOpacity>
   );
 
