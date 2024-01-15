@@ -1,18 +1,15 @@
 // Container.js
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
+import BottomNav from './Navigation/BottomNav';
+import TopNav from './Navigation/TopNav';
 
 const Container = () => {
   return (
     <View style={styles.Main_Container_Style}>
 
       <View style={styles.TopNav_Style}>
-        <View style={styles.Top_Top_Style}>
-           <Text >Top-Top</Text>
-        </View>
-        <View style={styles.Top_Bottom_Style}>
-           <Text >Top-Bottom</Text>
-        </View>
+        <TopNav/>
       </View>
 
       <View style={styles.Canvas_Container_Style}>
@@ -20,7 +17,7 @@ const Container = () => {
       </View>
 
       <View style={styles.BttomNav_Style}>
-        <Text>Bottom</Text>
+        <BottomNav/>
       </View>
 
     </View>
@@ -30,40 +27,33 @@ const Container = () => {
 const styles = StyleSheet.create({
   Main_Container_Style: {
     flex: 1,
-    backgroundColor: "grey",  
+    backgroundColor: "black",  
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column'
   },
   TopNav_Style: {
-    borderWidth: 1,
-    borderColor: 'yellow',
+    // borderWidth: 1,
+    // borderColor: 'yellow',
     height: '10%',
     width: '100%',
-  },
-  Top_Top_Style: {
-    borderWidth: 1,
-    borderColor: 'black',
-    width: '100%',
-    height: '50%'
-  },
-  Top_Bottom_Style: {
-    borderWidth: 1,
-    borderColor: 'blue',
-    width: '100%',
-    height: '50%'
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    backgroundColor: '#31302E'
   },
   Canvas_Container_Style: {
-    borderWidth: 1,
-    borderColor: 'black',
+    // borderWidth: 1,
+    // borderColor: 'black',
     height: '80%',
     width: '100%',
+    alignItems: 'center',
   },
   BttomNav_Style: {
-    borderWidth: 1,
-    borderColor: 'green',
+    // borderWidth: 1,
+    // borderColor: 'green',
     height: '10%',
     width: '100%',
+    backgroundColor: '#31302E'
   }
 });
 

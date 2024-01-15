@@ -3,8 +3,9 @@ import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
 import { changeScreen } from "../store/actions/NavigationActions";
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const ChatScreen = () => {
+const NHome = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const handleIconClick = () => {
@@ -15,17 +16,20 @@ const ChatScreen = () => {
     <View
       style={{
         flex: 1,
-        backgroundColor: "#e7e7e7",
+        backgroundColor: "yellow",
         justifyContent: "center",
         alignItems: "center",
       }}
     >
-      <Text>MyList Screen</Text>
-      {/* <TouchableOpacity onPress={handleIconClick}>
-        <Text>Go to New chat Screen</Text>
-      </TouchableOpacity> */}
+      <Text>Home Screen</Text>
+      <TouchableOpacity
+          onPress={() => navigation.navigate('Search_Screen')}
+          style={{ marginRight: 10 }}
+        >
+          <Ionicons name="search" size={55} style={{ color: 'black' }} />
+        </TouchableOpacity>
     </View>
   );
 };
 
-export default ChatScreen;
+export default NHome;
