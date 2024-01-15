@@ -16,23 +16,24 @@ const NHome = ({ navigation }) => {
     <View
       style={{
         flex: 1,
-        backgroundColor: "grey",
-        // justifyContent: "center",
-        // alignItems: "center",
-        borderWidth: 1,
-        borderColor: 'white',
-        flexDirection: 'column'
+        backgroundColor: "black",
+        // borderWidth: 1,
+        // borderColor: 'white',
+        flexDirection: 'column',
       }}
     >
        <View
         style={{
-          // flex: 1,
-          backgroundColor: "red",
+          flex: 2,
+          // backgroundColor: "red",
           alignItems: "center",
+          justifyContent: 'center',
+          // justifyContent: 'flex-end',
           borderWidth: 1,
           borderColor: 'yellow',
-          height: '90%',
-          width: '100%'
+          height: '100%',
+          width: '100%',
+          zIndex: 1,
         }}
        >
            <Text style={{color: 'white'}}>Home asdjfadjsfhkjasdhflkjashflkjdh Screen</Text>
@@ -45,14 +46,19 @@ const NHome = ({ navigation }) => {
        </View>
        <View
         style={{
-          // flex: 1,
-          backgroundColor: "green",
-          height: '10%'
+          flex: 3,
+          backgroundColor: 'transparent',
+          position: 'absolute',
+          bottom: 0,
+          height: '10%',
+          width: '100%',
+          zIndex: 20,
+          borderWidth: 1,
+          borderColor: 'white'
         }}
        >
-
+         {/* <Ionicons name="search" size={55} style={{ color: 'white' }} /> */}
        </View>
-     
     </View>
   );
 };
