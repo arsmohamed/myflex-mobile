@@ -1,60 +1,83 @@
-// Container.js
-import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-import BottomNav from './Navigation/BottomNav';
-import TopNav from './Navigation/TopNav';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import { View, Text, StyleSheet } from "react-native";
 
-const Container = () => {
+import HomeScreen from "./Screens/Home";
+import MylistScreen from "./Screens/MyList";
+import ProfileScreen from "./Screens/Profile";
+import SearchScreen from "./Screens/SearchScreen";
+
+const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+function HomeStack() {
   return (
-    <View style={styles.Main_Container_Style}>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="Initial" component={HomeScreen} />
+      <Stack.Screen name="Search_Screen" component={SearchScreen} />
+    </Stack.Navigator>
+  );
+}
 
-      <View style={styles.TopNav_Style}>
-        <TopNav/>
-      </View>
+const NewContainer = () => {
+  const screenOptions = ({ route }) => ({
+    headerShown: false, //it shows upper name of the screen
+    tabBarShowLabel: false, // it shows the names of label of each screen
+    tabBarStyle: {
+      position: "absolute",
+      padding: 10,
+      backgroundColor: "transparent",
+      borderTopStartRadius: 35,
+      borderTopEndRadius: 35,
+      borderWidth: 1,
+      borderColor: "white",
+      // backdropFilter: "blur(2px)",
+    },
+    tabBarIcon: ({ focused }) => {
+      let iconName;
+      if (route.name === "Home") {
+        iconName = "home";
+      } else if (route.name === "Mylist") {
+        iconName = "play-circle";
+      } else if (route.name === "Profile") {
+        iconName = "person";
+      }
+      return (
+        <View style={styles.Icon_Container_Style}>
+          <Ionicons name={iconName} size={25} style={{ marginRight: 5, color: focused ? "#D68D4A" : "white" }} />
+          <Text style={{ color: focused ? "#D68D4A" : "white", fontSize: 12 }}>{route.name}</Text>
+        </View>
+      );
+    },
+    // tabBarLabelStyle: {
+    //   color: route.state?.index === route.index ? 'white' : '#D68D4A', // Set the color to match Ionicons
+    //   fontSize: 12,
+    // },
+  });
 
-      <View style={styles.Canvas_Container_Style}>
-        <Text>Canvas</Text>
-      </View>
-
-      <View style={styles.BttomNav_Style}>
-        <BottomNav/>
-      </View>
-
-    </View>
+  return (
+    <NavigationContainer>
+      <Tab.Navigator screenOptions={screenOptions}>
+        <Tab.Screen name="Home" component={HomeStack} />
+        <Tab.Screen name="Mylist" component={MylistScreen} />
+        <Tab.Screen name="Profile" component={ProfileScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 };
 
-const styles = StyleSheet.create({
-  Main_Container_Style: {
-    flex: 1,
-    backgroundColor: "black",  
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column'
-  },
-  TopNav_Style: {
-    // borderWidth: 1,
-    // borderColor: 'yellow',
-    height: '10%',
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    backgroundColor: '#31302E'
-  },
-  Canvas_Container_Style: {
-    // borderWidth: 1,
-    // borderColor: 'black',
-    height: '80%',
-    width: '100%',
-    alignItems: 'center',
-  },
-  BttomNav_Style: {
-    // borderWidth: 1,
-    // borderColor: 'green',
-    height: '10%',
-    width: '100%',
-    backgroundColor: '#31302E'
-  }
-});
+export default NewContainer;
 
-export default Container;
+const styles = StyleSheet.create({
+  Icon_Container_Style: {
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
