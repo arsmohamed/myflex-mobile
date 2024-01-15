@@ -19,7 +19,7 @@ const Home = ({ navigation }) => {
           <CustomHeaderLeft navigation={navigation} />
         </View>
         <View style={styles.Canvas_Container_Style}>
-          <Text style={{ color: "white" }}>Home asdjfadjsfhkjasdhflkjashflkjdh Screen</Text>
+          <Text style={{ color: "white" }}>Home Page</Text>
         </View>
       </View>
       <View style={styles.second_Container_Style}>
@@ -69,7 +69,8 @@ const styles = StyleSheet.create({
   Canvas_Container_Style: {
     height: "88%",
     width: "100%",
-    borderWidth: 1,
-    borderColor: "red",
+    alignItems: "center",
+    // borderWidth: 1,
+    // borderColor: "red",
   },
 });

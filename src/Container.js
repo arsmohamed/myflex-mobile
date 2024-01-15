@@ -32,12 +32,12 @@ const NewContainer = () => {
     tabBarStyle: {
       position: "absolute",
       padding: 10,
-      backgroundColor: "transparent",
-      borderTopStartRadius: 35,
-      borderTopEndRadius: 35,
-      borderWidth: 1,
-      borderColor: "white",
-      // backdropFilter: "blur(2px)",
+      backgroundColor: "#31302E",
+      // borderTopStartRadius: 45,
+      // borderTopEndRadius: 45,
+      overflow: "hidden",
+      borderTopWidth: 1,
+      borderTopColor: "white",
     },
     tabBarIcon: ({ focused }) => {
       let iconName;

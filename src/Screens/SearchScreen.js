@@ -54,7 +54,8 @@ const styles = StyleSheet.create({
   Canvas_Container_Style: {
     height: "88%",
     width: "100%",
-    borderWidth: 1,
-    borderColor: "red",
+    alignItems: "center",
+    // borderWidth: 1,
+    // borderColor: "red",
   },
 });

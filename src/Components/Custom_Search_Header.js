@@ -1,20 +1,20 @@
-// CustomHeaderLeft.js
 import React, { useState } from "react";
 import { View, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-const Custom_Search_Header = ({ navigation }) => {
+const CustomSearchHeader = ({ navigation }) => {
   const [searchValue, setSearchValue] = useState("");
 
   const RightContainer = (
-    <View style={styles.Searching_Container_Style}>
+    <View style={styles.SearchingContainerStyle}>
+      <Ionicons name="search" size={25} style={styles.SearchIconStyle} />
       <TextInput
-        style={styles.Input_Field_Style}
-        placeholder="Search..."
+        style={styles.InputFieldStyle}
+        placeholder="Search"
+        placeholderTextColor="white"
         value={searchValue}
         onChangeText={(text) => setSearchValue(text)}
       />
-      <Ionicons name="search" size={25} style={styles.Search_Icon_Style} />
     </View>
   );
 
@@ -29,35 +29,41 @@ const Custom_Search_Header = ({ navigation }) => {
   );
 
   return (
-    <View style={styles.Main_Container_Style}>
+    <View style={styles.MainContainerStyle}>
       {LeftContainer}
       {RightContainer}
     </View>
   );
 };
+
 const styles = StyleSheet.create({
-  Main_Container_Style: {
+  MainContainerStyle: {
     flexDirection: "row",
     width: "90%",
     justifyContent: "space-between",
     alignItems: "center",
-    // borderWidth: 1,
-    // borderColor: "red",
   },
-  Searching_Container_Style: {
-    width: "80%",
+  SearchingContainerStyle: {
+    width: "60%",
     borderWidth: 1,
     borderRadius: 15,
     borderColor: "white",
     paddingHorizontal: 10,
     marginBottom: 5,
+    flexDirection: "row",
+    alignItems: "center",
   },
-  Input_Field_Style: {
+  InputFieldStyle: {
     flex: 1,
     color: "white",
+    borderBottomWidth: 1,
+    borderBottomColor: "white",
+    paddingLeft: 5,
+    width: "70%",
   },
-  Search_Icon_Style: {
+  SearchIconStyle: {
     color: "white",
   },
 });
-export default Custom_Search_Header;
+
+export default CustomSearchHeader;

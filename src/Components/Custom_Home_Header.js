@@ -44,7 +44,12 @@ const Custom_Home_Header = ({ navigation }) => {
     </TouchableOpacity>
   );
   return (
-    <View style={styles.Main_Container}>
+    <View
+      style={styles.Main_Container}
+      blurType="dark"
+      blurAmount={10} // Adjust the blur amount
+      reducedTransparencyFallbackColor="white"
+    >
       {LeftContainer}
       {RightContainer}
     </View>
