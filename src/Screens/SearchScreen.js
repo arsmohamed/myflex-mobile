@@ -24,7 +24,7 @@ export default SearchScreen;
 const styles = StyleSheet.create({
   Main_Contain_Style: {
     flex: 1,
-    backgroundColor: "grey",
+    backgroundColor: "black",
     flexDirection: "column",
   },
   First_Container_Style: {
@@ -48,13 +48,16 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "column-reverse",
     alignItems: "center",
+    borderBottomWidth: 1,
+    borderBottomColor: "white",
     // borderWidth: 3,
     // borderColor: "white",
   },
   Canvas_Container_Style: {
     height: "88%",
     width: "100%",
-    borderWidth: 1,
-    borderColor: "red",
+    alignItems: "center",
+    // borderWidth: 1,
+    // borderColor: "red",
   },
 });
