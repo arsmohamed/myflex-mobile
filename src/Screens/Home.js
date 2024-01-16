@@ -4,6 +4,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { useDispatch } from "react-redux";
 import { changeScreen } from "../store/actions/NavigationActions";
 import CustomHeaderLeft from "../Components/Custom_Home_Header";
+import SearchCard from "../Components/SearchCard";
 import VCard from "../Components/V-Card";
 import IMBD from "../Assets/IMBD.png";
 import HP from "../Assets/HR.jpeg";
@@ -22,6 +23,7 @@ const Home = ({ navigation }) => {
         </View>
         <View style={styles.Canvas_Container_Style}>
           <Text style={{ color: "white" }}>Home Page</Text>
+          {/* <SearchCard name="Harry POtter" imbd={IMBD} rate="9.8" mainImg={HP} /> */}
           {/* <VCard img={HP} rank={"9.7"} imbd={IMBD} name={"Harry Potter"} /> */}
         </View>
       </View>
