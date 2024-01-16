@@ -63,6 +63,8 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "column-reverse",
     alignItems: "center",
+    borderBottomWidth: 1,
+    borderBottomColor: "white",
     // borderWidth: 3,
     // borderColor: "white",
   },
