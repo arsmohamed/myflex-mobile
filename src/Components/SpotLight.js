@@ -1,23 +1,22 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, ScrollView, Dimensions } from "react-native";
 import HR from "../Assets/HR.jpeg";
-// import LinearGradient from "react-native-linear-gradient";
 import { LinearGradient } from "expo-linear-gradient";
 
 const SpotLightCard = () => {
   const TitleContainer = (
     <View style={styles.Title_Container_Style}>
-      {/* <Text style={styles.Name_Style}>Harry Potter</Text>; */}
+      <Text style={styles.Name_Style}>Harry Potter</Text>
     </View>
   );
   const RateContainer = (
     <View style={styles.Rate_Container_Style}>
-      {/* <Text style={styles.Name_Style}>Rating Container </Text>; */}
+      <Text style={styles.Name_Style}>Rating Container </Text>
     </View>
   );
   const ListContainer = (
     <View style={styles.List_Container_Style}>
-      {/* <Text style={styles.Name_Style}>List Container</Text>; */}
+      <Text style={styles.Name_Style}>List Container</Text>
     </View>
   );
   const SpotLightOverLayer = (
@@ -25,7 +24,7 @@ const SpotLightCard = () => {
       // colors={["rgba(0, 0, 0, 1)", "transparent"]}
       colors={["rgba(0, 0, 0, 0.7)", "rgba(0, 0, 0, 0.8)", "transparent"]}
       start={{ x: 0, y: 1 }} // 1 is equal top
-      end={{ x: 0, y: 0.5 }} // bottom
+      end={{ x: 0, y: 0.3 }} // bottom
       style={styles.Spot_Light_Over_Layer}
     >
       <View style={styles.Info_Container_Style}>
@@ -42,13 +41,26 @@ const SpotLightCard = () => {
       {SpotLightOverLayer}
     </View>
   );
-  return SpotLightContainer;
+  const HorizontalScroll = (
+    <ScrollView
+      horizontal={true}
+      style={{
+        backgroundColor: "red",
+      }}
+    >
+      {SpotLightContainer}
+      {SpotLightContainer}
+      {SpotLightContainer}
+    </ScrollView>
+  );
+
+  return HorizontalScroll;
 };
 
 const styles = StyleSheet.create({
   Main_Spot_Light_Container_Style: {
-    width: "100%",
-    height: "50%",
+    width: Dimensions.get("screen").width,
+    height: "100%",
     borderRadius: 10,
     zIndex: 1,
     // flexDirection: "column",
@@ -76,14 +88,15 @@ const styles = StyleSheet.create({
     height: "50%",
     position: "absolute",
     bottom: 0,
-    borderColor: "yellow",
-    borderWidth: 1,
     justifyContent: "space-evenly",
+    // borderWidth: 1,
+    // borderColor: "yellow",
   },
   Title_Container_Style: {
     width: "90%",
     height: "30%",
     alignSelf: "center",
+    justifyContent: "center",
     borderColor: "yellow",
     borderWidth: 1,
   },
@@ -91,6 +104,7 @@ const styles = StyleSheet.create({
     width: "90%",
     height: "30%",
     alignSelf: "center",
+    justifyContent: "center",
     borderColor: "yellow",
     borderWidth: 1,
   },
@@ -98,11 +112,15 @@ const styles = StyleSheet.create({
     width: "90%",
     height: "30%",
     alignSelf: "center",
+    justifyContent: "center",
     borderColor: "yellow",
     borderWidth: 1,
   },
   Name_Style: {
     fontSize: 25,
+    color: "white",
+    alignSelf: "center",
+    justifyContent: "center",
   },
 });
 
