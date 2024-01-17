@@ -32,8 +32,8 @@ const Home = ({ navigation }) => {
   return (
     <View style={styles.Main_Contain_Style}>
       <View style={styles.First_Container_Style}>
+        {/* <CustomHeader navigation={navigation} /> */}
         {BackGroundLayer}
-        <CustomHeader navigation={navigation} />
       </View>
       <View style={styles.second_Container_Style}></View>
     </View>
