@@ -32,7 +32,7 @@ const Custom_Home_Header = ({ navigation }) => {
     </TouchableOpacity>
   );
   const LeftContainer = (
-    <View style={{ flexDirection: "row", alignItems: "center" }}>
+    <View style={{ flexDirection: "row" }}>
       {renderOption("Movie")}
       {renderOption("Series")}
       {renderOption("Anime")}
@@ -43,26 +43,40 @@ const Custom_Home_Header = ({ navigation }) => {
       <Ionicons name="search" size={30} style={{ color: "white" }} />
     </TouchableOpacity>
   );
-  return (
-    <View
-      style={styles.Main_Container}
-      blurType="dark"
-      blurAmount={10} // Adjust the blur amount
-      reducedTransparencyFallbackColor="white"
-    >
+  const NavigationContainer = (
+    <View style={styles.Navigation_Container_Style}>
       {LeftContainer}
       {RightContainer}
     </View>
   );
+  return <View style={styles.Main_Container_Style}>{NavigationContainer}</View>;
 };
 const styles = StyleSheet.create({
-  Main_Container: {
+  Main_Container_Style: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    height: "12%",
+    width: "100%",
+    flexDirection: "column-reverse",
+    alignItems: "center",
+    borderBottomWidth: 1,
+    borderBottomColor: "white",
+    paddingBottom: 5,
+    zIndex: 2,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    // borderWidth: 1,
+    // borderColor: "white",
+    // backgroundColor: "yellow",
+  },
+  Navigation_Container_Style: {
     flexDirection: "row",
     width: "90%",
     justifyContent: "space-between",
     alignItems: "center",
+    zIndex: 4,
     // borderWidth: 1,
-    // borderColor: "red",
+    borderColor: "red",
   },
 });
 export default Custom_Home_Header;

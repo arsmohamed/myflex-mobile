@@ -3,7 +3,12 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useDispatch } from "react-redux";
 import { changeScreen } from "../store/actions/NavigationActions";
-import CustomHeaderLeft from "../Components/Custom_Home_Header";
+import CustomHeader from "../Components/Custom_Home_Header";
+import SearchCard from "../Components/SearchCard";
+import VCard from "../Components/V-Card";
+import IMBD from "../Assets/IMBD.png";
+import HP from "../Assets/HR.jpeg";
+import SpotLightCard from "../Components/SpotLight";
 
 const Home = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -12,19 +17,25 @@ const Home = ({ navigation }) => {
     dispatch(changeScreen("NewChatScreen"));
   };
 
+  const MovieContainer = (
+    <View style={styles.Movie_Container_Style}>
+      <Text style={{ color: "white" }}>Home Page</Text>
+    </View>
+  );
+  const BackGroundLayer = (
+    <View style={styles.Back_Ground_Layer_Style}>
+      <SpotLightCard />
+      {MovieContainer}
+    </View>
+  );
+
   return (
     <View style={styles.Main_Contain_Style}>
       <View style={styles.First_Container_Style}>
-        <View style={styles.Top_Bar_Container_Style}>
-          <CustomHeaderLeft navigation={navigation} />
-        </View>
-        <View style={styles.Canvas_Container_Style}>
-          <Text style={{ color: "white" }}>Home Page</Text>
-        </View>
+        {BackGroundLayer}
+        <CustomHeader navigation={navigation} />
       </View>
-      <View style={styles.second_Container_Style}>
-        {/* <Ionicons name="search" size={55} style={{ color: 'white' }} /> */}
-      </View>
+      <View style={styles.second_Container_Style}></View>
     </View>
   );
 };
@@ -58,20 +69,20 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderColor: "white",
   },
-  Top_Bar_Container_Style: {
-    height: "12%",
+  Back_Ground_Layer_Style: {
+    position: "absolute",
+    top: 0,
+    left: 0,
     width: "100%",
-    flexDirection: "column-reverse",
-    alignItems: "center",
-    borderBottomWidth: 1,
-    borderBottomColor: "white",
-    // borderWidth: 3,
-    // borderColor: "white",
+    height: "100%",
+    // backgroundColor: "yellow",
+    zIndex: 1,
   },
-  Canvas_Container_Style: {
-    height: "88%",
+  Movie_Container_Style: {
+    height: "50%",
     width: "100%",
     alignItems: "center",
+    justifyContent: "center",
     // borderWidth: 1,
     // borderColor: "red",
   },
