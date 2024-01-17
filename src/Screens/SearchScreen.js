@@ -24,7 +24,7 @@ export default SearchScreen;
 const styles = StyleSheet.create({
   Main_Contain_Style: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: "grey",
     flexDirection: "column",
   },
   First_Container_Style: {
@@ -50,7 +50,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderBottomWidth: 1,
     borderBottomColor: "white",
-    // borderWidth: 3,
+    paddingBottom: 2,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    // borderWidth: 1,
     // borderColor: "white",
   },
   Canvas_Container_Style: {
