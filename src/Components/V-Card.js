@@ -1,17 +1,17 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 
-const VCard = ({ img, rank, imbd, name }) => {
+const VCard = ({ props }) => {
   const Img_Card = (
     <View style={styles.Img_Card_Style}>
-      <Image source={img} style={styles.Main_Image_Style} />
+      <Image source={props.img} style={styles.Main_Image_Style} />
       <View style={styles.Rank_Container_Style}>
-        <Image source={imbd} style={styles.IMBD_Style} />
-        <Text style={styles.Rank_Text_Style}>{rank}</Text>
+        <Image source={props.imbd} style={styles.IMBD_Style} />
+        <Text style={styles.Rank_Text_Style}>{props.rating}</Text>
       </View>
     </View>
   );
-  const Name = <Text style={styles.Name_Style}>{name}</Text>;
+  const Name = <Text style={styles.Name_Style}>{props.Title}</Text>;
   return (
     <View style={styles.Main_V_Card_Style}>
       {Img_Card}
@@ -24,10 +24,11 @@ const styles = StyleSheet.create({
   Main_V_Card_Style: {
     flexDirection: "column",
     justifyContent: "space-between",
-    alignItems: "center",
+    // alignItems: "center",
     width: 120,
     height: 190,
     borderRadius: 10,
+    marginRight: 10,
     // borderWidth: 1,
     // borderColor: "yellow",
   },
@@ -58,8 +59,6 @@ const styles = StyleSheet.create({
     // padding: 5,
   },
   IMBD_Style: {
-    height: "60%",
-    width: "40%",
     resizeMode: "fit",
   },
   Rank_Text_Style: {
@@ -70,6 +69,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     alignSelf: "flex-start",
     paddingLeft: 10,
+    color: "white",
   },
 });
 
