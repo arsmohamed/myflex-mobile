@@ -6,8 +6,8 @@ import SpotLightContainer from "../Components/SpotLightContainer";
 import CustomHeader from "../Components/Custom_Home_Header";
 import SlideInfo from "../Info/SlideInfo";
 import { useDispatch } from "react-redux";
-import VCard from "../Components/V-Card";
-import VCardInfo from "../Info/VCardInfo";
+import HomeCard from "../Components/HomeCard";
+import HomeCardInfo from "../Info/HomeCardInfo";
 import HR1 from "../Assets/HR.jpeg";
 import IMBD from "../Assets/IMBD.png";
 import NewReleaseContainer from "../Components/NewRelease";
@@ -35,8 +35,8 @@ const Home = ({ navigation }) => {
           />
           <Text style={styles.Text_Style}>Recommendation</Text>
           <FlatList
-            data={VCardInfo}
-            renderItem={({ item }) => <VCard props={item} />}
+            data={HomeCardInfo}
+            renderItem={({ item }) => <HomeCard props={item} />}
             horizontal
             pagingEnabled
             showsHorizontalScrollIndicator={false}
@@ -44,15 +44,6 @@ const Home = ({ navigation }) => {
             keyExtractor={(item) => item.id}
           />
           <Text style={styles.Text_Style}>New Release</Text>
-          {/* <FlatList
-            data={VCardInfo}
-            renderItem={({ item }) => <VCard props={item} />}
-            horizontal
-            pagingEnabled
-            showsHorizontalScrollIndicator={false}
-            bounces={false}
-            keyExtractor={(item) => item.id}
-          />  */}
           <NewReleaseContainer />
         </View>
       </ScrollView>

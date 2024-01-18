@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 
-const VCard = ({ props }) => {
+const HomeCard = ({ props }) => {
   const Img_Card = (
     <View style={styles.Img_Card_Style}>
       <Image source={props.img} style={styles.Main_Image_Style} />
@@ -73,4 +73,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default VCard;
+export default HomeCard;

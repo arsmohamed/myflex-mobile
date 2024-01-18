@@ -64,10 +64,10 @@ const styles = StyleSheet.create({
     borderBottomColor: "white",
     paddingBottom: 5,
     zIndex: 2,
-    backgroundColor: "rgba(0,0,0,0.5)",
+    backgroundColor: "#31302E",
+    // backgroundColor: "rgba(0,0,0,0.5)", //till i find a solution to the blur thing
     // borderWidth: 1,
     // borderColor: "white",
-    // backgroundColor: "yellow",
   },
   Navigation_Container_Style: {
     flexDirection: "row",

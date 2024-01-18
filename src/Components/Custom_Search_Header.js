@@ -55,13 +55,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   InputFieldStyle: {
-    // flex: 1,
     color: "white",
-    // borderBottomWidth: 1,
-    // borderBottomColor: "white",
     paddingLeft: 5,
     width: "60%",
-    fontSize: "18px",
+    fontSize: 18,
   },
   SearchIconStyle: {
     color: "white",

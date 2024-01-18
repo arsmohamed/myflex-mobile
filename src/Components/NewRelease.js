@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
-import VCard from "../Components/V-Card";
-import VCardInfo from "../Info/VCardInfo";
+import VCard from "./HomeCard";
+import VCardInfo from "../Info/HomeCardInfo";
 
 const NewReleaseContainer = ({ props }) => {
   return (
