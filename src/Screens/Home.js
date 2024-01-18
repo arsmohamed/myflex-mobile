@@ -1,16 +1,11 @@
 // ChatScreen.js
 import React from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
-import { useDispatch } from "react-redux";
 import { changeScreen } from "../store/actions/NavigationActions";
-import CustomHeader from "../Components/Custom_Home_Header";
-// import SearchCard from "../Components/SearchCard";
-// import VCard from "../Components/V-Card";
-// import IMBD from "../Assets/IMBD.png";
-import HP from "../Assets/HP3.jpeg";
-import SpotLightCard from "../Components/SpotLight";
-import SlideInfo from "../Info/SlideInfo";
 import SpotLightContainer from "../Components/SpotLightContainer";
+import CustomHeader from "../Components/Custom_Home_Header";
+import SlideInfo from "../Info/SlideInfo";
+import { useDispatch } from "react-redux";
 
 const Home = ({ navigation }) => {
   const dispatch = useDispatch();

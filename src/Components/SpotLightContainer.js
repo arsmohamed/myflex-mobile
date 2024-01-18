@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const SpotLightContainer = ({ props }) => {
   const SpotLightContainer = (
@@ -13,13 +14,20 @@ const SpotLightContainer = ({ props }) => {
         style={styles.Over_Layer_Style}
       >
         <View style={styles.Info_Container_Style}>
-          <View style={styles.Layer_Child_Container_Style}>
+          <View style={styles.Layer_Child_Title_Container_Style}>
             <Text style={styles.Title_Style}>{props.Title}</Text>
           </View>
-          <View style={styles.Layer_Child_Container_Style}>
-            <Text style={styles.Title_Style}>List Container</Text>
+          <View style={styles.Layer_Child_Rating_Container_Style}>
+            <View style={styles.IMBD_Rating_Time_Style}>
+              <Image source={props.imbd} />
+              <Text style={styles.Children_Text_Style}>{props.rating}</Text>
+            </View>
+            <View style={styles.IMBD_Rating_Time_Style}>
+              <Ionicons name="time-outline" size={30} style={{ color: "white" }} />
+              <Text style={styles.Children_Text_Style}>{props.rating}</Text>
+            </View>
           </View>
-          <View style={styles.Layer_Child_Container_Style}>
+          <View style={styles.Layer_Child_Add_Container_Style}>
             <Text style={styles.Title_Style}>List Container</Text>
           </View>
         </View>
@@ -62,22 +70,57 @@ const styles = StyleSheet.create({
     alignItems: "center",
     position: "absolute",
     bottom: 0,
-    borderWidth: 1,
-    borderColor: "red",
+    // borderWidth: 1,
+    // borderColor: "red",
   },
-  Layer_Child_Container_Style: {
+  Layer_Child_Title_Container_Style: {
     width: "90%",
     height: "30%",
     alignSelf: "center",
     justifyContent: "center",
-    borderWidth: 1,
-    borderColor: "red",
+    flexDirection: "row",
+    // borderWidth: 1,
+    // borderColor: "red",
+  },
+  Layer_Child_Rating_Container_Style: {
+    width: "90%",
+    height: "30%",
+    alignSelf: "center",
+    justifyContent: "flex-start",
+    flexDirection: "row",
+    columnGap: 15,
+    // borderWidth: 1,
+    // borderColor: "red",
   },
   Title_Style: {
     fontSize: 25,
     color: "white",
     alignSelf: "center",
     justifyContent: "center",
+  },
+  IMBD_Rating_Time_Style: {
+    flexDirection: "row",
+    columnGap: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    // borderWidth: 1,
+    // borderColor: "blue",
+  },
+  Children_Text_Style: {
+    fontSize: 18,
+    color: "white",
+    alignSelf: "center",
+    justifyContent: "center",
+  },
+  Time_Style: {},
+  Layer_Child_Add_Container_Style: {
+    width: "90%",
+    height: "30%",
+    alignSelf: "center",
+    justifyContent: "flex-start",
+    flexDirection: "row",
+    borderWidth: 1,
+    borderColor: "red",
   },
 });
 
