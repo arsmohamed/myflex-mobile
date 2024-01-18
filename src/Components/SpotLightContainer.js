@@ -13,7 +13,7 @@ const SpotLightContainer = ({ props }) => {
     <View style={styles.Container_Style}>
       <Image source={props.img} style={styles.Image_Style} />
       <LinearGradient
-        colors={["rgba(0, 0, 0, 0.7)", "rgba(0, 0, 0, 0.8)", "transparent"]}
+        colors={["rgba(0, 0, 0, 0.9)", "rgba(0, 0, 0, 0.5)", "transparent"]}
         start={{ x: 0, y: 1 }} // 1 is equal top
         end={{ x: 0, y: 0.4 }} // bottom
         style={styles.Over_Layer_Style}
@@ -38,11 +38,11 @@ const SpotLightContainer = ({ props }) => {
               <Text style={styles.Children_Add_Text_Style}>My List</Text>
             </TouchableOpacity>
             <View style={styles.Page_Container_style}>
-              <Ionicons name="ellipse" size={10} color={props.page === "1" ? "#FFD900" : "white"} />
-              <Ionicons name="ellipse" size={10} color={props.page === "2" ? "#FFD900" : "white"} />
-              <Ionicons name="ellipse" size={10} color={props.page === "3" ? "#FFD900" : "white"} />
-              <Ionicons name="ellipse" size={10} color={props.page === "4" ? "#FFD900" : "white"} />
-              <Ionicons name="ellipse" size={10} color={props.page === "5" ? "#FFD900" : "white"} />
+              <Ionicons name="ellipse" size={10} color={props.page === "1" ? "#D68D4A" : "white"} />
+              <Ionicons name="ellipse" size={10} color={props.page === "2" ? "#D68D4A" : "white"} />
+              <Ionicons name="ellipse" size={10} color={props.page === "3" ? "#D68D4A" : "white"} />
+              <Ionicons name="ellipse" size={10} color={props.page === "4" ? "#D68D4A" : "white"} />
+              <Ionicons name="ellipse" size={10} color={props.page === "5" ? "#D68D4A" : "white"} />
             </View>
           </View>
         </View>
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   },
   Info_Container_Style: {
     width: Dimensions.get("screen").width,
-    height: "50%",
+    height: "40%",
     justifyContent: "space-evenly",
     alignItems: "center",
     position: "absolute",
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   },
   Layer_Child_Title_Container_Style: {
     width: "90%",
-    height: "30%",
+    height: "20%",
     alignSelf: "center",
     justifyContent: "center",
     flexDirection: "row",
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   },
   Layer_Child_Rating_Container_Style: {
     width: "90%",
-    height: "30%",
+    height: "20%",
     alignSelf: "center",
     justifyContent: "flex-start",
     flexDirection: "row",
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   },
   Layer_Child_Add_Container_Style: {
     width: "90%",
-    height: "30%",
+    height: "20%",
     alignItems: "center",
     justifyContent: "space-between",
     flexDirection: "row",
@@ -139,15 +139,11 @@ const styles = StyleSheet.create({
   button: {
     width: 100,
     height: 35,
-    backgroundColor: "#FFD900",
+    backgroundColor: "#D68D4A",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-evenly",
     borderRadius: 15,
-  },
-  clickedButton: {
-    backgroundColor: "yellow", // Change to a different color if needed when clicked
-    // Add additional styles when the button is clicked
   },
   Children_Add_Text_Style: {
     fontSize: 18,

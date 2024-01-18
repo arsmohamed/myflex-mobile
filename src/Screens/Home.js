@@ -22,35 +22,37 @@ const Home = ({ navigation }) => {
     <View style={styles.Main_Contain_Style}>
       <CustomHeader navigation={navigation} />
       <ScrollView>
-        <FlatList
-          data={SlideInfo}
-          renderItem={({ item }) => <SpotLightContainer props={item} />}
-          horizontal
-          showsHorizontalScrollIndicator
-          pagingEnabled
-          bounces={false}
-          keyExtractor={(item) => item.id}
-        />
-        <Text style={styles.Text_Style}>Recommendation</Text>
-        <FlatList
-          data={VCardInfo}
-          renderItem={({ item }) => <VCard props={item} />}
-          horizontal
-          pagingEnabled
-          showsHorizontalScrollIndicator={false}
-          bounces={false}
-          keyExtractor={(item) => item.id}
-        />
-        <Text style={styles.Text_Style}>New Release</Text>
-        <FlatList
-          data={VCardInfo}
-          renderItem={({ item }) => <VCard props={item} />}
-          horizontal
-          pagingEnabled
-          showsHorizontalScrollIndicator={false}
-          bounces={false}
-          keyExtractor={(item) => item.id}
-        />
+        <View style={styles.Scroll_Container_Style}>
+          <FlatList
+            data={SlideInfo}
+            renderItem={({ item }) => <SpotLightContainer props={item} />}
+            horizontal
+            showsHorizontalScrollIndicator
+            pagingEnabled
+            bounces={false}
+            keyExtractor={(item) => item.id}
+          />
+          <Text style={styles.Text_Style}>Recommendation</Text>
+          <FlatList
+            data={VCardInfo}
+            renderItem={({ item }) => <VCard props={item} />}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            bounces={false}
+            keyExtractor={(item) => item.id}
+          />
+          <Text style={styles.Text_Style}>New Release</Text>
+          <FlatList
+            data={VCardInfo}
+            renderItem={({ item }) => <VCard props={item} />}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            bounces={false}
+            keyExtractor={(item) => item.id}
+          />
+        </View>
       </ScrollView>
     </View>
   );
@@ -64,6 +66,12 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     zIndex: 1,
     paddingBottom: "20%",
+  },
+  Scroll_Container_Style: {
+    rowGap: 25,
+    flexDirection: "column",
+    // borderWidth: 1,
+    // borderColor: "yellow",
   },
   Text_Style: {
     color: "white",
