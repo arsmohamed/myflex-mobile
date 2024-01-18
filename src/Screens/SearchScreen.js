@@ -1,7 +1,7 @@
 // SearchScreen.js
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import Custom_Search_Header from "../Components/Custom_Search_Header";
+import Custom_Search_Header from "../Headers/SearchHeader";
 import SearchCard from "../Components/SearchCard";
 import SearchCardInfo from "../Info/SearchCardInfo";
 

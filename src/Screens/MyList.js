@@ -3,6 +3,7 @@ import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
 import { changeScreen } from "../store/actions/NavigationActions";
+import MyListHeader from "../Headers/MyListHeader";
 
 const ChatScreen = () => {
   const dispatch = useDispatch();
@@ -21,9 +22,7 @@ const ChatScreen = () => {
       }}
     >
       <Text style={{ color: "white" }}>MyList Screen</Text>
-      {/* <TouchableOpacity onPress={handleIconClick}>
-        <Text>Go to New chat Screen</Text>
-      </TouchableOpacity> */}
+      <MyListHeader />
     </View>
   );
 };

@@ -54,6 +54,41 @@ const HomeCardInfo = [
     rating: "9.8/10",
     Title: "Harry Potter 7",
   },
+  {
+    id: "8",
+    img: HR4,
+    imbd: IMBD,
+    rating: "9.8/10",
+    Title: "Harry Potter 8",
+  },
+  {
+    id: "9",
+    img: HR5,
+    imbd: IMBD,
+    rating: "9.8/10",
+    Title: "Harry Potter 9",
+  },
+  {
+    id: "10",
+    img: HR4,
+    imbd: IMBD,
+    rating: "9.8/10",
+    Title: "Harry Potter 10",
+  },
+  {
+    id: "11",
+    img: HR5,
+    imbd: IMBD,
+    rating: "9.8/10",
+    Title: "Harry Potter 11",
+  },
+  {
+    id: "12",
+    img: HR5,
+    imbd: IMBD,
+    rating: "9.8/10",
+    Title: "Harry Potter 12",
+  },
 ];
 
 export default HomeCardInfo;

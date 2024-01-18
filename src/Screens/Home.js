@@ -3,7 +3,7 @@ import React from "react";
 import { View, Text, StyleSheet, FlatList, ScrollView } from "react-native";
 import { changeScreen } from "../store/actions/NavigationActions";
 import SpotLightContainer from "../Components/SpotLightContainer";
-import CustomHeader from "../Components/Custom_Home_Header";
+import CustomHeader from "../Headers/HomerHeader";
 import SlideInfo from "../Info/SlideInfo";
 import { useDispatch } from "react-redux";
 import HomeCard from "../Components/HomeCard";
