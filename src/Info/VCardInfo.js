@@ -40,6 +40,20 @@ const VCardInfo = [
     rating: "9.8/10",
     Title: "Harry Potter 5",
   },
+  {
+    id: "6",
+    img: HR4,
+    imbd: IMBD,
+    rating: "9.8/10",
+    Title: "Harry Potter 6",
+  },
+  {
+    id: "7",
+    img: HR5,
+    imbd: IMBD,
+    rating: "9.8/10",
+    Title: "Harry Potter 7",
+  },
 ];
 
 export default VCardInfo;

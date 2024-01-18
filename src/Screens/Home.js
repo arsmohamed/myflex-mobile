@@ -10,6 +10,7 @@ import VCard from "../Components/V-Card";
 import VCardInfo from "../Info/VCardInfo";
 import HR1 from "../Assets/HR.jpeg";
 import IMBD from "../Assets/IMBD.png";
+import NewReleaseContainer from "../Components/NewRelease";
 
 const Home = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ const Home = ({ navigation }) => {
             keyExtractor={(item) => item.id}
           />
           <Text style={styles.Text_Style}>New Release</Text>
-          <FlatList
+          {/* <FlatList
             data={VCardInfo}
             renderItem={({ item }) => <VCard props={item} />}
             horizontal
@@ -51,7 +52,8 @@ const Home = ({ navigation }) => {
             showsHorizontalScrollIndicator={false}
             bounces={false}
             keyExtractor={(item) => item.id}
-          />
+          />  */}
+          <NewReleaseContainer />
         </View>
       </ScrollView>
     </View>
