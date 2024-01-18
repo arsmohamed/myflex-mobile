@@ -1,14 +1,16 @@
 // ChatScreen.js
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, FlatList } from "react-native";
 import { useDispatch } from "react-redux";
 import { changeScreen } from "../store/actions/NavigationActions";
 import CustomHeader from "../Components/Custom_Home_Header";
-import SearchCard from "../Components/SearchCard";
-import VCard from "../Components/V-Card";
-import IMBD from "../Assets/IMBD.png";
-import HP from "../Assets/HR.jpeg";
+// import SearchCard from "../Components/SearchCard";
+// import VCard from "../Components/V-Card";
+// import IMBD from "../Assets/IMBD.png";
+import HP from "../Assets/HP3.jpeg";
 import SpotLightCard from "../Components/SpotLight";
+import SlideInfo from "../Info/SlideInfo";
+import SpotLightContainer from "../Components/SpotLightContainer";
 
 const Home = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -24,7 +26,15 @@ const Home = ({ navigation }) => {
   );
   const BackGroundLayer = (
     <View style={styles.Back_Ground_Layer_Style}>
-      <SpotLightCard />
+      <FlatList
+        data={SlideInfo}
+        renderItem={({ item }) => <SpotLightContainer props={item} />}
+        horizontal
+        showsHorizontalScrollIndicator
+        pagingEnabled
+        bounces={false}
+        keyExtractor={(item) => item.id}
+      />
       {MovieContainer}
     </View>
   );
@@ -35,7 +45,7 @@ const Home = ({ navigation }) => {
         <CustomHeader navigation={navigation} />
         {BackGroundLayer}
       </View>
-      <View style={styles.second_Container_Style}></View>
+      {/* <View style={styles.second_Container_Style}></View> */}
     </View>
   );
 };
@@ -49,7 +59,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   First_Container_Style: {
-    flex: 2,
+    // flex: 2,
     alignItems: "center",
     justifyContent: "center",
     height: "100%",
@@ -58,27 +68,28 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderColor: "yellow",
   },
-  second_Container_Style: {
-    flex: 3,
-    backgroundColor: "transparent",
-    position: "absolute",
-    bottom: 0,
-    height: "10%",
-    width: "100%",
-    zIndex: 20,
-    // borderWidth: 1,
-    // borderColor: "white",
-  },
+  // second_Container_Style: {
+  //   flex: 3,
+  //   backgroundColor: "transparent",
+  //   position: "absolute",
+  //   bottom: 0,
+  //   height: "10%",
+  //   width: "100%",
+  //   zIndex: 20,
+  //   // borderWidth: 1,
+  //   // borderColor: "white",
+  // },
   Back_Ground_Layer_Style: {
     position: "absolute",
     top: 0,
     left: 0,
-    width: "100%",
+    // width: "100%",
     height: "100%",
     // backgroundColor: "yellow",
     zIndex: 1,
   },
   Movie_Container_Style: {
+    // flex: 2,
     height: "50%",
     width: "100%",
     alignItems: "center",
