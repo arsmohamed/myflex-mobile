@@ -38,10 +38,11 @@ const SpotLightContainer = ({ props }) => {
               <Text style={styles.Children_Add_Text_Style}>My List</Text>
             </TouchableOpacity>
             <View style={styles.Page_Container_style}>
-              <Ionicons name="ellipse" size={15} color={props.page === "1" ? "#FFD900" : "white"} />
-              <Ionicons name="ellipse" size={15} color={props.page === "2" ? "#FFD900" : "white"} />
-              <Ionicons name="ellipse" size={15} color={props.page === "3" ? "#FFD900" : "white"} />
-              <Ionicons name="ellipse" size={15} color={props.page === "4" ? "#FFD900" : "white"} />
+              <Ionicons name="ellipse" size={10} color={props.page === "1" ? "#FFD900" : "white"} />
+              <Ionicons name="ellipse" size={10} color={props.page === "2" ? "#FFD900" : "white"} />
+              <Ionicons name="ellipse" size={10} color={props.page === "3" ? "#FFD900" : "white"} />
+              <Ionicons name="ellipse" size={10} color={props.page === "4" ? "#FFD900" : "white"} />
+              <Ionicons name="ellipse" size={10} color={props.page === "5" ? "#FFD900" : "white"} />
             </View>
           </View>
         </View>
