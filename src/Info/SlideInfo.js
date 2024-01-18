@@ -11,6 +11,7 @@ const SlideInfo = [
     imbd: IMBD,
     rating: "9.8/10",
     time: "1h57min",
+    page: "1",
   },
   {
     id: "2",
@@ -19,6 +20,7 @@ const SlideInfo = [
     imbd: IMBD,
     rating: "9.8/10",
     time: "1h57min",
+    page: "2",
   },
   {
     id: "3",
@@ -27,6 +29,7 @@ const SlideInfo = [
     imbd: IMBD,
     rating: "9.8/10",
     time: "1h57min",
+    page: "3",
   },
   {
     id: "4",
@@ -35,6 +38,7 @@ const SlideInfo = [
     imbd: IMBD,
     rating: "9.8/10",
     time: "1h57min",
+    page: "4",
   },
 ];
 
