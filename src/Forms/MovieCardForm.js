@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     // padding: 5,
   },
   IMBD_Style: {
-    resizeMode: "fit",
+    resizeMode: "cover",
   },
   Rank_Text_Style: {
     color: "white",
