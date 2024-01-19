@@ -11,9 +11,9 @@ const ProfileHeader = ({ navigation }) => {
 };
 const styles = StyleSheet.create({
   Main_Container_Style: {
-    position: "absolute",
-    top: 0,
-    left: 0,
+    // position: "absolute",
+    // top: 0,
+    // left: 0,
     height: "12%",
     width: "100%",
     flexDirection: "column-reverse",
