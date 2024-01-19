@@ -1,9 +1,10 @@
 // CustomHeaderLeft.js
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { useSelector, useDispatch } from "react-redux";
 import { selectOption } from "../store/actions/NavigationActions";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useSelector, useDispatch } from "react-redux";
+import { BlurView } from "expo-blur";
 
 const HomerHeader = ({ navigation }) => {
   const selectedOption = useSelector((state) => state.navigation.selectedOption);
@@ -49,23 +50,26 @@ const HomerHeader = ({ navigation }) => {
       {RightContainer}
     </View>
   );
-  return <View style={styles.Main_Container_Style}>{NavigationContainer}</View>;
+  return (
+    <BlurView intensity={20} tint="dark" style={styles.Main_Container_Style}>
+      {NavigationContainer}
+    </BlurView>
+  );
 };
 const styles = StyleSheet.create({
   Main_Container_Style: {
     position: "absolute",
     top: 0,
     left: 0,
-    height: "12%",
+    height: "13%",
     width: "100%",
     flexDirection: "column-reverse",
     alignItems: "center",
     borderBottomWidth: 1,
     borderBottomColor: "white",
-    // paddingBottom: 5,
+    paddingBottom: 5,
     zIndex: 2,
-    backgroundColor: "#31302E",
-    // backgroundColor: "rgba(0,0,0,0.5)", //till i find a solution to the blur thing
+    backgroundColor: "rgba(0,0,0,0.5)", //till i find a solution to the blur thing
     // borderWidth: 1,
     // borderColor: "white",
   },
@@ -76,7 +80,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     zIndex: 4,
     // borderWidth: 1,
-    borderColor: "red",
+    // borderColor: "red",
   },
 });
 export default HomerHeader;

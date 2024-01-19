@@ -1,12 +1,13 @@
 // CustomHeaderLeft.js
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { Text, StyleSheet } from "react-native";
+import { BlurView } from "expo-blur";
 
-const MyListHeader = ({ navigation }) => {
+const MyListHeader = () => {
   return (
-    <View style={styles.Main_Container_Style}>
+    <BlurView intensity={20} tint="dark" style={styles.Main_Container_Style}>
       <Text style={styles.text_Style}>My List</Text>
-    </View>
+    </BlurView>
   );
 };
 const styles = StyleSheet.create({
@@ -23,8 +24,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "white",
     paddingBottom: 5,
     zIndex: 2,
-    backgroundColor: "#31302E",
-    // backgroundColor: "rgba(0,0,0,0.5)", //till i find a solution to the blur thing
+    backgroundColor: "rgba(0,0,0,0.5)", //till i find a solution to the blur thing
     // borderWidth: 1,
     // borderColor: "white",
   },

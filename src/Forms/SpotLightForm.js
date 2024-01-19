@@ -55,7 +55,7 @@ const SpotLightForm = ({ props }) => {
 const styles = StyleSheet.create({
   Container_Style: {
     width: Dimensions.get("screen").width,
-    height: Dimensions.get("screen").height / 2,
+    height: Dimensions.get("screen").height / 1.5,
     justifyContent: "center",
     backgroundColor: "green",
     alignContent: "center",
@@ -138,7 +138,8 @@ const styles = StyleSheet.create({
   button: {
     width: 100,
     height: 35,
-    backgroundColor: "#D68D4A",
+    backgroundColor: "#FFD900",
+    // backgroundColor: "#D68D4A",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-evenly",

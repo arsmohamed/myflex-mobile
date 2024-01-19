@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { View, Text, StyleSheet } from "react-native";
-
+//Screens Imported
 import HomeScreen from "./Screens/Home";
 import MylistScreen from "./Screens/MyList";
 import ProfileScreen from "./Screens/Profile";
@@ -20,7 +20,13 @@ function HomeStack() {
       }}
     >
       <Stack.Screen name="Initial" component={HomeScreen} />
-      <Stack.Screen name="Search_Screen" component={SearchScreen} />
+      <Stack.Screen
+        name="Search_Screen"
+        component={SearchScreen}
+        options={{
+          tabBarVisible: false, // Hide the bottom tab navigator
+        }}
+      />
     </Stack.Navigator>
   );
 }
@@ -33,11 +39,12 @@ const NewContainer = () => {
       position: "absolute",
       padding: 10,
       backgroundColor: "#31302E",
-      // borderTopStartRadius: 45,
       // borderTopEndRadius: 45,
       overflow: "hidden",
       borderTopWidth: 1,
       borderTopColor: "white",
+      display: route.name === "Search_Screen" ? "none" : "flex", // Hide the bottom tab navigator on the Search_Screen
+      // display: "none",
     },
     tabBarIcon: ({ focused }) => {
       let iconName;

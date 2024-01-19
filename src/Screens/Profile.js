@@ -1,10 +1,11 @@
 // ChatScreen.js
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
-import { useDispatch } from "react-redux";
 import { changeScreen } from "../store/actions/NavigationActions";
 import ProfileHeader from "../Headers/ProfileHeader";
 import PortfolioForm from "../Forms/PortfolioForm";
+import PortfolioInfo from "../Info/PortfolioInfo";
+import { useDispatch } from "react-redux";
+import { View } from "react-native";
 
 const ChatScreen = () => {
   const dispatch = useDispatch();
@@ -19,16 +20,13 @@ const ChatScreen = () => {
         flex: 1,
         backgroundColor: "black",
         flexDirection: "column",
-        // justifyContent: "center",
-        // alignItems: "center",
       }}
     >
       <ProfileHeader />
-      {/* <Text style={{ color: "white" }}>Profile Screen</Text> */}
-      <PortfolioForm />
-      {/* <TouchableOpacity onPress={handleIconClick}>
-        <Text>Go to New chat Screen</Text>
-      </TouchableOpacity> */}
+      {PortfolioInfo.map((Info) => (
+        <PortfolioForm key={Info.id} props={Info} />
+      ))}
+      {/* <PortfolioForm /> */}
     </View>
   );
 };

@@ -1,12 +1,11 @@
 // ChatScreen.js
 import React from "react";
 import { View, Text, ScrollView, StyleSheet } from "react-native";
-import { useDispatch } from "react-redux";
 import { changeScreen } from "../store/actions/NavigationActions";
 import MyListHeader from "../Headers/MyListHeader";
-import MyListCards from "../Components/MyListCards";
 import MovieCardForm from "../Forms/MovieCardForm";
 import MovieCardInfo from "../Info/MovieCardInfo";
+import { useDispatch } from "react-redux";
 
 const MyListScreen = () => {
   const dispatch = useDispatch();
@@ -31,7 +30,6 @@ const MyListScreen = () => {
             <Text style={styles.MyList_Text_Style}>Watched</Text>
             <Text style={styles.MyList_Text_Style}>UnWatched</Text>
           </View>
-          {/* <MyListCards /> */}
           <View style={styles.New_Release_Container_Style}>
             {MovieCardInfo.map((cardInfo) => (
               <MovieCardForm key={cardInfo.id} props={cardInfo} />
