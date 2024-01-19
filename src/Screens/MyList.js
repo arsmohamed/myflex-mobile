@@ -3,7 +3,7 @@ import React from "react";
 import { View, Text, ScrollView, StyleSheet } from "react-native";
 import { changeScreen } from "../store/actions/NavigationActions";
 import MyListHeader from "../Headers/MyListHeader";
-import MovieCardForm from "../Forms/MovieCardForm";
+import MovieCardForm from "../Models/MovieCardModel";
 import MovieCardInfo from "../Info/MovieCardInfo";
 import { useDispatch } from "react-redux";
 

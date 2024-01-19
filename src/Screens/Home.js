@@ -2,12 +2,12 @@
 import React from "react";
 import { View, Text, StyleSheet, FlatList, ScrollView } from "react-native";
 import { changeScreen } from "../store/actions/NavigationActions";
-import SpotLightContainer from "../Forms/SpotLightForm";
-import MovieCardForm from "../Forms/MovieCardForm";
-import HomeHeader from "../Headers/HomerHeader";
+import SpotLightModel from "../Models/SpotLightModel";
+import MovieCardForm from "../Models/MovieCardModel";
+import HomeHeader from "../Headers/HomeHeader";
 import MovieCardInfo from "../Info/MovieCardInfo";
 import HomeCardInfo from "../Info/MovieCardInfo";
-import HomeCard from "../Forms/MovieCardForm";
+import HomeCard from "../Models/MovieCardModel";
 import SlideInfo from "../Info/SlideInfo";
 import { useDispatch } from "react-redux";
 
@@ -25,7 +25,7 @@ const Home = ({ navigation }) => {
         <View style={styles.Scroll_Container_Style}>
           <FlatList
             data={SlideInfo}
-            renderItem={({ item }) => <SpotLightContainer props={item} />}
+            renderItem={({ item }) => <SpotLightModel props={item} />}
             horizontal
             showsHorizontalScrollIndicator
             pagingEnabled

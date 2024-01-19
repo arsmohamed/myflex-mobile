@@ -2,7 +2,7 @@
 import React from "react";
 import { changeScreen } from "../store/actions/NavigationActions";
 import ProfileHeader from "../Headers/ProfileHeader";
-import PortfolioForm from "../Forms/PortfolioForm";
+import PortfolioForm from "../Models/PortfolioModel";
 import PortfolioInfo from "../Info/PortfolioInfo";
 import { useDispatch } from "react-redux";
 import { View } from "react-native";

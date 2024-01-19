@@ -1,45 +1,40 @@
 // ChatScreen.js
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
+import DetailHeader from "../Headers/DetailHeader";
 
 const DetailScreen = ({ route }) => {
   const { Title, img, imbd, rating } = route.params;
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: "grey",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Detail Screen</Text>
-      <Text>{Title}</Text>
-      <Text>{rating}</Text>
+    <View style={styles.Detail_Container_Style}>
+      <DetailHeader />
+      <View
+        style={{
+          borderWidth: 1,
+          borderColor: "green",
+          flex: 0.9,
+          justifyContent: "center",
+          alignContent: "center",
+        }}
+      >
+        <ScrollView>
+          <Text>Detail Screen</Text>
+          <Text>{Title}</Text>
+          <Text>{rating}</Text>
+        </ScrollView>
+      </View>
     </View>
   );
 };
 const styles = StyleSheet.create({
-  MyList_Scroll_Style: {
-    height: "75%",
-  },
-  MyList_Label_style: {
-    width: "100%",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    columnGap: 15,
-    margin: 10,
-  },
-  MyList_Text_Style: {
-    fontSize: 20,
-    color: "white",
-  },
-  New_Release_Container_Style: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    width: "100%",
-    rowGap: 15,
+  Detail_Container_Style: {
+    // flex: 0.55,
+    flex: 0.95,
+    backgroundColor: "grey",
+    // justifyContent: "center",
+    // alignItems: "center",
+    borderWidth: 1,
+    borderColor: "red",
   },
 });
 

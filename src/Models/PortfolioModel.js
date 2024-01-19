@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import HR5 from "../Assets/HP5.jpeg";
 
-const PortfolioForm = ({ props }) => {
+const PortfolioModel = ({ props }) => {
   const My_Portfolio = (
     <View style={styles.Container_Style}>
       <View style={styles.My_Portfolio_Style}>
@@ -103,4 +103,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PortfolioForm;
+export default PortfolioModel;

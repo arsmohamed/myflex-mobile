@@ -2,7 +2,7 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Custom_Search_Header from "../Headers/SearchHeader";
-import SearchCardForm from "../Forms/SearchCardForm";
+import SearchCardForm from "../Models/SearchCardModel";
 import SearchCardInfo from "../Info/SearchCardInfo";
 
 const SearchScreen = ({ navigation }) => {

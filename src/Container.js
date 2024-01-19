@@ -9,7 +9,7 @@ import MylistScreen from "./Screens/MyList";
 import ProfileScreen from "./Screens/Profile";
 import SearchScreen from "./Screens/SearchScreen";
 import DetailScreen from "./Screens/Detail";
-import MovieCardForm from "./Forms/MovieCardForm";
+import MovieCardForm from "./Models/MovieCardModel";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
