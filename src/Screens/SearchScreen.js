@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     paddingBottom: "20%",
   },
   Top_Bar_Container_Style: {
-    height: "12%",
+    height: "14%",
     width: "100%",
     flexDirection: "column-reverse",
     alignItems: "center",

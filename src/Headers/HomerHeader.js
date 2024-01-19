@@ -61,15 +61,14 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     left: 0,
-    height: "12%",
+    height: "13%",
     width: "100%",
     flexDirection: "column-reverse",
     alignItems: "center",
     borderBottomWidth: 1,
     borderBottomColor: "white",
-    // paddingBottom: 5,
+    paddingBottom: 5,
     zIndex: 2,
-    // backgroundColor: "#31302E",
     backgroundColor: "rgba(0,0,0,0.5)", //till i find a solution to the blur thing
     // borderWidth: 1,
     // borderColor: "white",
@@ -81,7 +80,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     zIndex: 4,
     // borderWidth: 1,
-    borderColor: "red",
+    // borderColor: "red",
   },
 });
 export default HomerHeader;
