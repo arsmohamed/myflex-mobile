@@ -2,7 +2,7 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Custom_Search_Header from "../Headers/SearchHeader";
-import SearchCard from "../Components/SearchCard";
+import SearchCardForm from "../Forms/SearchCardForm";
 import SearchCardInfo from "../Info/SearchCardInfo";
 
 const SearchScreen = ({ navigation }) => {
@@ -15,7 +15,7 @@ const SearchScreen = ({ navigation }) => {
         <View style={styles.Canvas_Container_Style}>
           <Text style={styles.Text_Style}>Hot Search</Text>
           {SearchCardInfo.map((cardInfo) => (
-            <SearchCard key={cardInfo.id} props={cardInfo} />
+            <SearchCardForm key={cardInfo.id} props={cardInfo} />
           ))}
         </View>
       </ScrollView>

@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import Ionicons from "react-native-vector-icons/Ionicons";
-const SpotLightContainer = ({ props }) => {
+import { LinearGradient } from "expo-linear-gradient";
+
+const SpotLightForm = ({ props }) => {
   const [clicked, setClicked] = useState(false);
   const handleButtonClick = () => {
     setClicked(!clicked);
     // Add your logic or action when the button is clicked
   };
 
-  const SpotLightContainer = (
+  return (
     <View style={styles.Container_Style}>
       <Image source={props.img} style={styles.Image_Style} />
       <LinearGradient
@@ -49,8 +50,6 @@ const SpotLightContainer = ({ props }) => {
       </LinearGradient>
     </View>
   );
-
-  return SpotLightContainer;
 };
 
 const styles = StyleSheet.create({
@@ -157,4 +156,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SpotLightContainer;
+export default SpotLightForm;

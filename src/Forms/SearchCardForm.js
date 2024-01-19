@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-const SearchCard = ({ props }) => {
+const SearchCardForm = ({ props }) => {
   const ImgCard = (
     <View style={styles.Img_Card_style}>
       <Image source={props.mainImg} style={styles.Main_Image_Style} />
@@ -90,4 +90,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchCard;
+export default SearchCardForm;

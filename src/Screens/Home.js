@@ -2,15 +2,15 @@
 import React from "react";
 import { View, Text, StyleSheet, FlatList, ScrollView } from "react-native";
 import { changeScreen } from "../store/actions/NavigationActions";
-import SpotLightContainer from "../Components/SpotLightContainer";
+import SpotLightContainer from "../Forms/SpotLightForm";
 import CustomHeader from "../Headers/HomerHeader";
 import SlideInfo from "../Info/SlideInfo";
 import { useDispatch } from "react-redux";
-import HomeCard from "../Components/HomeCard";
-import HomeCardInfo from "../Info/HomeCardInfo";
-import HR1 from "../Assets/HR.jpeg";
-import IMBD from "../Assets/IMBD.png";
+import HomeCard from "../Forms/MovieCardForm";
+import HomeCardInfo from "../Info/MovieCardInfo";
 import NewReleaseContainer from "../Components/NewRelease";
+import MovieCardForm from "../Forms/MovieCardForm";
+import MovieCardInfo from "../Info/MovieCardInfo";
 
 const Home = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -44,7 +44,12 @@ const Home = ({ navigation }) => {
             keyExtractor={(item) => item.id}
           />
           <Text style={styles.Text_Style}>New Release</Text>
-          <NewReleaseContainer />
+          {/* <NewReleaseContainer /> */}
+          <View style={styles.New_Release_Container_Style}>
+            {MovieCardInfo.map((cardInfo) => (
+              <MovieCardForm key={cardInfo.id} props={cardInfo} />
+            ))}
+          </View>
         </View>
       </ScrollView>
     </View>
@@ -69,5 +74,11 @@ const styles = StyleSheet.create({
   Text_Style: {
     color: "white",
     fontSize: 22,
+  },
+  New_Release_Container_Style: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    width: "100%",
+    rowGap: 15,
   },
 });
