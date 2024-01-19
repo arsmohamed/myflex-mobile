@@ -3,14 +3,13 @@ import React from "react";
 import { View, Text, StyleSheet, FlatList, ScrollView } from "react-native";
 import { changeScreen } from "../store/actions/NavigationActions";
 import SpotLightContainer from "../Forms/SpotLightForm";
+import MovieCardForm from "../Forms/MovieCardForm";
 import CustomHeader from "../Headers/HomerHeader";
+import MovieCardInfo from "../Info/MovieCardInfo";
+import HomeCardInfo from "../Info/MovieCardInfo";
+import HomeCard from "../Forms/MovieCardForm";
 import SlideInfo from "../Info/SlideInfo";
 import { useDispatch } from "react-redux";
-import HomeCard from "../Forms/MovieCardForm";
-import HomeCardInfo from "../Info/MovieCardInfo";
-import NewReleaseContainer from "../Components/NewRelease";
-import MovieCardForm from "../Forms/MovieCardForm";
-import MovieCardInfo from "../Info/MovieCardInfo";
 
 const Home = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -44,7 +43,6 @@ const Home = ({ navigation }) => {
             keyExtractor={(item) => item.id}
           />
           <Text style={styles.Text_Style}>New Release</Text>
-          {/* <NewReleaseContainer /> */}
           <View style={styles.New_Release_Container_Style}>
             {MovieCardInfo.map((cardInfo) => (
               <MovieCardForm key={cardInfo.id} props={cardInfo} />

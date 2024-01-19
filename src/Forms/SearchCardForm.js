@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 const SearchCardForm = ({ props }) => {
@@ -66,7 +65,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     backgroundColor: "rgba(0,0,0,0.8)",
-    // borderRadius: 10,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
     flexDirection: "row",
@@ -74,11 +72,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     columnGap: 10,
   },
-  IMBD_Style: {
-    // height: "60%",
-    // width: "40%",
-    resizeMode: "fit",
-  },
+  IMBD_Style: {},
   Rank_Text_Style: {
     color: "white",
     fontSize: 16,
