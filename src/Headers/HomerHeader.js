@@ -21,14 +21,14 @@ const HomerHeader = ({ navigation }) => {
         paddingVertical: 5,
         backgroundColor: "transparent",
         borderWidth: 1,
-        borderColor: selectedOption === option ? "yellow" : "white",
+        borderColor: selectedOption === option ? "#FFD900" : "white",
         borderRadius: 15,
         marginLeft: 5,
         marginBottom: 5,
       }}
       onPress={() => handleOptionPress(option)}
     >
-      <Text style={{ color: selectedOption === option ? "yellow" : "white" }}>{option}</Text>
+      <Text style={{ color: selectedOption === option ? "#FFD900" : "white" }}>{option}</Text>
     </TouchableOpacity>
   );
   const LeftContainer = (
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderBottomWidth: 1,
     borderBottomColor: "white",
-    paddingBottom: 5,
+    // paddingBottom: 5,
     zIndex: 2,
     backgroundColor: "#31302E",
     // backgroundColor: "rgba(0,0,0,0.5)", //till i find a solution to the blur thing

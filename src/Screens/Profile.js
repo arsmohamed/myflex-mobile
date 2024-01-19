@@ -3,6 +3,7 @@ import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
 import { changeScreen } from "../store/actions/NavigationActions";
+import ProfileHeader from "../Headers/ProfileHeader";
 
 const ChatScreen = () => {
   const dispatch = useDispatch();
@@ -20,7 +21,8 @@ const ChatScreen = () => {
         alignItems: "center",
       }}
     >
-      <Text style={{ color: "white" }}>Chat as Screen</Text>
+      <ProfileHeader />
+      <Text style={{ color: "white" }}>Profile Screen</Text>
       {/* <TouchableOpacity onPress={handleIconClick}>
         <Text>Go to New chat Screen</Text>
       </TouchableOpacity> */}

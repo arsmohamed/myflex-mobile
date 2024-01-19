@@ -53,9 +53,9 @@ const NewContainer = () => {
           <Ionicons
             name={iconName}
             size={25}
-            style={{ marginRight: 5, color: focused ? "#D68D4A" : "white" }}
+            style={{ marginRight: 5, color: focused ? "#FFD900" : "white" }}
           />
-          <Text style={{ color: focused ? "#D68D4A" : "white", fontSize: 12 }}>{route.name}</Text>
+          <Text style={{ color: focused ? "#FFD900" : "white", fontSize: 12 }}>{route.name}</Text>
         </View>
       );
     },
