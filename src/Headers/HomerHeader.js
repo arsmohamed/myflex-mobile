@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectOption } from "../store/actions/NavigationActions";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-const Custom_Home_Header = ({ navigation }) => {
+const HomerHeader = ({ navigation }) => {
   const selectedOption = useSelector((state) => state.navigation.selectedOption);
   const dispatch = useDispatch();
 
@@ -21,14 +21,14 @@ const Custom_Home_Header = ({ navigation }) => {
         paddingVertical: 5,
         backgroundColor: "transparent",
         borderWidth: 1,
-        borderColor: selectedOption === option ? "yellow" : "white",
+        borderColor: selectedOption === option ? "#FFD900" : "white",
         borderRadius: 15,
         marginLeft: 5,
         marginBottom: 5,
       }}
       onPress={() => handleOptionPress(option)}
     >
-      <Text style={{ color: selectedOption === option ? "yellow" : "white" }}>{option}</Text>
+      <Text style={{ color: selectedOption === option ? "#FFD900" : "white" }}>{option}</Text>
     </TouchableOpacity>
   );
   const LeftContainer = (
@@ -62,12 +62,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderBottomWidth: 1,
     borderBottomColor: "white",
-    paddingBottom: 5,
+    // paddingBottom: 5,
     zIndex: 2,
-    backgroundColor: "rgba(0,0,0,0.5)",
+    backgroundColor: "#31302E",
+    // backgroundColor: "rgba(0,0,0,0.5)", //till i find a solution to the blur thing
     // borderWidth: 1,
     // borderColor: "white",
-    // backgroundColor: "yellow",
   },
   Navigation_Container_Style: {
     flexDirection: "row",
@@ -79,4 +79,4 @@ const styles = StyleSheet.create({
     borderColor: "red",
   },
 });
-export default Custom_Home_Header;
+export default HomerHeader;

@@ -3,17 +3,17 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-const SearchCard = ({ mainImg, imbd, rate, name }) => {
+const SearchCardForm = ({ props }) => {
   const ImgCard = (
     <View style={styles.Img_Card_style}>
-      <Image source={mainImg} style={styles.Main_Image_Style} />
+      <Image source={props.mainImg} style={styles.Main_Image_Style} />
       <View style={styles.Rank_Container_Style}>
-        <Image source={imbd} style={styles.IMBD_Style} />
-        <Text style={styles.Rank_Text_Style}>{rate}</Text>
+        <Image source={props.imbd} style={styles.IMBD_Style} />
+        <Text style={styles.Rank_Text_Style}>{props.rating}</Text>
       </View>
     </View>
   );
-  const Name = <Text style={styles.Name_Style}>{name}</Text>;
+  const Name = <Text style={styles.Name_Style}>{props.Title}</Text>;
   const Add_Icon = (
     <TouchableOpacity onPress={() => console.log("clicked")}>
       <Ionicons name="add-circle" size={35} style={{ color: "white" }} />
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    width: "90%",
+    width: "100%",
     height: 100,
     borderRadius: 10,
     // borderWidth: 1,
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
   Img_Card_style: {
     height: "100%",
-    width: "45%",
+    width: "50%",
     borderRadius: 10,
     // borderWidth: 1,
     // borderColor: "red",
@@ -84,10 +84,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   Name_Style: {
-    fontSize: 22,
+    fontSize: 16,
     alignSelf: "center",
     color: "white",
   },
 });
 
-export default SearchCard;
+export default SearchCardForm;

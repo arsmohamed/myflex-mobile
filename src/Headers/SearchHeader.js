@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-const CustomSearchHeader = ({ navigation }) => {
+const SearchHeader = ({ navigation }) => {
   const [searchValue, setSearchValue] = useState("");
 
   const RightContainer = (
@@ -55,17 +55,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   InputFieldStyle: {
-    // flex: 1,
     color: "white",
-    // borderBottomWidth: 1,
-    // borderBottomColor: "white",
     paddingLeft: 5,
     width: "60%",
-    fontSize: "18px",
+    fontSize: 18,
   },
   SearchIconStyle: {
     color: "white",
   },
 });
 
-export default CustomSearchHeader;
+export default SearchHeader;
