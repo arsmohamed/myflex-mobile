@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { BlurView } from "expo-blur";
 
 const MovieCardModel = ({ props }) => {
   const navigation = useNavigation();
@@ -8,10 +9,10 @@ const MovieCardModel = ({ props }) => {
   const Img_Card = (
     <View style={styles.Img_Card_Style}>
       <Image source={props.img} style={styles.Main_Image_Style} />
-      <View style={styles.Rank_Container_Style}>
+      <BlurView intensity={20} tint="dark" style={styles.Rank_Container_Style}>
         <Image source={props.imbd} style={styles.IMBD_Style} />
         <Text style={styles.Rank_Text_Style}>{props.rating}</Text>
-      </View>
+      </BlurView>
     </View>
   );
   const Name = <Text style={styles.Name_Style}>{props.Title}</Text>;

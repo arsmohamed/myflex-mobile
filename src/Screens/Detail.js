@@ -34,12 +34,14 @@ const DetailScreen = ({ route }) => {
             <Text style={styles.Genera_Container_Style}>
               PG | 1h 57min | Animation, Action, Adventure | 14 December 2018 (USA)
             </Text>
-            <Text style={styles.Cast_Container_Style}>
-              Directors: Peter Ramsey, Bob Persichetti, Rodney Rothman
-            </Text>
-            <Text style={styles.Cast_Container_Style}>
-              Cast: Shameik Moore, Jake Johnson, Hailee Steinfeld
-            </Text>
+            <View style={{ rowGap: 5 }}>
+              <Text style={styles.Cast_Container_Style}>
+                Directors: Peter Ramsey, Bob Persichetti, Rodney Rothman
+              </Text>
+              <Text style={styles.Cast_Container_Style}>
+                Cast: Shameik Moore, Jake Johnson, Hailee Steinfeld
+              </Text>
+            </View>
             <Text style={styles.Description_Container_Style}>
               Miles Morales is a New York teen struggling with school, friends and, on top of that,
               being the new Spider-Man. When he comes across Peter Parker, the erstwhile saviour of
@@ -55,7 +57,7 @@ const DetailScreen = ({ route }) => {
 const styles = StyleSheet.create({
   Container_Style: {
     backgroundColor: "black",
-    paddingBottom: "20%",
+    paddingBottom: "25%",
   },
   Detail_Container_Style: {
     width: Dimensions.get("screen").width,
