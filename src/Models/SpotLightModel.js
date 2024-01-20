@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from "rea
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { LinearGradient } from "expo-linear-gradient";
 
-const SpotLightForm = ({ props }) => {
+const SpotLightModel = ({ props }) => {
   const [clicked, setClicked] = useState(false);
   const handleButtonClick = () => {
     setClicked(!clicked);
@@ -157,4 +157,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SpotLightForm;
+export default SpotLightModel;

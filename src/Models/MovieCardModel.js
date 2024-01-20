@@ -1,7 +1,10 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-const MovieCardForm = ({ props }) => {
+const MovieCardModel = ({ props }) => {
+  const navigation = useNavigation();
+
   const Img_Card = (
     <View style={styles.Img_Card_Style}>
       <Image source={props.img} style={styles.Main_Image_Style} />
@@ -12,11 +15,21 @@ const MovieCardForm = ({ props }) => {
     </View>
   );
   const Name = <Text style={styles.Name_Style}>{props.Title}</Text>;
+  const handleCardPress = () => {
+    // Navigate to DetailScreen and pass props
+    navigation.navigate("Detail_Screen", { ...props });
+  };
+
   return (
-    <View style={styles.Main_V_Card_Style}>
-      {Img_Card}
-      {Name}
-    </View>
+    <TouchableOpacity
+      onPress={() => navigation.navigate("Detail_Screen", { ...props })}
+      // onPress={handleCardPress}
+    >
+      <View style={styles.Main_V_Card_Style}>
+        {Img_Card}
+        {Name}
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -73,4 +86,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MovieCardForm;
+export default MovieCardModel;

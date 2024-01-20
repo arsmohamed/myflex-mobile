@@ -8,6 +8,8 @@ import HomeScreen from "./Screens/Home";
 import MylistScreen from "./Screens/MyList";
 import ProfileScreen from "./Screens/Profile";
 import SearchScreen from "./Screens/SearchScreen";
+import DetailScreen from "./Screens/Detail";
+import MovieCardForm from "./Models/MovieCardModel";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -20,13 +22,9 @@ function HomeStack() {
       }}
     >
       <Stack.Screen name="Initial" component={HomeScreen} />
-      <Stack.Screen
-        name="Search_Screen"
-        component={SearchScreen}
-        options={{
-          tabBarVisible: false, // Hide the bottom tab navigator
-        }}
-      />
+      <Stack.Screen name="Search_Screen" component={SearchScreen} />
+      <Stack.Screen name="Detail_Screen" component={DetailScreen} />
+      <Stack.Screen name="MovieCardForm" component={MovieCardForm} />
     </Stack.Navigator>
   );
 }
