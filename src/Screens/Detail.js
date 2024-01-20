@@ -28,7 +28,6 @@ const DetailScreen = ({ route }) => {
 };
 const styles = StyleSheet.create({
   Detail_Container_Style: {
-    // flex: 0.55,
     flex: 0.95,
     backgroundColor: "grey",
     // justifyContent: "center",
