@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get("screen").width,
     height: Dimensions.get("screen").height / 1.5,
     justifyContent: "center",
-    backgroundColor: "green",
+    // backgroundColor: "green",
     alignContent: "center",
     // borderWidth: 3,
     // borderColor: "black",
