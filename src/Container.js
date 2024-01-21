@@ -10,6 +10,7 @@ import ProfileScreen from "./Screens/Profile";
 import SearchScreen from "./Screens/SearchScreen";
 import DetailScreen from "./Screens/Detail";
 import MovieCardForm from "./Models/MovieCardModel";
+import Login from "./Screens/Login";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
