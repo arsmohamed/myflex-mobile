@@ -1,9 +1,9 @@
 // rootReducer.js
 import { combineReducers } from "redux";
-import navigationReducer from "./reducers/navigationReducer";
+import Reducer from "./reducers/Reducer";
 
 const rootReducer = combineReducers({
-  navigation: navigationReducer,
+  navigation: Reducer,
   // Add other reducers here if you have more
 });
 

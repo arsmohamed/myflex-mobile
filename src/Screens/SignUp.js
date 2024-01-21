@@ -5,10 +5,11 @@ import { BlurView } from "expo-blur";
 import { useNavigation } from "@react-navigation/native";
 import OverLayer from "../Assets/OverLay.png";
 
-const Login = () => {
-  // const navigation = useNavigation();
+const SignUp = () => {
+  //   const navigation = useNavigation();
 
   const [username, setUsername] = useState("");
+  const [email, setemail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
@@ -20,9 +21,9 @@ const Login = () => {
   const handleSignUp = () => {
     console.log("Navigating to sign-up screen");
   };
-  const LoginContainer = (
-    <View style={styles.Login_container_Style}>
-      <Text style={styles.loginText}>Login</Text>
+  const SignUpCntainer = (
+    <View style={styles.SignUp_Cntainer_Style}>
+      <Text style={styles.loginText}>SignUp</Text>
       <View style={styles.inputContainer}>
         <Ionicons name="person" size={30} color="white" style={styles.icon} />
         <TextInput
@@ -31,6 +32,16 @@ const Login = () => {
           placeholderTextColor="white"
           onChangeText={(text) => setUsername(text)}
           value={username}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Ionicons name="mail" size={30} color="white" style={styles.icon} />
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          placeholderTextColor="white"
+          onChangeText={(text) => setemail(text)}
+          value={email}
         />
       </View>
       <View style={styles.inputContainer}>
@@ -44,26 +55,44 @@ const Login = () => {
           value={password}
         />
       </View>
+      <View style={styles.inputContainer}>
+        <Ionicons name="key" size={30} color="white" style={styles.icon} />
+        <TextInput
+          style={styles.input}
+          placeholder="Confirm Password"
+          placeholderTextColor="white"
+          secureTextEntry={true}
+          onChangeText={(text) => setPassword(text)}
+          value={password}
+        />
+      </View>
+
       <TouchableOpacity style={styles.continueButton} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Continue</Text>
+        <Text style={styles.buttonText}>Join</Text>
       </TouchableOpacity>
+
       <View style={styles.signupContainer}>
-        <Text style={styles.signupText}>Don't have an account? </Text>
+        <Text style={styles.signupText}>Try the app using our </Text>
         <TouchableOpacity onPress={handleSignUp}>
-          <Text style={styles.signupButton}>Sign Up </Text>
+          <Text style={styles.signupButton}>Guest </Text>
         </TouchableOpacity>
-        <Text style={styles.signupText}>or Login as </Text>
+        {/* <Text style={styles.signupText}>account.</Text> */}
+        <Text style={styles.signupText}>account.</Text>
+      </View>
+      <View style={styles.signupContainer}>
+        <Text style={styles.signupText}>Already have an account? </Text>
         <TouchableOpacity onPress={handleSignUp}>
-          <Text style={styles.signupButton}>Guest</Text>
+          <Text style={styles.signupButton}>Login </Text>
         </TouchableOpacity>
       </View>
     </View>
   );
+
   return (
     <View style={styles.Layer_style}>
       <Image source={OverLayer} style={styles.Main_Image_Style} />
       <BlurView intensity={40} tint="dark" style={styles.Blur_Container_Style}>
-        {LoginContainer}
+        {SignUpCntainer}
       </BlurView>
     </View>
   );
@@ -87,20 +116,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     zIndex: 500,
   },
-  Main_Image_Style: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "cover",
-    borderRadius: 10,
-    zIndex: 1,
-  },
-  Login_container_Style: {
+  SignUp_Cntainer_Style: {
     justifyContent: "center",
     alignItems: "center",
+    width: "90%",
     padding: 20,
     borderRadius: 15,
     backgroundColor: "#31302E",
-    width: "90%",
   },
   loginText: {
     fontSize: 26,
@@ -142,14 +164,23 @@ const styles = StyleSheet.create({
   signupContainer: {
     flexDirection: "row",
     marginTop: 20,
+    width: "100%",
   },
   signupText: {
     color: "white",
+    alignSelf: "flex-start",
   },
   signupButton: {
     color: "#3498db",
     fontWeight: "bold",
   },
+  Main_Image_Style: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
+    borderRadius: 10,
+    zIndex: 1,
+  },
 });
 
-export default Login;
+export default SignUp;

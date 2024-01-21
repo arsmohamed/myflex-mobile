@@ -32,6 +32,7 @@ function HomeStack() {
 }
 
 const Container = () => {
+  //style for the tab navigation
   const screenOptions = ({ route }) => ({
     headerShown: false, //it shows upper name of the screen
     tabBarShowLabel: false, // it shows the names of label of each screen
