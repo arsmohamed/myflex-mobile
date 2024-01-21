@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { View, Text, StyleSheet } from "react-native";
+
 //Screens Imported
 import HomeScreen from "./Screens/Home";
 import MylistScreen from "./Screens/MyList";
@@ -30,7 +31,7 @@ function HomeStack() {
   );
 }
 
-const NewContainer = () => {
+const Container = () => {
   const screenOptions = ({ route }) => ({
     headerShown: false, //it shows upper name of the screen
     tabBarShowLabel: false, // it shows the names of label of each screen
@@ -82,7 +83,7 @@ const NewContainer = () => {
   );
 };
 
-export default NewContainer;
+export default Container;
 
 const styles = StyleSheet.create({
   Icon_Container_Style: {
