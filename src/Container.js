@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { View, Text, StyleSheet } from "react-native";
+
 //Screens Imported
 import HomeScreen from "./Screens/Home";
 import MylistScreen from "./Screens/MyList";
@@ -10,6 +11,7 @@ import ProfileScreen from "./Screens/Profile";
 import SearchScreen from "./Screens/SearchScreen";
 import DetailScreen from "./Screens/Detail";
 import MovieCardForm from "./Models/MovieCardModel";
+import Login from "./Screens/Login";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -29,7 +31,7 @@ function HomeStack() {
   );
 }
 
-const NewContainer = () => {
+const Container = () => {
   const screenOptions = ({ route }) => ({
     headerShown: false, //it shows upper name of the screen
     tabBarShowLabel: false, // it shows the names of label of each screen
@@ -81,7 +83,7 @@ const NewContainer = () => {
   );
 };
 
-export default NewContainer;
+export default Container;
 
 const styles = StyleSheet.create({
   Icon_Container_Style: {

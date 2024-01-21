@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { LinearGradient } from "expo-linear-gradient";
+import { BlurView } from "expo-blur";
 
 const SpotLightModel = ({ props }) => {
   const [clicked, setClicked] = useState(false);
@@ -57,17 +58,12 @@ const styles = StyleSheet.create({
     width: Dimensions.get("screen").width,
     height: Dimensions.get("screen").height / 1.5,
     justifyContent: "center",
-    backgroundColor: "green",
     alignContent: "center",
-    // borderWidth: 3,
-    // borderColor: "black",
   },
   Image_Style: {
     width: Dimensions.get("screen").width,
     height: "100%",
     resizeMode: "cover",
-    // borderWidth: 1,
-    // borderColor: "red",
   },
   Over_Layer_Style: {
     width: Dimensions.get("screen").width,

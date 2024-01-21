@@ -1,15 +1,16 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { BlurView } from "expo-blur";
 
 const SearchCardModel = ({ props }) => {
   const ImgCard = (
     <View style={styles.Img_Card_style}>
       <Image source={props.mainImg} style={styles.Main_Image_Style} />
-      <View style={styles.Rank_Container_Style}>
+      <BlurView intensity={20} tint="dark" style={styles.Rank_Container_Style}>
         <Image source={props.imbd} style={styles.IMBD_Style} />
         <Text style={styles.Rank_Text_Style}>{props.rating}</Text>
-      </View>
+      </BlurView>
     </View>
   );
   const Name = <Text style={styles.Name_Style}>{props.Title}</Text>;

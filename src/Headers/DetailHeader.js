@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     width: "90%",
     justifyContent: "space-between",
     alignItems: "center",
-    zIndex: 4,
+    zIndex: 2,
     // borderWidth: 1,
     // borderColor: "red",
   },
