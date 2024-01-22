@@ -1,8 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import HR5 from "../Assets/HP5.jpeg";
-
+import { AuthActions } from "../store/store";
+import { useDispatch } from "react-redux";
 const PortfolioModel = ({ props }) => {
+  const dispatch = useDispatch();
   const My_Portfolio = (
     <View style={styles.Container_Style}>
       <View style={styles.My_Portfolio_Style}>
@@ -28,7 +30,7 @@ const PortfolioModel = ({ props }) => {
   return (
     <View style={styles.Portfolio_Form_style}>
       {My_Portfolio}
-      <TouchableOpacity onPress={() => console.log("Logged Out")}>
+      <TouchableOpacity onPress={() => dispatch(AuthActions.LogOut())}>
         <Text style={styles.logout_Text_Style}>Logout</Text>
       </TouchableOpacity>
     </View>

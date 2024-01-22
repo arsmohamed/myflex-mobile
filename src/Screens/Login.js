@@ -4,10 +4,11 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { BlurView } from "expo-blur";
 import { useNavigation } from "@react-navigation/native";
 import OverLayer from "../Assets/OverLay.png";
-
+import { AuthActions } from "../store/store";
+import { useDispatch } from "react-redux";
 const Login = () => {
   // const navigation = useNavigation();
-
+  const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -44,16 +45,19 @@ const Login = () => {
           value={password}
         />
       </View>
-      <TouchableOpacity style={styles.continueButton} onPress={handleLogin}>
+      <TouchableOpacity
+        style={styles.continueButton}
+        onPress={() => dispatch(AuthActions.Continue())}
+      >
         <Text style={styles.buttonText}>Continue</Text>
       </TouchableOpacity>
       <View style={styles.signupContainer}>
         <Text style={styles.signupText}>Don't have an account? </Text>
-        <TouchableOpacity onPress={handleSignUp}>
+        <TouchableOpacity onPress={() => dispatch(AuthActions.SignupModel())}>
           <Text style={styles.signupButton}>Sign Up </Text>
         </TouchableOpacity>
         <Text style={styles.signupText}>or Login as </Text>
-        <TouchableOpacity onPress={handleSignUp}>
+        <TouchableOpacity onPress={() => dispatch(AuthActions.Guest())}>
           <Text style={styles.signupButton}>Guest</Text>
         </TouchableOpacity>
       </View>

@@ -7,11 +7,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { BlurView } from "expo-blur";
 
 const HomerHeader = ({ navigation }) => {
-  const selectedOption = useSelector((state) => state.navigation.selectedOption);
-  const dispatch = useDispatch();
+  // const selectedOption = useSelector((state) => state.navigation.selectedOption);
+  // const dispatch = useDispatch();
 
-  const handleOptionPress = (option) => {
-    dispatch(selectOption(option));
+  // const handleOptionPress = (option) => {
+  const handleOptionPress = () => {
+    console.log("clicked");
+    // dispatch(selectOption(option));
   };
 
   const renderOption = (option) => (
@@ -22,14 +24,16 @@ const HomerHeader = ({ navigation }) => {
         paddingVertical: 5,
         backgroundColor: "transparent",
         borderWidth: 1,
-        borderColor: selectedOption === option ? "#FFD900" : "white",
+        // borderColor: selectedOption === option ? "#FFD900" : "white",
+        borderColor: "#FFD900",
         borderRadius: 15,
         marginLeft: 5,
         marginBottom: 5,
       }}
       onPress={() => handleOptionPress(option)}
     >
-      <Text style={{ color: selectedOption === option ? "#FFD900" : "white" }}>{option}</Text>
+      {/* <Text style={{ color: selectedOption === option ? "#FFD900" : "white" }}>{option}</Text> */}
+      <Text style={{ color: "#FFD900" }}>{option}</Text>
     </TouchableOpacity>
   );
   const LeftContainer = (
