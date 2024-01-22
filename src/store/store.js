@@ -5,6 +5,8 @@
 // const store = createStore(rootReducer);
 
 import { createSlice, configureStore } from "@reduxjs/toolkit";
+import AuthSlice from "./Auth";
+
 const initialScreen = {
   ScreenName: "Home",
 };
@@ -38,50 +40,50 @@ const initialAuthState = {
   authScreen: "Login",
 };
 
-const AuthSlice = createSlice({
-  name: "Auth",
-  initialState: initialAuthState,
-  reducers: {
-    Continue(state) {
-      state.auth = true;
-      state.Logggedout = false;
-      state.isLoginModel = false;
-      state.isSignUpModel = false;
-    },
-    SignupModel(state) {
-      state.isSignUpModel = true;
-      state.isLoginModel = false;
-    },
-    LoginModel(state) {
-      state.isSignUpModel = false;
-      state.isLoginModel = true;
-    },
-    Join(state) {
-      state.auth = true;
-      state.Logggedout = false;
-      state.isLoginModel = false;
-      state.isSignUpModel = false;
-    },
-    Guest(state) {
-      state.auth = true;
-      state.Logggedout = false;
-      state.isLoginModel = false;
-      state.isSignUpModel = false;
-    },
-    LogOut(state) {
-      state.Logggedout = false;
-      state.auth = false;
-      state.isLoginModel = true;
-      state.isSignUpModel = false;
-    },
-    authState(state, action) {},
-  },
-});
+// const AuthSlice = createSlice({
+//   name: "Auth",
+//   initialState: initialAuthState,
+//   reducers: {
+//     Continue(state) {
+//       state.auth = true;
+//       state.Logggedout = false;
+//       state.isLoginModel = false;
+//       state.isSignUpModel = false;
+//     },
+//     SignupModel(state) {
+//       state.isSignUpModel = true;
+//       state.isLoginModel = false;
+//     },
+//     LoginModel(state) {
+//       state.isSignUpModel = false;
+//       state.isLoginModel = true;
+//     },
+//     Join(state) {
+//       state.auth = true;
+//       state.Logggedout = false;
+//       state.isLoginModel = false;
+//       state.isSignUpModel = false;
+//     },
+//     Guest(state) {
+//       state.auth = true;
+//       state.Logggedout = false;
+//       state.isLoginModel = false;
+//       state.isSignUpModel = false;
+//     },
+//     LogOut(state) {
+//       state.Logggedout = false;
+//       state.auth = false;
+//       state.isLoginModel = true;
+//       state.isSignUpModel = false;
+//     },
+//     authState(state, action) {},
+//   },
+// });
 const store = configureStore({
-  reducer: { Loggedin: AuthSlice.reducer, screen: ScreenSlice.reducer },
+  reducer: { Loggedin: AuthSlice, screen: ScreenSlice.reducer },
 });
 
-export const AuthActions = AuthSlice.actions;
+// export const AuthActions = AuthSlice.actions;
 export const ScreenAction = ScreenSlice.actions;
 
 export default store;

@@ -4,7 +4,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { BlurView } from "expo-blur";
 import { useNavigation } from "@react-navigation/native";
 import OverLayer from "../Assets/OverLay.png";
-import { AuthActions } from "../store/store";
+import { AuthActions } from "../store/Auth";
 import { useDispatch } from "react-redux";
 
 const SignUp = () => {
