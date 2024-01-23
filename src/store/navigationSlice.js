@@ -11,6 +11,7 @@ const navigationSlice = createSlice({
   reducers: {
     setScreen: (state, action) => {
       state.activeScreen = action.payload;
+      console.log(state.activeScreen);
     },
   },
 });

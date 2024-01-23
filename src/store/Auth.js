@@ -44,7 +44,6 @@ const AuthSlice = createSlice({
       state.isLoginModel = true;
       state.isSignUpModel = false;
     },
-    authState(state, action) {},
   },
 });
 
