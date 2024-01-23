@@ -35,7 +35,7 @@ function HomeStack() {
 
 const ScreenContainer = () => {
   const dispatch = useDispatch();
-  const SearchScreen = useSelector((state) => state.screen.activeScreen);
+  const ActiveScreen = useSelector((state) => state.screen.activeScreen);
 
   //style for the tab navigation
   const screenOptions = ({ route }) => ({
@@ -49,7 +49,13 @@ const ScreenContainer = () => {
       borderTopWidth: 1,
       borderTopColor: "white",
       display:
-        SearchScreen === "Search_Screen" || SearchScreen === "Detail_Screen" ? "none" : "flex",
+        ActiveScreen === "Search_Screen" || ActiveScreen === "Detail_Screen"
+          ? "none"
+          : ActiveScreen === "MyList_Screen" ||
+              ActiveScreen === "Profile_Screen" ||
+              ActiveScreen === "Home_Screen"
+            ? "flex"
+            : "flex",
       // borderTopEndRadius: 45,
       // display: SearchScreen === "Search_Screen" ? "none" : "flex",
     },
@@ -105,7 +111,7 @@ const ScreenContainer = () => {
           component={ProfileScreen}
           listeners={{
             tabPress: (e) => {
-              dispatch(setScreen("Profile`_Screen"));
+              dispatch(setScreen("Profile_Screen"));
             },
           }}
         />
