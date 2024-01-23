@@ -3,19 +3,23 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { selectOption } from "../store/actions/NavigationActions";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { useSelector, useDispatch } from "react-redux";
 import { BlurView } from "expo-blur";
+import { useDispatch } from "react-redux";
+import { setScreen } from "../store/navigationSlice";
 
 const HomerHeader = ({ navigation }) => {
   // const selectedOption = useSelector((state) => state.navigation.selectedOption);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   // const handleOptionPress = (option) => {
   const handleOptionPress = () => {
     console.log("clicked");
     // dispatch(selectOption(option));
   };
-
+  const handleSearch = () => {
+    navigation.navigate("Search_Screen");
+    dispatch(setScreen("Search_Screen"));
+  };
   const renderOption = (option) => (
     <TouchableOpacity
       key={option}
@@ -44,7 +48,7 @@ const HomerHeader = ({ navigation }) => {
     </View>
   );
   const RightContainer = (
-    <TouchableOpacity onPress={() => navigation.navigate("Search_Screen")}>
+    <TouchableOpacity onPress={() => handleSearch()}>
       <Ionicons name="search" size={30} style={{ color: "white" }} />
     </TouchableOpacity>
   );

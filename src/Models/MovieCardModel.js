@@ -2,8 +2,12 @@ import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { BlurView } from "expo-blur";
+import { useDispatch } from "react-redux";
+import { setScreen } from "../store/navigationSlice";
 
 const MovieCardModel = ({ props }) => {
+  const dispatch = useDispatch();
+
   const navigation = useNavigation();
 
   const Img_Card = (
@@ -17,15 +21,12 @@ const MovieCardModel = ({ props }) => {
   );
   const Name = <Text style={styles.Name_Style}>{props.Title}</Text>;
   const handleCardPress = () => {
-    // Navigate to DetailScreen and pass props
     navigation.navigate("Detail_Screen", { ...props });
+    dispatch(setScreen("Detail_Screen"));
   };
 
   return (
-    <TouchableOpacity
-      onPress={() => navigation.navigate("Detail_Screen", { ...props })}
-      // onPress={handleCardPress}
-    >
+    <TouchableOpacity onPress={handleCardPress}>
       <View style={styles.Main_V_Card_Style}>
         {Img_Card}
         {Name}
