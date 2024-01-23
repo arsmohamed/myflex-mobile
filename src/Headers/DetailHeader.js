@@ -5,12 +5,17 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { BlurView } from "expo-blur";
 import { useNavigation } from "@react-navigation/native";
 
-const DetailHeader = () => {
+const DetailHeader = ({ ReturnedScreen }) => {
   const navigation = useNavigation();
 
   const LeftContainer = (
     <TouchableOpacity
-      onPress={() => navigation.goBack()}
+      onPress={() => {
+        navigation.navigate(ReturnedScreen);
+        // navigation.navigate("Mylist");
+        // console.log(ReturnedScreen);
+      }}
+      // onPress={() => navigation.goBack()}
       activeOpacity={0.9}
       style={{ marginRight: 10 }}
     >

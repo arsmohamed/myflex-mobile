@@ -9,11 +9,11 @@ import MovieCardForm from "./Models/MovieCardModel";
 import { setScreen } from "./store/navigationSlice";
 import SearchScreen from "./Screens/SearchScreen";
 import ProfileScreen from "./Screens/Profile";
-import MylistScreen from "./Screens/MyList";
 import DetailScreen from "./Screens/Detail";
+import MylistScreen from "./Screens/MyList";
 import { useDispatch } from "react-redux";
-import HomeScreen from "./Screens/Home";
 import { useSelector } from "react-redux";
+import HomeScreen from "./Screens/Home";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -25,7 +25,7 @@ function HomeStack() {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Initial" component={HomeScreen} />
+      <Stack.Screen name="Home_Screen" component={HomeScreen} />
       <Stack.Screen name="Search_Screen" component={SearchScreen} />
       <Stack.Screen name="Detail_Screen" component={DetailScreen} />
       <Stack.Screen name="MovieCardForm" component={MovieCardForm} />
@@ -48,14 +48,14 @@ const ScreenContainer = () => {
       overflow: "hidden",
       borderTopWidth: 1,
       borderTopColor: "white",
-      display:
-        ActiveScreen === "Search_Screen" || ActiveScreen === "Detail_Screen"
-          ? "none"
-          : ActiveScreen === "MyList_Screen" ||
-              ActiveScreen === "Profile_Screen" ||
-              ActiveScreen === "Home_Screen"
-            ? "flex"
-            : "flex",
+      // display:
+      //   ActiveScreen === "Search_Screen" || ActiveScreen === "Detail_Screen"
+      //     ? "none"
+      //     : ActiveScreen === "MyList_Screen" ||
+      //         ActiveScreen === "Profile_Screen" ||
+      //         ActiveScreen === "Home_Screen"
+      //       ? "flex"
+      //       : "flex",
       // borderTopEndRadius: 45,
       // display: SearchScreen === "Search_Screen" ? "none" : "flex",
     },

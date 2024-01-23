@@ -5,31 +5,27 @@ import { BlurView } from "expo-blur";
 import { useDispatch } from "react-redux";
 import { setScreen } from "../store/navigationSlice";
 
-const MovieCardModel = ({ props }) => {
+const MovieCardModel = ({ props, ScreenName }) => {
   const dispatch = useDispatch();
-
   const navigation = useNavigation();
 
-  const Img_Card = (
-    <View style={styles.Img_Card_Style}>
-      <Image source={props.img} style={styles.Main_Image_Style} />
-      <BlurView intensity={20} tint="dark" style={styles.Rank_Container_Style}>
-        <Image source={props.imbd} style={styles.IMBD_Style} />
-        <Text style={styles.Rank_Text_Style}>{props.rating}</Text>
-      </BlurView>
-    </View>
-  );
-  const Name = <Text style={styles.Name_Style}>{props.Title}</Text>;
   const handleCardPress = () => {
-    navigation.navigate("Detail_Screen", { ...props });
+    navigation.navigate("Detail_Screen", { ...props, screen_Name: ScreenName });
     dispatch(setScreen("Detail_Screen"));
+    console.log(ScreenName);
   };
 
   return (
     <TouchableOpacity onPress={handleCardPress}>
       <View style={styles.Main_V_Card_Style}>
-        {Img_Card}
-        {Name}
+        <View style={styles.Img_Card_Style}>
+          <Image source={props.img} style={styles.Main_Image_Style} />
+          <BlurView intensity={20} tint="dark" style={styles.Rank_Container_Style}>
+            <Image source={props.imbd} style={styles.IMBD_Style} />
+            <Text style={styles.Rank_Text_Style}>{props.rating}</Text>
+          </BlurView>
+        </View>
+        <Text style={styles.Name_Style}>{props.Title}</Text>
       </View>
     </TouchableOpacity>
   );

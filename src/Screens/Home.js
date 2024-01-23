@@ -35,7 +35,7 @@ const Home = ({ navigation }) => {
           <Text style={styles.Text_Style}>Recommendation</Text>
           <FlatList
             data={HomeCardInfo}
-            renderItem={({ item }) => <HomeCard props={item} />}
+            renderItem={({ item }) => <HomeCard props={item} ScreenName={"Home_Screen"} />}
             horizontal
             pagingEnabled
             showsHorizontalScrollIndicator={false}
@@ -45,7 +45,7 @@ const Home = ({ navigation }) => {
           <Text style={styles.Text_Style}>New Release</Text>
           <View style={styles.New_Release_Container_Style}>
             {MovieCardInfo.map((cardInfo) => (
-              <MovieCardForm key={cardInfo.id} props={cardInfo} />
+              <MovieCardForm key={cardInfo.id} props={cardInfo} ScreenName={"Home_Screen"} />
             ))}
           </View>
         </View>

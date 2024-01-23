@@ -11,7 +11,7 @@ const MyListScreen = () => {
   const dispatch = useDispatch();
 
   const handleIconClick = () => {
-    dispatch(changeScreen("NewMyListScreen"));
+    dispatch(changeScreen("MyList"));
   };
 
   return (
@@ -32,7 +32,7 @@ const MyListScreen = () => {
           </View>
           <View style={styles.New_Release_Container_Style}>
             {MovieCardInfo.map((cardInfo) => (
-              <MovieCardForm key={cardInfo.id} props={cardInfo} />
+              <MovieCardForm key={cardInfo.id} props={cardInfo} ScreenName={"Mylist"} />
             ))}
           </View>
         </ScrollView>
