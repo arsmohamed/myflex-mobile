@@ -1,19 +1,19 @@
 // ChatScreen.js
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, ScrollView, StyleSheet } from "react-native";
 import { changeScreen } from "../store/actions/NavigationActions";
 import MyListHeader from "../Headers/MyListHeader";
 import MovieCardForm from "../Models/MovieCardModel";
 import MovieCardInfo from "../Info/MovieCardInfo";
 import { useDispatch } from "react-redux";
+import { setScreen } from "../store/navigationSlice";
 
 const MyListScreen = () => {
   const dispatch = useDispatch();
 
-  const handleIconClick = () => {
-    dispatch(changeScreen("MyList"));
-  };
-
+  useEffect(() => {
+    dispatch(setScreen("MyList"));
+  }, []);
   return (
     <View
       style={{
@@ -32,7 +32,7 @@ const MyListScreen = () => {
           </View>
           <View style={styles.New_Release_Container_Style}>
             {MovieCardInfo.map((cardInfo) => (
-              <MovieCardForm key={cardInfo.id} props={cardInfo} ScreenName={"Mylist"} />
+              <MovieCardForm key={cardInfo.id} props={cardInfo} ScreenName={"MyList"} />
             ))}
           </View>
         </ScrollView>

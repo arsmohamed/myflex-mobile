@@ -36,7 +36,10 @@ function HomeStack() {
 const ScreenContainer = () => {
   const dispatch = useDispatch();
   const ActiveScreen = useSelector((state) => state.screen.activeScreen);
-
+  const onTabPress = (e, screenName) => {
+    // e.preventDefault(); // prevent the default action
+    dispatch(setScreen(screenName)); // dispatch the new screen name
+  };
   //style for the tab navigation
   const screenOptions = ({ route }) => ({
     headerShown: false, //it shows upper name of the screen
@@ -48,22 +51,15 @@ const ScreenContainer = () => {
       overflow: "hidden",
       borderTopWidth: 1,
       borderTopColor: "white",
-      // display:
-      //   ActiveScreen === "Search_Screen" || ActiveScreen === "Detail_Screen"
-      //     ? "none"
-      //     : ActiveScreen === "MyList_Screen" ||
-      //         ActiveScreen === "Profile_Screen" ||
-      //         ActiveScreen === "Home_Screen"
-      //       ? "flex"
-      //       : "flex",
+      display:
+        ActiveScreen === "Search_Screen" || ActiveScreen === "Detail_Screen" ? "none" : "flex",
       // borderTopEndRadius: 45,
-      // display: SearchScreen === "Search_Screen" ? "none" : "flex",
     },
     tabBarIcon: ({ focused }) => {
       let iconName;
       if (route.name === "Home") {
         iconName = "home";
-      } else if (route.name === "Mylist") {
+      } else if (route.name === "MyList") {
         iconName = "play-circle";
       } else if (route.name === "Profile") {
         iconName = "person";
@@ -92,27 +88,21 @@ const ScreenContainer = () => {
           name="Home"
           component={HomeStack}
           listeners={{
-            tabPress: (e) => {
-              dispatch(setScreen("Home_Screen"));
-            },
+            tabPress: () => dispatch(setScreen("Home")),
           }}
         />
         <Tab.Screen
-          name="Mylist"
+          name="MyList"
           component={MylistScreen}
           listeners={{
-            tabPress: (e) => {
-              dispatch(setScreen("MyList_Screen"));
-            },
+            tabPress: () => dispatch(setScreen("MyList")),
           }}
         />
         <Tab.Screen
           name="Profile"
           component={ProfileScreen}
           listeners={{
-            tabPress: (e) => {
-              dispatch(setScreen("Profile_Screen"));
-            },
+            tabPress: () => dispatch(setScreen("Profile")),
           }}
         />
       </Tab.Navigator>

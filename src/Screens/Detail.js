@@ -1,5 +1,5 @@
 // ChatScreen.js
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -12,8 +12,16 @@ import {
 import DetailHeader from "../Headers/DetailHeader";
 import HP from "../Assets/HP2.jpeg";
 import IMBD from "../Assets/IMBD.png";
+import { setScreen } from "../store/navigationSlice";
+import { useDispatch } from "react-redux";
+
 const DetailScreen = ({ route }) => {
   const { Title, img, imbd, rating, screen_Name } = route.params;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setScreen("Detail_Screen"));
+  }, []);
+
   return (
     <View style={styles.Container_Style}>
       <DetailHeader ReturnedScreen={screen_Name} />
@@ -57,7 +65,7 @@ const DetailScreen = ({ route }) => {
 const styles = StyleSheet.create({
   Container_Style: {
     backgroundColor: "black",
-    paddingBottom: "25%",
+    paddingBottom: "5%",
   },
   Detail_Container_Style: {
     width: Dimensions.get("screen").width,

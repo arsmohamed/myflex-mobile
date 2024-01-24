@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { setScreen } from "../store/navigationSlice";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { BlurView } from "expo-blur";
@@ -21,6 +22,10 @@ const Login = () => {
   const handleSignUp = () => {
     console.log("Navigating to sign-up screen");
   };
+  useEffect(() => {
+    dispatch(setScreen("Login_Screen"));
+  }, []);
+
   const LoginContainer = (
     <View style={styles.Login_container_Style}>
       <Text style={styles.loginText}>Login</Text>

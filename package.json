@@ -15,7 +15,7 @@
     "@reduxjs/toolkit": "^2.0.1",
     "expo": "~49.0.15",
     "expo-blur": "~12.4.1",
-    "expo-linear-gradient": "^12.5.0",
+    "expo-linear-gradient": "~12.3.0",
     "react": "18.2.0",
     "react-native": "0.72.6",
     "react-native-snap-carousel": "^3.9.1",

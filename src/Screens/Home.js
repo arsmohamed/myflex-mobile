@@ -1,5 +1,5 @@
 // ChatScreen.js
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, FlatList, ScrollView } from "react-native";
 import { changeScreen } from "../store/actions/NavigationActions";
 import SpotLightModel from "../Models/SpotLightModel";
@@ -10,13 +10,13 @@ import HomeCardInfo from "../Info/MovieCardInfo";
 import HomeCard from "../Models/MovieCardModel";
 import SlideInfo from "../Info/SlideInfo";
 import { useDispatch } from "react-redux";
-
+import { setScreen } from "../store/navigationSlice";
 const Home = ({ navigation }) => {
   const dispatch = useDispatch();
 
-  const handleIconClick = () => {
-    dispatch(changeScreen("NewChatScreen"));
-  };
+  useEffect(() => {
+    dispatch(setScreen("Home"));
+  }, []);
 
   return (
     <View style={styles.Main_Contain_Style}>
