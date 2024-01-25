@@ -1,7 +1,6 @@
 // ChatScreen.js
 import React, { useEffect } from "react";
 import { View, Text, ScrollView, StyleSheet } from "react-native";
-import { changeScreen } from "../store/actions/NavigationActions";
 import MyListHeader from "../Headers/MyListHeader";
 import MovieCardForm from "../Models/MovieCardModel";
 import MovieCardInfo from "../Info/MovieCardInfo";
@@ -12,7 +11,7 @@ const MyListScreen = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setScreen("MyList"));
+    dispatch(setScreen("MyList_Screen"));
   }, []);
   return (
     <View
@@ -32,7 +31,7 @@ const MyListScreen = () => {
           </View>
           <View style={styles.New_Release_Container_Style}>
             {MovieCardInfo.map((cardInfo) => (
-              <MovieCardForm key={cardInfo.id} props={cardInfo} ScreenName={"MyList"} />
+              <MovieCardForm key={cardInfo.id} props={cardInfo} ScreenName={"MyList_Screen"} />
             ))}
           </View>
         </ScrollView>

@@ -1,7 +1,6 @@
 // CustomHeaderLeft.js
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { selectOption } from "../store/actions/NavigationActions";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { BlurView } from "expo-blur";
 import { useDispatch } from "react-redux";

@@ -14,7 +14,6 @@ const DetailHeader = ({ ReturnedScreen }) => {
   const UpdateState = () => {
     navigation.navigate(ReturnedScreen);
     dispatch(setScreen(ReturnedScreen));
-    console.log(` recieved value in detail container : ${ReturnedScreen}`);
   };
   const LeftContainer = (
     <TouchableOpacity
