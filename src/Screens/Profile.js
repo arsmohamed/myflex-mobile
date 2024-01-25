@@ -1,6 +1,5 @@
 // ChatScreen.js
 import React, { useEffect } from "react";
-import { changeScreen } from "../store/actions/NavigationActions";
 import ProfileHeader from "../Headers/ProfileHeader";
 import PortfolioForm from "../Models/PortfolioModel";
 import PortfolioInfo from "../Info/PortfolioInfo";
@@ -12,7 +11,7 @@ const ChatScreen = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setScreen("Profile"));
+    dispatch(setScreen("Profile_Screen"));
   }, []);
 
   return (

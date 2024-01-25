@@ -28,19 +28,24 @@ function HomeStack() {
       <Stack.Screen name="Home_Screen" component={HomeScreen} />
       <Stack.Screen name="Search_Screen" component={SearchScreen} />
       <Stack.Screen name="Detail_Screen" component={DetailScreen} />
-      <Stack.Screen name="MovieCardForm" component={MovieCardForm} />
     </Stack.Navigator>
   );
 }
-
+const MyListStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="MyList_Screen" component={MylistScreen} />
+      <Stack.Screen name="Detail_Screen" component={DetailScreen} />
+    </Stack.Navigator>
+  );
+};
 const ScreenContainer = () => {
   const dispatch = useDispatch();
   const ActiveScreen = useSelector((state) => state.screen.activeScreen);
-  const onTabPress = (e, screenName) => {
-    // e.preventDefault(); // prevent the default action
-    dispatch(setScreen(screenName)); // dispatch the new screen name
-  };
-  //style for the tab navigation
   const screenOptions = ({ route }) => ({
     headerShown: false, //it shows upper name of the screen
     tabBarShowLabel: false, // it shows the names of label of each screen
@@ -71,14 +76,10 @@ const ScreenContainer = () => {
             size={25}
             style={{ marginRight: 5, color: focused ? "#FFD900" : "white" }}
           />
-          <Text style={{ color: focused ? "#FFD900" : "white", fontSize: 12 }}>{route.name}</Text>
+          {/* <Text style={{ color: focused ? "#FFD900" : "white", fontSize: 12 }}>{route.name}</Text> */}
         </View>
       );
     },
-    // tabBarLabelStyle: {
-    //   color: route.state?.index === route.index ? 'white' : '#D68D4A', // Set the color to match Ionicons
-    //   fontSize: 12,
-    // },
   });
 
   return (
@@ -88,21 +89,21 @@ const ScreenContainer = () => {
           name="Home"
           component={HomeStack}
           listeners={{
-            tabPress: () => dispatch(setScreen("Home")),
+            tabPress: () => dispatch(setScreen("Home_Screen")),
           }}
         />
         <Tab.Screen
           name="MyList"
-          component={MylistScreen}
+          component={MyListStack}
           listeners={{
-            tabPress: () => dispatch(setScreen("MyList")),
+            tabPress: () => dispatch(setScreen("MyList_Screen")),
           }}
         />
         <Tab.Screen
           name="Profile"
           component={ProfileScreen}
           listeners={{
-            tabPress: () => dispatch(setScreen("Profile")),
+            tabPress: () => dispatch(setScreen("Profile_Screen")),
           }}
         />
       </Tab.Navigator>

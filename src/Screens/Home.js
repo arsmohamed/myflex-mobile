@@ -1,7 +1,6 @@
 // ChatScreen.js
 import React, { useEffect } from "react";
 import { View, Text, StyleSheet, FlatList, ScrollView } from "react-native";
-import { changeScreen } from "../store/actions/NavigationActions";
 import SpotLightModel from "../Models/SpotLightModel";
 import MovieCardForm from "../Models/MovieCardModel";
 import HomeHeader from "../Headers/HomeHeader";
@@ -15,7 +14,7 @@ const Home = ({ navigation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setScreen("Home"));
+    dispatch(setScreen("Home_Screen"));
   }, []);
 
   return (
