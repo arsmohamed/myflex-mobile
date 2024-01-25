@@ -2,8 +2,14 @@ import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { BlurView } from "expo-blur";
+import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { setScreen } from "../store/navigationSlice";
 
-const SearchCardModel = ({ props }) => {
+const SearchCardModel = ({ props, ScreenName }) => {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
   const ImgCard = (
     <View style={styles.Img_Card_style}>
       <Image source={props.mainImg} style={styles.Main_Image_Style} />
@@ -19,12 +25,18 @@ const SearchCardModel = ({ props }) => {
       <Ionicons name="add-circle" size={35} style={{ color: "white" }} />
     </TouchableOpacity>
   );
+  const handleCardPress = () => {
+    navigation.navigate("Detail_Screen", { ...props, screen_Name: ScreenName });
+    dispatch(setScreen("Detail_Screen"));
+  };
   return (
     <View style={styles.Search_Card_Style}>
-      <View style={styles.Info_Container_Style}>
-        {ImgCard}
-        {Name}
-      </View>
+      <TouchableOpacity onPress={handleCardPress}>
+        <View style={styles.Info_Container_Style}>
+          {ImgCard}
+          {Name}
+        </View>
+      </TouchableOpacity>
       {Add_Icon}
     </View>
   );
