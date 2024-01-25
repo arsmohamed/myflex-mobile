@@ -83,7 +83,7 @@ const ScreenContainer = () => {
 
   return (
     <NavigationContainer>
-      <Tab.Navigator screenOptions={screenOptions}>
+      <Tab.Navigator screenOptions={screenOptions} unmountOnBlur={true}>
         <Tab.Screen
           name="Home"
           component={HomeStack}
