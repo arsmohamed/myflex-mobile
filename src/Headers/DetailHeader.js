@@ -12,7 +12,8 @@ const DetailHeader = ({ ReturnedScreen }) => {
   const dispatch = useDispatch();
 
   const UpdateState = () => {
-    navigation.navigate(ReturnedScreen);
+    navigation.goBack();
+    // navigation.navigate(ReturnedScreen);
     dispatch(setScreen(ReturnedScreen));
   };
   const LeftContainer = (

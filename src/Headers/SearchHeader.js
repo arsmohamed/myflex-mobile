@@ -3,10 +3,12 @@ import { View, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useDispatch } from "react-redux";
 import { setScreen } from "../store/navigationSlice";
+import { useNavigation } from "@react-navigation/native";
 
-const SearchHeader = ({ navigation }) => {
+const SearchHeader = () => {
   const [searchValue, setSearchValue] = useState("");
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const UpdateState = () => {
     dispatch(setScreen("Home_Screen"));

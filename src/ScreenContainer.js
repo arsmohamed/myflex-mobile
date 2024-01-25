@@ -23,6 +23,7 @@ function HomeStack() {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
+        gestureEnabled: false,
       }}
     >
       <Stack.Screen name="Home_Screen" component={HomeScreen} />
@@ -36,6 +37,7 @@ const MyListStack = () => {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
+        gestureEnabled: false,
       }}
     >
       <Stack.Screen name="MyList_Screen" component={MylistScreen} />
