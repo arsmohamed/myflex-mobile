@@ -1,11 +1,17 @@
 // SearchScreen.js
-import React from "react";
+import React, { useEffect } from "react";
+import { setScreen } from "../store/navigationSlice";
+import { useDispatch } from "react-redux";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import Custom_Search_Header from "../Headers/SearchHeader";
 import SearchCardForm from "../Models/SearchCardModel";
 import SearchCardInfo from "../Info/SearchCardInfo";
 
 const SearchScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setScreen("Search_Screen"));
+  }, []);
   return (
     <View style={styles.Main_Contain_Style}>
       <View style={styles.Top_Bar_Container_Style}>
@@ -29,7 +35,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "black",
     flexDirection: "column",
-    paddingBottom: "20%",
+    paddingBottom: "5%",
   },
   Top_Bar_Container_Style: {
     height: "14%",

@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import { View, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useDispatch } from "react-redux";
+import { setScreen } from "../store/navigationSlice";
 
 const SearchHeader = ({ navigation }) => {
   const [searchValue, setSearchValue] = useState("");
+  const dispatch = useDispatch();
 
+  const UpdateState = () => {
+    dispatch(setScreen("Home_Screen"));
+    navigation.goBack();
+  };
   const RightContainer = (
     <View style={styles.SearchingContainerStyle}>
       <Ionicons name="search" size={25} style={styles.SearchIconStyle} />
@@ -19,11 +26,7 @@ const SearchHeader = ({ navigation }) => {
   );
 
   const LeftContainer = (
-    <TouchableOpacity
-      onPress={() => navigation.goBack()}
-      activeOpacity={0.9}
-      style={{ marginRight: 10 }}
-    >
+    <TouchableOpacity onPress={() => UpdateState()} activeOpacity={0.9} style={{ marginRight: 10 }}>
       <Ionicons name="arrow-back" size={25} style={{ color: "white" }} />
     </TouchableOpacity>
   );

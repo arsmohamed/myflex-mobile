@@ -4,13 +4,22 @@ import { View, TouchableOpacity, StyleSheet } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { BlurView } from "expo-blur";
 import { useNavigation } from "@react-navigation/native";
+import { setScreen } from "../store/navigationSlice";
+import { useDispatch } from "react-redux";
 
-const DetailHeader = () => {
+const DetailHeader = ({ ReturnedScreen }) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
+  const UpdateState = () => {
+    navigation.navigate(ReturnedScreen);
+    dispatch(setScreen(ReturnedScreen));
+    console.log(` recieved value in detail container : ${ReturnedScreen}`);
+  };
   const LeftContainer = (
     <TouchableOpacity
-      onPress={() => navigation.goBack()}
+      onPress={() => UpdateState()}
+      // onPress={() => navigation.goBack()}
       activeOpacity={0.9}
       style={{ marginRight: 10 }}
     >

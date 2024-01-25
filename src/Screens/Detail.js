@@ -1,5 +1,5 @@
 // ChatScreen.js
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -12,11 +12,19 @@ import {
 import DetailHeader from "../Headers/DetailHeader";
 import HP from "../Assets/HP2.jpeg";
 import IMBD from "../Assets/IMBD.png";
+import { setScreen } from "../store/navigationSlice";
+import { useDispatch } from "react-redux";
+
 const DetailScreen = ({ route }) => {
-  const { Title, img, imbd, rating } = route.params;
+  const { Title, img, imbd, rating, screen_Name } = route.params;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setScreen("Detail_Screen"));
+  }, []);
+
   return (
     <View style={styles.Container_Style}>
-      <DetailHeader />
+      <DetailHeader ReturnedScreen={screen_Name} />
       <ScrollView>
         <View style={styles.Detail_Container_Style}>
           <Image source={HP} style={styles.Image_Style} />
@@ -27,7 +35,7 @@ const DetailScreen = ({ route }) => {
                 <Image source={IMBD} />
                 <Text style={[styles.Rating_Style, styles.Text_color]}>{rating}</Text>
               </View>
-              <TouchableOpacity style={styles.button} onPress={() => console.log("add to List")}>
+              <TouchableOpacity style={styles.button} onPress={() => console.log(`add to List : `)}>
                 <Text style={styles.Add_Text_Style}>Add to List</Text>
               </TouchableOpacity>
             </View>
@@ -57,7 +65,7 @@ const DetailScreen = ({ route }) => {
 const styles = StyleSheet.create({
   Container_Style: {
     backgroundColor: "black",
-    paddingBottom: "25%",
+    paddingBottom: "5%",
   },
   Detail_Container_Style: {
     width: Dimensions.get("screen").width,
