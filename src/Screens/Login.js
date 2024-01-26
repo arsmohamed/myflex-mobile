@@ -10,16 +10,8 @@ const Login = () => {
   const dispatch = useDispatch();
   const username = useSelector((state) => state.Loggedin.username);
   const password = useSelector((state) => state.Loggedin.password);
-  // const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
+  const errorMessage = useSelector((state) => state.Loggedin.errorMessage);
 
-  const handleLogin = () => {
-    console.log("Logging in with:", username, password);
-  };
-
-  const handleSignUp = () => {
-    console.log("Navigating to sign-up screen");
-  };
   useEffect(() => {
     dispatch(setScreen("Login_Screen"));
   }, []);
@@ -48,14 +40,13 @@ const Login = () => {
           value={password}
         />
       </View>
+      <Text style={styles.Error_Style}>{errorMessage && errorMessage}</Text>
       <TouchableOpacity
-        style={styles.continueButton}
-        disabled={!username || !password}
+        style={styles.buttonText}
+        // disabled={!username || !password}
         onPress={() => dispatch(AuthActions.Continue())}
       >
-        <Text style={[styles.buttonText, { color: !username || !password ? "grey" : "#FFD900" }]}>
-          Continue
-        </Text>
+        <Text style={styles.buttonText}>Continue</Text>
       </TouchableOpacity>
       <View style={styles.signupContainer}>
         <Text style={styles.signupText}>Don't have an account? </Text>
@@ -148,6 +139,14 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 25,
+    color: "#FFD900",
+  },
+  Error_Style: {
+    fontSize: 14,
+    color: "#FF3B3B",
+    alignSelf: "flex-start",
+    marginBottom: 10,
+    marginLeft: 10,
   },
   signupContainer: {
     flexDirection: "row",

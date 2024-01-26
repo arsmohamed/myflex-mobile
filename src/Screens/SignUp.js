@@ -6,26 +6,20 @@ import { BlurView } from "expo-blur";
 import { useNavigation } from "@react-navigation/native";
 import OverLayer from "../Assets/OverLay.png";
 import { AuthActions } from "../store/Auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const SignUp = () => {
   const dispatch = useDispatch();
-  //   const navigation = useNavigation();
-  const [username, setUsername] = useState("");
-  const [email, setemail] = useState("");
-  const [password, setPassword] = useState("");
+  const username = useSelector((state) => state.Loggedin.username);
+  const password = useSelector((state) => state.Loggedin.password);
+  const ConfirmPassword = useSelector((state) => state.Loggedin.ConfirmPassword);
+  const email = useSelector((state) => state.Loggedin.email);
+  const errorMessage = useSelector((state) => state.Loggedin.errorMessage);
 
-  const handleLogin = () => {
-    // Perform login logic here
-    // navigation.navigate("NewContainer");
-    console.log("Logging in with:", username, password);
-  };
   useEffect(() => {
     dispatch(setScreen("Signup_Screen"));
   }, []);
-  const handleSignUp = () => {
-    console.log("Navigating to sign-up screen");
-  };
+
   const SignUpCntainer = (
     <View style={styles.SignUp_Cntainer_Style}>
       <Text style={styles.loginText}>SignUp</Text>
@@ -35,7 +29,7 @@ const SignUp = () => {
           style={styles.input}
           placeholder="Username"
           placeholderTextColor="white"
-          onChangeText={(text) => setUsername(text)}
+          onChangeText={(value) => dispatch(AuthActions.SetUsername(value))}
           value={username}
         />
       </View>
@@ -45,7 +39,7 @@ const SignUp = () => {
           style={styles.input}
           placeholder="Email"
           placeholderTextColor="white"
-          onChangeText={(text) => setemail(text)}
+          onChangeText={(value) => dispatch(AuthActions.SetEmail(value))}
           value={email}
         />
       </View>
@@ -55,8 +49,8 @@ const SignUp = () => {
           style={styles.input}
           placeholder="Password"
           placeholderTextColor="white"
-          secureTextEntry={true}
-          onChangeText={(text) => setPassword(text)}
+          // secureTextEntry={true}
+          onChangeText={(value) => dispatch(AuthActions.SetPassword(value))}
           value={password}
         />
       </View>
@@ -66,12 +60,12 @@ const SignUp = () => {
           style={styles.input}
           placeholder="Confirm Password"
           placeholderTextColor="white"
-          secureTextEntry={true}
-          onChangeText={(text) => setPassword(text)}
-          value={password}
+          // secureTextEntry={true}
+          onChangeText={(value) => dispatch(AuthActions.SetConfirmPassword(value))}
+          value={ConfirmPassword}
         />
       </View>
-
+      <Text style={styles.Error_Style}>{errorMessage && errorMessage}</Text>
       <TouchableOpacity style={styles.continueButton} onPress={() => dispatch(AuthActions.Join())}>
         <Text style={styles.buttonText}>Join</Text>
       </TouchableOpacity>
@@ -187,6 +181,13 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
     borderRadius: 10,
     zIndex: 1,
+  },
+  Error_Style: {
+    fontSize: 14,
+    color: "#FF3B3B",
+    alignSelf: "flex-start",
+    marginBottom: 10,
+    marginLeft: 10,
   },
 });
 

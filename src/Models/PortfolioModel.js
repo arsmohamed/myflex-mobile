@@ -7,7 +7,6 @@ const PortfolioModel = ({ props }) => {
   const dispatch = useDispatch();
 
   const Logout = () => {
-    dispatch(AuthActions.ClearCredentials());
     dispatch(AuthActions.LogOut());
   };
 
@@ -105,7 +104,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   logout_Text_Style: {
-    color: "#FF5B5B",
+    color: "#FF3B3B",
     fontSize: 25,
     marginBottom: 10,
   },
