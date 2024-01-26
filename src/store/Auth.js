@@ -7,12 +7,13 @@ function validateEmail(email) {
 }
 
 const initialAuthState = {
-  authedScreen: "Login",
+  ShowModel: "Login_Model",
+  SecurePassword: true,
+  SecureConfirmPassword: true,
   username: "",
   password: "",
   ConfirmPassword: "",
   email: "",
-  ShowModel: "Login_Model",
   errorMessage: " ",
 };
 
@@ -81,6 +82,12 @@ const AuthSlice = createSlice({
     SetConfirmPassword(state, action) {
       state.ConfirmPassword = action.payload;
       state.errorMessage = "";
+    },
+    setSecurePassword(state) {
+      state.SecurePassword = !state.SecurePassword;
+    },
+    setSecureConfirmPassword(state) {
+      state.SecureConfirmPassword = !state.SecureConfirmPassword;
     },
   },
 });

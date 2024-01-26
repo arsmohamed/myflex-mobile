@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   activeScreen: "Home_Screen", // Initial active screen
-  DetailReturnScreen: "Home",
 };
 
 const navigationSlice = createSlice({
@@ -12,10 +11,6 @@ const navigationSlice = createSlice({
   reducers: {
     setScreen: (state, action) => {
       state.activeScreen = action.payload;
-    },
-    DetailScreen: (state, action) => {
-      state.DetailReturnScreen = action.payload;
-      console.log(`coming from screen ${state.DetailReturnScreen}`);
     },
   },
 });

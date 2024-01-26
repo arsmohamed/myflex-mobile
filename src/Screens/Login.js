@@ -11,11 +11,14 @@ const Login = () => {
   const username = useSelector((state) => state.Loggedin.username);
   const password = useSelector((state) => state.Loggedin.password);
   const errorMessage = useSelector((state) => state.Loggedin.errorMessage);
+  const SecurePassword = useSelector((state) => state.Loggedin.SecurePassword);
 
   useEffect(() => {
     dispatch(setScreen("Login_Screen"));
   }, []);
-
+  {
+    /* <ion-icon name="eye-off-outline"></ion-icon> */
+  }
   const LoginContainer = (
     <View style={styles.Login_container_Style}>
       <Text style={styles.loginText}>Login</Text>
@@ -32,14 +35,23 @@ const Login = () => {
       <View style={styles.inputContainer}>
         <Ionicons name="key" size={30} color="white" style={styles.icon} />
         <TextInput
-          style={styles.input}
+          style={styles.password}
           placeholder="Password"
           placeholderTextColor="white"
-          secureTextEntry={true}
+          secureTextEntry={SecurePassword}
           onChangeText={(value) => dispatch(AuthActions.SetPassword(value))}
           value={password}
         />
+        <TouchableOpacity onPress={() => dispatch(AuthActions.setSecurePassword())}>
+          <Ionicons
+            name={SecurePassword ? "eye-off-outline" : "eye-outline"}
+            size={30}
+            color="white"
+            style={styles.icon}
+          />
+        </TouchableOpacity>
       </View>
+
       <Text style={styles.Error_Style}>{errorMessage && errorMessage}</Text>
       <TouchableOpacity
         style={styles.buttonText}
@@ -121,6 +133,13 @@ const styles = StyleSheet.create({
   },
   input: {
     width: "80%",
+    height: 40,
+    color: "white",
+    paddingLeft: 10,
+    fontSize: 20,
+  },
+  password: {
+    width: "70%",
     height: 40,
     color: "white",
     paddingLeft: 10,

@@ -15,6 +15,8 @@ const SignUp = () => {
   const ConfirmPassword = useSelector((state) => state.Loggedin.ConfirmPassword);
   const email = useSelector((state) => state.Loggedin.email);
   const errorMessage = useSelector((state) => state.Loggedin.errorMessage);
+  const SecurePassword = useSelector((state) => state.Loggedin.SecurePassword);
+  const SecureConfirmPassword = useSelector((state) => state.Loggedin.SecureConfirmPassword);
 
   useEffect(() => {
     dispatch(setScreen("Signup_Screen"));
@@ -46,24 +48,40 @@ const SignUp = () => {
       <View style={styles.inputContainer}>
         <Ionicons name="key" size={30} color="white" style={styles.icon} />
         <TextInput
-          style={styles.input}
+          style={styles.password}
           placeholder="Password"
           placeholderTextColor="white"
-          // secureTextEntry={true}
+          secureTextEntry={SecurePassword}
           onChangeText={(value) => dispatch(AuthActions.SetPassword(value))}
           value={password}
         />
+        <TouchableOpacity onPress={() => dispatch(AuthActions.setSecurePassword())}>
+          <Ionicons
+            name={SecurePassword ? "eye-off-outline" : "eye-outline"}
+            size={30}
+            color="white"
+            style={styles.icon}
+          />
+        </TouchableOpacity>
       </View>
       <View style={styles.inputContainer}>
         <Ionicons name="key" size={30} color="white" style={styles.icon} />
         <TextInput
-          style={styles.input}
+          style={styles.password}
           placeholder="Confirm Password"
           placeholderTextColor="white"
-          // secureTextEntry={true}
+          secureTextEntry={SecureConfirmPassword}
           onChangeText={(value) => dispatch(AuthActions.SetConfirmPassword(value))}
           value={ConfirmPassword}
         />
+        <TouchableOpacity onPress={() => dispatch(AuthActions.setSecureConfirmPassword())}>
+          <Ionicons
+            name={SecureConfirmPassword ? "eye-off-outline" : "eye-outline"}
+            size={30}
+            color="white"
+            style={styles.icon}
+          />
+        </TouchableOpacity>
       </View>
       <Text style={styles.Error_Style}>{errorMessage && errorMessage}</Text>
       <TouchableOpacity style={styles.continueButton} onPress={() => dispatch(AuthActions.Join())}>
@@ -142,6 +160,13 @@ const styles = StyleSheet.create({
   },
   input: {
     width: "80%",
+    height: 40,
+    paddingLeft: 10,
+    fontSize: 20,
+    color: "white",
+  },
+  password: {
+    width: "70%",
     height: 40,
     paddingLeft: 10,
     fontSize: 20,
