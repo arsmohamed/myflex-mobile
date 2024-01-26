@@ -1,21 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { setScreen } from "../store/navigationSlice";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { BlurView } from "expo-blur";
-import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { setScreen } from "../store/navigationSlice";
+import React, { useState, useEffect } from "react";
 import OverLayer from "../Assets/OverLay.png";
 import { AuthActions } from "../store/Auth";
-import { useDispatch } from "react-redux";
+import { BlurView } from "expo-blur";
 const Login = () => {
-  // const navigation = useNavigation();
   const dispatch = useDispatch();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const username = useSelector((state) => state.Loggedin.username);
+  const password = useSelector((state) => state.Loggedin.password);
+  // const [username, setUsername] = useState("");
+  // const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    // Perform login logic here
-    // navigation.navigate("NewContainer");
     console.log("Logging in with:", username, password);
   };
 
@@ -35,7 +33,7 @@ const Login = () => {
           style={styles.input}
           placeholder="Username"
           placeholderTextColor="white"
-          onChangeText={(text) => setUsername(text)}
+          onChangeText={(value) => dispatch(AuthActions.SetUsername(value))}
           value={username}
         />
       </View>
@@ -46,15 +44,18 @@ const Login = () => {
           placeholder="Password"
           placeholderTextColor="white"
           secureTextEntry={true}
-          onChangeText={(text) => setPassword(text)}
+          onChangeText={(value) => dispatch(AuthActions.SetPassword(value))}
           value={password}
         />
       </View>
       <TouchableOpacity
         style={styles.continueButton}
+        disabled={!username || !password}
         onPress={() => dispatch(AuthActions.Continue())}
       >
-        <Text style={styles.buttonText}>Continue</Text>
+        <Text style={[styles.buttonText, { color: !username || !password ? "grey" : "#FFD900" }]}>
+          Continue
+        </Text>
       </TouchableOpacity>
       <View style={styles.signupContainer}>
         <Text style={styles.signupText}>Don't have an account? </Text>
@@ -146,7 +147,6 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   buttonText: {
-    color: "#FFD900",
     fontSize: 25,
   },
   signupContainer: {

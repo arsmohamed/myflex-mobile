@@ -6,6 +6,8 @@ const initialAuthState = {
   isLoginModel: true,
   isSignUpModel: false,
   authScreen: "Login",
+  username: "",
+  password: "",
 };
 
 const AuthSlice = createSlice({
@@ -43,6 +45,16 @@ const AuthSlice = createSlice({
       state.auth = false;
       state.isLoginModel = true;
       state.isSignUpModel = false;
+    },
+    SetUsername(state, action) {
+      state.username = action.payload;
+    },
+    SetPassword(state, action) {
+      state.password = action.payload;
+    },
+    ClearCredentials(state) {
+      state.username = "";
+      state.password = "";
     },
   },
 });

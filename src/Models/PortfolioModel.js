@@ -5,6 +5,12 @@ import { AuthActions } from "../store/Auth";
 import { useDispatch } from "react-redux";
 const PortfolioModel = ({ props }) => {
   const dispatch = useDispatch();
+
+  const Logout = () => {
+    dispatch(AuthActions.ClearCredentials());
+    dispatch(AuthActions.LogOut());
+  };
+
   const My_Portfolio = (
     <View style={styles.Container_Style}>
       <View style={styles.My_Portfolio_Style}>
@@ -30,7 +36,7 @@ const PortfolioModel = ({ props }) => {
   return (
     <View style={styles.Portfolio_Form_style}>
       {My_Portfolio}
-      <TouchableOpacity onPress={() => dispatch(AuthActions.LogOut())}>
+      <TouchableOpacity onPress={() => Logout()}>
         <Text style={styles.logout_Text_Style}>Logout</Text>
       </TouchableOpacity>
     </View>
