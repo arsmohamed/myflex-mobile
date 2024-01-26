@@ -7,7 +7,7 @@ import Custom_Search_Header from "../Headers/SearchHeader";
 import SearchCardForm from "../Models/SearchCardModel";
 import SearchCardInfo from "../Info/SearchCardInfo";
 
-const SearchScreen = ({ navigation }) => {
+const SearchScreen = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setScreen("Search_Screen"));
@@ -15,13 +15,13 @@ const SearchScreen = ({ navigation }) => {
   return (
     <View style={styles.Main_Contain_Style}>
       <View style={styles.Top_Bar_Container_Style}>
-        <Custom_Search_Header navigation={navigation} />
+        <Custom_Search_Header />
       </View>
       <ScrollView>
         <View style={styles.Canvas_Container_Style}>
           <Text style={styles.Text_Style}>Hot Search</Text>
           {SearchCardInfo.map((cardInfo) => (
-            <SearchCardForm key={cardInfo.id} props={cardInfo} />
+            <SearchCardForm key={cardInfo.id} props={cardInfo} ScreenName={"Search_Screen"} />
           ))}
         </View>
       </ScrollView>
