@@ -1,31 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { setScreen } from "../store/navigationSlice";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { BlurView } from "expo-blur";
-import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { setScreen } from "../store/navigationSlice";
+import React, { useState, useEffect } from "react";
 import OverLayer from "../Assets/OverLay.png";
 import { AuthActions } from "../store/Auth";
-import { useDispatch } from "react-redux";
+import { BlurView } from "expo-blur";
 const Login = () => {
-  // const navigation = useNavigation();
   const dispatch = useDispatch();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const username = useSelector((state) => state.Loggedin.username);
+  const password = useSelector((state) => state.Loggedin.password);
+  const errorMessage = useSelector((state) => state.Loggedin.errorMessage);
+  const SecurePassword = useSelector((state) => state.Loggedin.SecurePassword);
 
-  const handleLogin = () => {
-    // Perform login logic here
-    // navigation.navigate("NewContainer");
-    console.log("Logging in with:", username, password);
-  };
-
-  const handleSignUp = () => {
-    console.log("Navigating to sign-up screen");
-  };
   useEffect(() => {
     dispatch(setScreen("Login_Screen"));
   }, []);
-
+  {
+    /* <ion-icon name="eye-off-outline"></ion-icon> */
+  }
   const LoginContainer = (
     <View style={styles.Login_container_Style}>
       <Text style={styles.loginText}>Login</Text>
@@ -35,23 +28,34 @@ const Login = () => {
           style={styles.input}
           placeholder="Username"
           placeholderTextColor="white"
-          onChangeText={(text) => setUsername(text)}
+          onChangeText={(value) => dispatch(AuthActions.SetUsername(value))}
           value={username}
         />
       </View>
       <View style={styles.inputContainer}>
         <Ionicons name="key" size={30} color="white" style={styles.icon} />
         <TextInput
-          style={styles.input}
+          style={styles.password}
           placeholder="Password"
           placeholderTextColor="white"
-          secureTextEntry={true}
-          onChangeText={(text) => setPassword(text)}
+          secureTextEntry={SecurePassword}
+          onChangeText={(value) => dispatch(AuthActions.SetPassword(value))}
           value={password}
         />
+        <TouchableOpacity onPress={() => dispatch(AuthActions.setSecurePassword())}>
+          <Ionicons
+            name={SecurePassword ? "eye-off-outline" : "eye-outline"}
+            size={30}
+            color="white"
+            style={styles.icon}
+          />
+        </TouchableOpacity>
       </View>
+
+      <Text style={styles.Error_Style}>{errorMessage && errorMessage}</Text>
       <TouchableOpacity
-        style={styles.continueButton}
+        style={styles.buttonText}
+        // disabled={!username || !password}
         onPress={() => dispatch(AuthActions.Continue())}
       >
         <Text style={styles.buttonText}>Continue</Text>
@@ -134,6 +138,13 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     fontSize: 20,
   },
+  password: {
+    width: "70%",
+    height: 40,
+    color: "white",
+    paddingLeft: 10,
+    fontSize: 20,
+  },
   icon: {
     marginRight: 10,
   },
@@ -146,8 +157,15 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   buttonText: {
-    color: "#FFD900",
     fontSize: 25,
+    color: "#FFD900",
+  },
+  Error_Style: {
+    fontSize: 14,
+    color: "#FF3B3B",
+    alignSelf: "flex-start",
+    marginBottom: 10,
+    marginLeft: 10,
   },
   signupContainer: {
     flexDirection: "row",

@@ -13,7 +13,6 @@ const DetailHeader = ({ ReturnedScreen }) => {
 
   const UpdateState = () => {
     navigation.goBack();
-    // navigation.navigate(ReturnedScreen);
     dispatch(setScreen(ReturnedScreen));
   };
   const LeftContainer = (

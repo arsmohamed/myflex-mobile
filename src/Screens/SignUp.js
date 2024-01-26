@@ -6,26 +6,22 @@ import { BlurView } from "expo-blur";
 import { useNavigation } from "@react-navigation/native";
 import OverLayer from "../Assets/OverLay.png";
 import { AuthActions } from "../store/Auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const SignUp = () => {
   const dispatch = useDispatch();
-  //   const navigation = useNavigation();
-  const [username, setUsername] = useState("");
-  const [email, setemail] = useState("");
-  const [password, setPassword] = useState("");
+  const username = useSelector((state) => state.Loggedin.username);
+  const password = useSelector((state) => state.Loggedin.password);
+  const ConfirmPassword = useSelector((state) => state.Loggedin.ConfirmPassword);
+  const email = useSelector((state) => state.Loggedin.email);
+  const errorMessage = useSelector((state) => state.Loggedin.errorMessage);
+  const SecurePassword = useSelector((state) => state.Loggedin.SecurePassword);
+  const SecureConfirmPassword = useSelector((state) => state.Loggedin.SecureConfirmPassword);
 
-  const handleLogin = () => {
-    // Perform login logic here
-    // navigation.navigate("NewContainer");
-    console.log("Logging in with:", username, password);
-  };
   useEffect(() => {
     dispatch(setScreen("Signup_Screen"));
   }, []);
-  const handleSignUp = () => {
-    console.log("Navigating to sign-up screen");
-  };
+
   const SignUpCntainer = (
     <View style={styles.SignUp_Cntainer_Style}>
       <Text style={styles.loginText}>SignUp</Text>
@@ -35,7 +31,7 @@ const SignUp = () => {
           style={styles.input}
           placeholder="Username"
           placeholderTextColor="white"
-          onChangeText={(text) => setUsername(text)}
+          onChangeText={(value) => dispatch(AuthActions.SetUsername(value))}
           value={username}
         />
       </View>
@@ -45,33 +41,49 @@ const SignUp = () => {
           style={styles.input}
           placeholder="Email"
           placeholderTextColor="white"
-          onChangeText={(text) => setemail(text)}
+          onChangeText={(value) => dispatch(AuthActions.SetEmail(value))}
           value={email}
         />
       </View>
       <View style={styles.inputContainer}>
         <Ionicons name="key" size={30} color="white" style={styles.icon} />
         <TextInput
-          style={styles.input}
+          style={styles.password}
           placeholder="Password"
           placeholderTextColor="white"
-          secureTextEntry={true}
-          onChangeText={(text) => setPassword(text)}
+          secureTextEntry={SecurePassword}
+          onChangeText={(value) => dispatch(AuthActions.SetPassword(value))}
           value={password}
         />
+        <TouchableOpacity onPress={() => dispatch(AuthActions.setSecurePassword())}>
+          <Ionicons
+            name={SecurePassword ? "eye-off-outline" : "eye-outline"}
+            size={30}
+            color="white"
+            style={styles.icon}
+          />
+        </TouchableOpacity>
       </View>
       <View style={styles.inputContainer}>
         <Ionicons name="key" size={30} color="white" style={styles.icon} />
         <TextInput
-          style={styles.input}
+          style={styles.password}
           placeholder="Confirm Password"
           placeholderTextColor="white"
-          secureTextEntry={true}
-          onChangeText={(text) => setPassword(text)}
-          value={password}
+          secureTextEntry={SecureConfirmPassword}
+          onChangeText={(value) => dispatch(AuthActions.SetConfirmPassword(value))}
+          value={ConfirmPassword}
         />
+        <TouchableOpacity onPress={() => dispatch(AuthActions.setSecureConfirmPassword())}>
+          <Ionicons
+            name={SecureConfirmPassword ? "eye-off-outline" : "eye-outline"}
+            size={30}
+            color="white"
+            style={styles.icon}
+          />
+        </TouchableOpacity>
       </View>
-
+      <Text style={styles.Error_Style}>{errorMessage && errorMessage}</Text>
       <TouchableOpacity style={styles.continueButton} onPress={() => dispatch(AuthActions.Join())}>
         <Text style={styles.buttonText}>Join</Text>
       </TouchableOpacity>
@@ -153,6 +165,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "white",
   },
+  password: {
+    width: "70%",
+    height: 40,
+    paddingLeft: 10,
+    fontSize: 20,
+    color: "white",
+  },
   icon: {
     marginRight: 10,
   },
@@ -187,6 +206,13 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
     borderRadius: 10,
     zIndex: 1,
+  },
+  Error_Style: {
+    fontSize: 14,
+    color: "#FF3B3B",
+    alignSelf: "flex-start",
+    marginBottom: 10,
+    marginLeft: 10,
   },
 });
 
