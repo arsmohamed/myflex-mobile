@@ -53,11 +53,23 @@ const ScreenContainer = () => {
     tabBarShowLabel: false, // it shows the names of label of each screen
     tabBarStyle: {
       position: "absolute",
-      padding: 10,
       backgroundColor: "#31302E",
-      overflow: "hidden",
-      borderTopWidth: 1,
-      borderTopColor: "white",
+      bottom: 25,
+      left: 15,
+      right: 15,
+      elevation: 0,
+      borderRadius: 25,
+      // position: "absolute",
+      // padding: 10,
+      // backgroundColor: "#31302E",
+      // overflow: "hidden",
+      // borderTopWidth: 1,
+      // borderTopColor: "white",
+      height: 70,
+      // width: "90%",
+      // marginLeft: "5%",
+      // marginRight: "5%",
+      // marginBottom: "5%",
       display:
         ActiveScreen === "Search_Screen" || ActiveScreen === "Detail_Screen" ? "none" : "flex",
       // borderTopEndRadius: 45,
@@ -73,7 +85,7 @@ const ScreenContainer = () => {
       }
       return (
         <View style={styles.Icon_Container_Style}>
-          <Ionicons name={iconName} size={30} style={{ color: focused ? "#FFD900" : "white" }} />
+          <Ionicons name={iconName} size={35} style={{ color: focused ? "#FFD900" : "white" }} />
           {/* <Text style={{ color: focused ? "#FFD900" : "white", fontSize: 12 }}>{route.name}</Text> */}
         </View>
       );
@@ -113,8 +125,9 @@ export default ScreenContainer;
 
 const styles = StyleSheet.create({
   Icon_Container_Style: {
-    flexDirection: "column",
+    // flexDirection: "column",
     alignItems: "center",
+    top: 15,
     justifyContent: "center",
   },
 });

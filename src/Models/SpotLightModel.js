@@ -2,13 +2,11 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { LinearGradient } from "expo-linear-gradient";
-import { BlurView } from "expo-blur";
 
 const SpotLightModel = ({ props }) => {
   const [clicked, setClicked] = useState(false);
   const handleButtonClick = () => {
     setClicked(!clicked);
-    // Add your logic or action when the button is clicked
   };
 
   return (
