@@ -1,5 +1,5 @@
 // ChatScreen.js
-import React, { useEffect } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -12,7 +12,6 @@ import {
 import DetailHeader from "../Headers/DetailHeader";
 import HP from "../Assets/HP2.jpeg";
 import IMBD from "../Assets/IMBD.png";
-import { useDispatch } from "react-redux";
 
 const DetailScreen = ({ route }) => {
   const { Title, img, imbd, rating, screen_Name } = route.params;

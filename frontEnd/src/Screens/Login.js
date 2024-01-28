@@ -2,7 +2,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from "reac
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useDispatch, useSelector } from "react-redux";
 import { setScreen } from "../store/navigationSlice";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import OverLayer from "../Assets/OverLay.png";
 import { AuthActions } from "../store/Auth";
 import { BlurView } from "expo-blur";

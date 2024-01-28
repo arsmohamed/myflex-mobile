@@ -73,11 +73,7 @@ const ScreenContainer = () => {
       }
       return (
         <View style={styles.Icon_Container_Style}>
-          <Ionicons
-            name={iconName}
-            size={25}
-            style={{ marginRight: 5, color: focused ? "#FFD900" : "white" }}
-          />
+          <Ionicons name={iconName} size={30} style={{ color: focused ? "#FFD900" : "white" }} />
           {/* <Text style={{ color: focused ? "#FFD900" : "white", fontSize: 12 }}>{route.name}</Text> */}
         </View>
       );

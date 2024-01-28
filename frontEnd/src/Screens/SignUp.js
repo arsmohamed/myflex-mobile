@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { setScreen } from "../store/navigationSlice";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { BlurView } from "expo-blur";
-import { useNavigation } from "@react-navigation/native";
 import OverLayer from "../Assets/OverLay.png";
 import { AuthActions } from "../store/Auth";
 import { useDispatch, useSelector } from "react-redux";

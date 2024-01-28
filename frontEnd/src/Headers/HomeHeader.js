@@ -7,13 +7,10 @@ import { useDispatch } from "react-redux";
 import { setScreen } from "../store/navigationSlice";
 
 const HomerHeader = ({ navigation }) => {
-  // const selectedOption = useSelector((state) => state.navigation.selectedOption);
   const dispatch = useDispatch();
 
-  // const handleOptionPress = (option) => {
   const handleOptionPress = () => {
     console.log("clicked");
-    // dispatch(selectOption(option));
   };
   const handleSearch = () => {
     navigation.navigate("Search_Screen");
@@ -27,7 +24,6 @@ const HomerHeader = ({ navigation }) => {
         paddingVertical: 5,
         backgroundColor: "transparent",
         borderWidth: 1,
-        // borderColor: selectedOption === option ? "#FFD900" : "white",
         borderColor: "#FFD900",
         borderRadius: 15,
         marginLeft: 5,
@@ -35,7 +31,6 @@ const HomerHeader = ({ navigation }) => {
       }}
       onPress={() => handleOptionPress(option)}
     >
-      {/* <Text style={{ color: selectedOption === option ? "#FFD900" : "white" }}>{option}</Text> */}
       <Text style={{ color: "#FFD900" }}>{option}</Text>
     </TouchableOpacity>
   );
@@ -77,8 +72,6 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     zIndex: 2,
     backgroundColor: "rgba(0,0,0,0.5)", //till i find a solution to the blur thing
-    // borderWidth: 1,
-    // borderColor: "white",
   },
   Navigation_Container_Style: {
     flexDirection: "row",
@@ -86,8 +79,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     zIndex: 4,
-    // borderWidth: 1,
-    // borderColor: "red",
   },
 });
 export default HomerHeader;
