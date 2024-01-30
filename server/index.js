@@ -19,13 +19,12 @@ const mongodbLink = "mongodb://127.0.0.1:27017/MyFlex";
 mongoose.connect(mongodbLink, {
   useUnifiedTopology: true,
   useNewUrlParser: true,
-  useFindAndModify: false,
 });
 
 app.use(express.json());
 app.use(userRouter);
 app.use(moviesRouter);
 
-app.listen(5000, () => {
+app.listen(5001, () => {
   console.log("the server is running ");
 });
