@@ -8,14 +8,28 @@ import MovieCardInfo from "../Info/MovieCardInfo";
 import HomeCardInfo from "../Info/MovieCardInfo";
 import HomeCard from "../Models/MovieCardModel";
 import SlideInfo from "../Info/SlideInfo";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setScreen } from "../store/navigationSlice";
+import { getRecommendationsAsync } from "../store/MovieList";
+
 const Home = ({ navigation }) => {
   const dispatch = useDispatch();
+  const MovieInfo = useSelector((state) => state.movie.movieList);
+  const loading = useSelector((state) => state.movie.loading);
 
   useEffect(() => {
     dispatch(setScreen("Home_Screen"));
+    dispatch(getRecommendationsAsync(1));
   }, []);
+
+  if (loading) {
+    // You can add a loading indicator here
+    return (
+      <View>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.Main_Contain_Style}>
@@ -31,19 +45,19 @@ const Home = ({ navigation }) => {
             bounces={false}
             keyExtractor={(item) => item.id}
           />
-          <Text style={styles.Text_Style}>Recommendation</Text>
+          {/* <Text style={styles.Text_Style}>Recommendation</Text>
           <FlatList
-            data={HomeCardInfo}
+            data={MovieInfo}
             renderItem={({ item }) => <HomeCard props={item} ScreenName={"Home_Screen"} />}
             horizontal
             pagingEnabled
             showsHorizontalScrollIndicator={false}
             bounces={false}
             keyExtractor={(item) => item.id}
-          />
+          /> */}
           <Text style={styles.Text_Style}>New Release</Text>
           <View style={styles.New_Release_Container_Style}>
-            {MovieCardInfo.map((cardInfo) => (
+            {MovieInfo.map((cardInfo) => (
               <MovieCardForm key={cardInfo.id} props={cardInfo} ScreenName={"Home_Screen"} />
             ))}
           </View>
