@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import API from "../API/API";
 
 function validateEmail(email) {
   var re =
@@ -6,7 +7,7 @@ function validateEmail(email) {
   return re.test(String(email).toLowerCase());
 }
 
-const initialAuthState = {
+const initialState = {
   ShowModel: "Login_Model",
   SecurePassword: true,
   SecureConfirmPassword: true,
@@ -19,12 +20,17 @@ const initialAuthState = {
 
 const AuthSlice = createSlice({
   name: "Auth",
-  initialState: initialAuthState,
+  initialState: initialState,
   reducers: {
     Guest(state) {
-      state.ShowModel = "MyFlex_Model";
-      state.username = "";
-      state.password = "";
+      API.loginAsGuest(
+        () => {
+          state.ShowModel = "MyFlex_Model";
+          state.username = "";
+          state.password = "";
+        },
+        () => message.error("Something Went Wrong :("),
+      );
     },
     Continue(state) {
       if (!state.username || !state.password) {
