@@ -1,4 +1,5 @@
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 class API {
   static signUp(username, email, password, onSuccess, onFail) {
@@ -68,9 +69,9 @@ class API {
     return axios
       .post("http://localhost:5001/myFlex/api/v1/login/guest")
       .then((res) => {
-        localStorage.setItem("token", res.data.token);
-        localStorage.setItem("user", JSON.stringify(res.data.user));
-        localStorage.setItem("guest", true);
+        AsyncStorage.setItem("token", res.data.token);
+        AsyncStorage.setItem("user", JSON.stringify(res.data.user));
+        AsyncStorage.setItem("guest", true);
         onSuccess(res);
       })
       .catch((e) => {
