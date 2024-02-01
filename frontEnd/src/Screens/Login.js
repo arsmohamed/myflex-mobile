@@ -53,11 +53,7 @@ const Login = () => {
       </View>
 
       <Text style={styles.Error_Style}>{errorMessage && errorMessage}</Text>
-      <TouchableOpacity
-        style={styles.buttonText}
-        // disabled={!username || !password}
-        onPress={() => dispatch(AuthActions.Continue())}
-      >
+      <TouchableOpacity style={styles.buttonText} onPress={() => dispatch(AuthActions.Continue())}>
         <Text style={styles.buttonText}>Continue</Text>
       </TouchableOpacity>
       <View style={styles.signupContainer}>
