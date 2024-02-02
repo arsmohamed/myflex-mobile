@@ -87,6 +87,7 @@ router.post("/myFlex/api/v1/logout", auth, async (req, res) => {
     res.status(500).send();
   }
 });
+
 // adding a movie to your list
 router.patch("/myFlex/api/v1/user/list", auth, async (req, res) => {
   try {

@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { BlurView } from "expo-blur";
 import { useDispatch } from "react-redux";
 import { setScreen } from "../store/navigationSlice";
+import IMDB from "../Assets/IMBD.png";
 
 const MovieCardModel = ({ props, ScreenName }) => {
   const dispatch = useDispatch();
@@ -14,17 +15,22 @@ const MovieCardModel = ({ props, ScreenName }) => {
     dispatch(setScreen("Detail_Screen"));
   };
 
+  const baseUrl = "https://image.tmdb.org/t/p/w500";
+
   return (
     <TouchableOpacity onPress={handleCardPress}>
       <View style={styles.Main_V_Card_Style}>
         <View style={styles.Img_Card_Style}>
-          <Image source={props.img} style={styles.Main_Image_Style} />
+          <Image
+            source={{ uri: `${baseUrl}${props.poster_path}` }}
+            style={styles.Main_Image_Style}
+          />
           <BlurView intensity={20} tint="dark" style={styles.Rank_Container_Style}>
-            <Image source={props.imbd} style={styles.IMBD_Style} />
-            <Text style={styles.Rank_Text_Style}>{props.rating}</Text>
+            <Image source={IMDB} style={styles.IMBD_Style} />
+            <Text style={styles.Rank_Text_Style}>{props.vote_average.toFixed(1)} / 10</Text>
           </BlurView>
         </View>
-        <Text style={styles.Name_Style}>{props.Title}</Text>
+        <Text style={styles.Name_Style}>{props.title}</Text>
       </View>
     </TouchableOpacity>
   );

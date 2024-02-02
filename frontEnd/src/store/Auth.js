@@ -1,12 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
-import API from "../API/API";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+const LOGIN_GUEST_URL = "http://localhost:5001/myFlex/api/v1/login/guest";
 
 function validateEmail(email) {
   var re =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 }
-
 const initialState = {
   ShowModel: "Login_Model",
   SecurePassword: true,
@@ -17,20 +18,33 @@ const initialState = {
   email: "",
   errorMessage: " ",
 };
+export const loginAsGuest = createAsyncThunk(
+  "auth/loginAsGuest",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(LOGIN_GUEST_URL);
+
+      // Handle AsyncStorage here
+      await AsyncStorage.setItem("token", response.data.token);
+      await AsyncStorage.setItem("user", JSON.stringify(response.data.user));
+      await AsyncStorage.setItem("guest", JSON.stringify(true));
+
+      return response.data;
+    } catch (error) {
+      // Return a rejection with the error payload
+      return rejectWithValue(error.response.data);
+    }
+  },
+);
 
 const AuthSlice = createSlice({
   name: "Auth",
   initialState: initialState,
   reducers: {
     Guest(state) {
-      API.loginAsGuest(
-        () => {
-          state.ShowModel = "MyFlex_Model";
-          state.username = "";
-          state.password = "";
-        },
-        () => message.error("Something Went Wrong :("),
-      );
+      state.ShowModel = "MyFlex_Model";
+      state.username = "";
+      state.password = "";
     },
     Continue(state) {
       if (!state.username || !state.password) {
@@ -95,6 +109,24 @@ const AuthSlice = createSlice({
     setSecureConfirmPassword(state) {
       state.SecureConfirmPassword = !state.SecureConfirmPassword;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loginAsGuest.pending, (state) => {
+        // Handle pending state if needed
+      })
+      .addCase(loginAsGuest.fulfilled, (state, action) => {
+        // Handle fulfilled state
+        console.log("Guest is logged in???");
+        state.ShowModel = "MyFlex_Model";
+        state.username = "";
+        state.password = "";
+      })
+      .addCase(loginAsGuest.rejected, (state, action) => {
+        // Handle rejected state
+        state.errorMessage = action.payload;
+        // Or handle the error as needed
+      });
   },
 });
 
