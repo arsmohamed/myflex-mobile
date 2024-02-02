@@ -8,6 +8,7 @@ function validateEmail(email) {
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 }
+
 const initialState = {
   ShowModel: "Login_Model",
   SecurePassword: true,
@@ -40,7 +41,7 @@ export const loginAsGuest = createAsyncThunk(
 
 export const Signin = createAsyncThunk(
   "auth/login",
-  async ({ loginValue, password, onSuccess, onFail }) => {
+  async ({ loginValue, password }, { rejectWithValue }) => {
     try {
       const response = await axios.post(`http://localhost:5001/myFlex/api/v1/login`, {
         loginValue,
@@ -48,10 +49,10 @@ export const Signin = createAsyncThunk(
       });
       await AsyncStorage.setItem("token", response.data.token);
       await AsyncStorage.setItem("user", JSON.stringify(response.data.user));
-      onSuccess(response);
+      // onSuccess(response);
       return response;
     } catch (error) {
-      return onFail(error.response);
+      return rejectWithValue(error.response.data);
     }
   },
 );
@@ -74,6 +75,10 @@ const AuthSlice = createSlice({
         state.username = "";
         state.password = "";
       }
+    },
+    FailedContinue(state, action) {
+      state.ShowModel = "Login_Model";
+      state.errorMessage = action.payload;
     },
     SignupModel(state) {
       state.ShowModel = "SignUp_Model";
@@ -142,20 +147,17 @@ const AuthSlice = createSlice({
         state.password = "";
       })
       .addCase(loginAsGuest.rejected, (state, action) => {
-        // Handle rejected state
         state.errorMessage = action.payload;
-        // Or handle the error as needed
       })
       .addCase(Signin.fulfilled, (state, action) => {
-        console.log("User is logged in???");
         state.ShowModel = "MyFlex_Model";
         state.errorMessage = "";
         state.username = "";
         state.password = "";
       })
       .addCase(Signin.rejected, (state, action) => {
-        state.errorMessage = action.payload;
-        // Or handle the error as needed
+        state.ShowModel = "Login_Model";
+        state.errorMessage = "Invalid username or password";
       });
   },
 });
