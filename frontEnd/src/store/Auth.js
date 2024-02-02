@@ -18,6 +18,7 @@ const initialState = {
   email: "",
   errorMessage: " ",
 };
+
 export const loginAsGuest = createAsyncThunk(
   "auth/loginAsGuest",
   async (_, { rejectWithValue }) => {
@@ -33,6 +34,24 @@ export const loginAsGuest = createAsyncThunk(
     } catch (error) {
       // Return a rejection with the error payload
       return rejectWithValue(error.response.data);
+    }
+  },
+);
+
+export const Signin = createAsyncThunk(
+  "auth/login",
+  async ({ loginValue, password, onSuccess, onFail }) => {
+    try {
+      const response = await axios.post(`http://localhost:5001/myFlex/api/v1/login`, {
+        loginValue,
+        password,
+      });
+      await AsyncStorage.setItem("token", response.data.token);
+      await AsyncStorage.setItem("user", JSON.stringify(response.data.user));
+      onSuccess(response);
+      return response;
+    } catch (error) {
+      return onFail(error.response);
     }
   },
 );
@@ -109,12 +128,12 @@ const AuthSlice = createSlice({
     setSecureConfirmPassword(state) {
       state.SecureConfirmPassword = !state.SecureConfirmPassword;
     },
+    SetErrorMessage(state, action) {
+      state.errorMessage = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(loginAsGuest.pending, (state) => {
-        // Handle pending state if needed
-      })
       .addCase(loginAsGuest.fulfilled, (state, action) => {
         // Handle fulfilled state
         console.log("Guest is logged in???");
@@ -124,6 +143,17 @@ const AuthSlice = createSlice({
       })
       .addCase(loginAsGuest.rejected, (state, action) => {
         // Handle rejected state
+        state.errorMessage = action.payload;
+        // Or handle the error as needed
+      })
+      .addCase(Signin.fulfilled, (state, action) => {
+        console.log("User is logged in???");
+        state.ShowModel = "MyFlex_Model";
+        state.errorMessage = "";
+        state.username = "";
+        state.password = "";
+      })
+      .addCase(Signin.rejected, (state, action) => {
         state.errorMessage = action.payload;
         // Or handle the error as needed
       });
