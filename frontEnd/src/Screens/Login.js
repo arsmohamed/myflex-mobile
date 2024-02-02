@@ -6,6 +6,8 @@ import React, { useEffect } from "react";
 import OverLayer from "../Assets/OverLay.png";
 import { AuthActions } from "../store/Auth";
 import { BlurView } from "expo-blur";
+import { loginAsGuest } from "../store/Auth";
+
 const Login = () => {
   const dispatch = useDispatch();
   const username = useSelector((state) => state.Loggedin.username);
@@ -16,9 +18,15 @@ const Login = () => {
   useEffect(() => {
     dispatch(setScreen("Login_Screen"));
   }, []);
-  {
-    /* <ion-icon name="eye-off-outline"></ion-icon> */
-  }
+
+  const handleLoginAsGuest = async () => {
+    try {
+      await dispatch(loginAsGuest());
+    } catch (error) {
+      // Handle error if needed
+      console.error(error);
+    }
+  };
   const LoginContainer = (
     <View style={styles.Login_container_Style}>
       <Text style={styles.loginText}>Login</Text>
@@ -62,7 +70,8 @@ const Login = () => {
           <Text style={styles.signupButton}>Sign Up </Text>
         </TouchableOpacity>
         <Text style={styles.signupText}>or Login as </Text>
-        <TouchableOpacity onPress={() => dispatch(AuthActions.Guest())}>
+        <TouchableOpacity onPress={handleLoginAsGuest}>
+          {/* <TouchableOpacity onPress={() => dispatch(AuthActions.loginAsGuest())}> */}
           <Text style={styles.signupButton}>Guest</Text>
         </TouchableOpacity>
       </View>

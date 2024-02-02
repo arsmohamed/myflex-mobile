@@ -69,9 +69,10 @@ class API {
     return axios
       .post("http://localhost:5001/myFlex/api/v1/login/guest")
       .then((res) => {
+        console.log(res);
         AsyncStorage.setItem("token", res.data.token);
         AsyncStorage.setItem("user", JSON.stringify(res.data.user));
-        AsyncStorage.setItem("guest", true);
+        AsyncStorage.setItem("guest", JSON.stringify(true));
         onSuccess(res);
       })
       .catch((e) => {
