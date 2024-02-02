@@ -10,26 +10,18 @@ import HomeCard from "../Models/MovieCardModel";
 import SlideInfo from "../Info/SlideInfo";
 import { useDispatch, useSelector } from "react-redux";
 import { setScreen } from "../store/navigationSlice";
-import { getRecommendationsAsync } from "../store/MovieList";
+import { getRecommendations } from "../store/MovieList";
 
 const Home = ({ navigation }) => {
   const dispatch = useDispatch();
-  const MovieInfo = useSelector((state) => state.movie.movieList);
-  const loading = useSelector((state) => state.movie.loading);
+  const MovieList = useSelector((state) => state.movie.movieList);
 
   useEffect(() => {
     dispatch(setScreen("Home_Screen"));
-    dispatch(getRecommendationsAsync(1));
+    dispatch(getRecommendations(2)).then((response) => {
+      console.log("Received in Home component:", response.payload);
+    });
   }, []);
-
-  if (loading) {
-    // You can add a loading indicator here
-    return (
-      <View>
-        <Text>Loading...</Text>
-      </View>
-    );
-  }
 
   return (
     <View style={styles.Main_Contain_Style}>
@@ -57,9 +49,12 @@ const Home = ({ navigation }) => {
           /> */}
           <Text style={styles.Text_Style}>New Release</Text>
           <View style={styles.New_Release_Container_Style}>
-            {MovieInfo.map((cardInfo) => (
-              <MovieCardForm key={cardInfo.id} props={cardInfo} ScreenName={"Home_Screen"} />
-            ))}
+            {MovieList.map(
+              (cardInfo) => (
+                <MovieCardForm key={cardInfo.id} props={cardInfo} ScreenName={"Home_Screen"} />
+              ),
+              // console.log(cardInfo),
+            )}
           </View>
         </View>
       </ScrollView>

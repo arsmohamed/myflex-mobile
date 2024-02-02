@@ -8,6 +8,16 @@ function validateEmail(email) {
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 }
+const initialState = {
+  ShowModel: "Login_Model",
+  SecurePassword: true,
+  SecureConfirmPassword: true,
+  username: "",
+  password: "",
+  ConfirmPassword: "",
+  email: "",
+  errorMessage: " ",
+};
 export const loginAsGuest = createAsyncThunk(
   "auth/loginAsGuest",
   async (_, { rejectWithValue }) => {
@@ -26,17 +36,6 @@ export const loginAsGuest = createAsyncThunk(
     }
   },
 );
-
-const initialState = {
-  ShowModel: "Login_Model",
-  SecurePassword: true,
-  SecureConfirmPassword: true,
-  username: "",
-  password: "",
-  ConfirmPassword: "",
-  email: "",
-  errorMessage: " ",
-};
 
 const AuthSlice = createSlice({
   name: "Auth",

@@ -1,4 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+
 import HR1 from "../Assets/HR.jpeg";
 import HR2 from "../Assets/HP2.jpeg";
 import HR3 from "../Assets/HP3.jpeg";
@@ -98,16 +101,26 @@ const initialState = {
   loading: false,
   currentPage: 1,
 };
-
-export const getRecommendationsAsync = createAsyncThunk(
-  "movieList/getRecommendations",
-  async (page, thunkAPI) => {
+export const getRecommendations = createAsyncThunk(
+  "movies/getRecommendations",
+  async (page, { getState, rejectWithValue }) => {
     try {
-      const response = await API.getRecommendations(page);
-      console.log(`response from DB : ${response}`);
-      return response.data; // Assuming the data received is an array of movies
+      // Get the token from the state (assuming it is stored there)
+      // const token = getState().auth.token;
+      const token = await AsyncStorage.getItem("token");
+      const response = await axios.get(
+        `http://localhost:5001/myFlex/api/v1/user/recommendations?page=${page}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        },
+      );
+      console.log(response.data);
+
+      return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data);
     }
   },
 );
@@ -128,16 +141,18 @@ const movieSlice = createSlice({
   //   setCurrentPage: (state, action) => {
   //     state.currentPage = action.payload;
   //   },
+
   extraReducers: (builder) => {
     builder
-      .addCase(getRecommendationsAsync.pending, (state) => {
+      .addCase(getRecommendations.pending, (state) => {
         state.loading = true;
       })
-      .addCase(getRecommendationsAsync.fulfilled, (state, action) => {
+      .addCase(getRecommendations.fulfilled, (state, action) => {
         state.loading = false;
+        console.log("Fulfilled:", action.payload);
         state.movieList = action.payload;
       })
-      .addCase(getRecommendationsAsync.rejected, (state, action) => {
+      .addCase(getRecommendations.rejected, (state, action) => {
         state.loading = false;
         // Handle the error, you can add an error field to the state
       });
