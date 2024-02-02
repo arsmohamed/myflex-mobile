@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { LinearGradient } from "expo-linear-gradient";
+import IMDB from "../Assets/IMBD.png";
 
 const SpotLightModel = ({ props }) => {
   const [clicked, setClicked] = useState(false);
@@ -9,9 +10,11 @@ const SpotLightModel = ({ props }) => {
     setClicked(!clicked);
   };
 
+  const baseUrl = "https://image.tmdb.org/t/p/w500";
+
   return (
     <View style={styles.Container_Style}>
-      <Image source={props.img} style={styles.Image_Style} />
+      <Image source={{ uri: `${baseUrl}${props.poster_path}` }} style={styles.Image_Style} />
       <LinearGradient
         colors={["rgba(0, 0, 0, 0.9)", "rgba(0, 0, 0, 0.5)", "transparent"]}
         start={{ x: 0, y: 1 }} // 1 is equal top
@@ -20,16 +23,17 @@ const SpotLightModel = ({ props }) => {
       >
         <View style={styles.Info_Container_Style}>
           <View style={styles.Layer_Child_Title_Container_Style}>
-            <Text style={styles.Title_Style}>{props.Title}</Text>
+            <Text style={styles.Title_Style}>{props.title}</Text>
           </View>
           <View style={styles.Layer_Child_Rating_Container_Style}>
             <View style={styles.IMBD_Rating_Time_Style}>
-              <Image source={props.imbd} />
-              <Text style={styles.Children_Text_Style}>{props.rating}</Text>
+              <Image source={IMDB} />
+              <Text style={styles.Children_Text_Style}>{props.vote_average.toFixed(1)} / 10</Text>
             </View>
             <View style={styles.IMBD_Rating_Time_Style}>
               <Ionicons name="time-outline" size={30} style={{ color: "white" }} />
-              <Text style={styles.Children_Text_Style}>{props.rating}</Text>
+              <Text style={styles.Children_Text_Style}>1.57</Text>
+              {/* <Text style={styles.Children_Text_Style}>{props.rating}</Text> */}
             </View>
           </View>
           <View style={styles.Layer_Child_Add_Container_Style}>
@@ -38,11 +42,14 @@ const SpotLightModel = ({ props }) => {
               <Text style={styles.Children_Add_Text_Style}>My List</Text>
             </TouchableOpacity>
             <View style={styles.Page_Container_style}>
-              <Ionicons name="ellipse" size={10} color={props.page === "1" ? "#D68D4A" : "white"} />
-              <Ionicons name="ellipse" size={10} color={props.page === "2" ? "#D68D4A" : "white"} />
-              <Ionicons name="ellipse" size={10} color={props.page === "3" ? "#D68D4A" : "white"} />
-              <Ionicons name="ellipse" size={10} color={props.page === "4" ? "#D68D4A" : "white"} />
-              <Ionicons name="ellipse" size={10} color={props.page === "5" ? "#D68D4A" : "white"} />
+              {[1, 2, 3, 4, 5].map((pageNumber) => (
+                <Ionicons
+                  key={pageNumber}
+                  name="ellipse"
+                  size={10}
+                  color={props.page === pageNumber.toString() ? "#D68D4A" : "white"}
+                />
+              ))}
             </View>
           </View>
         </View>

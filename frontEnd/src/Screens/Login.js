@@ -4,9 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setScreen } from "../store/navigationSlice";
 import React, { useEffect } from "react";
 import OverLayer from "../Assets/OverLay.png";
-import { AuthActions } from "../store/Auth";
+import { AuthActions, loginAsGuest, Signin } from "../store/Auth";
 import { BlurView } from "expo-blur";
-import { loginAsGuest } from "../store/Auth";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -27,6 +26,35 @@ const Login = () => {
       console.error(error);
     }
   };
+  // Handle the "Continue" button press
+  const handleContinue = async () => {
+    if (username.trim() === "" || password.trim() === "") {
+      // Set an appropriate error message or handle it as needed
+      dispatch(AuthActions.SetErrorMessage("Username and password are required."));
+    } else {
+      try {
+        // Dispatch the Login thunk with the payload
+        await dispatch(
+          Signin({
+            loginValue: username, // Assuming username is the login value
+            password: password,
+            onSuccess: (response) => {
+              // Handle success if needed
+              console.log("User is logged in:", response);
+            },
+            onFail: (error) => {
+              // Handle failure if needed
+              console.error("Login failed:", error);
+            },
+          }),
+        );
+      } catch (error) {
+        // Handle error if needed
+        console.error(error);
+      }
+    }
+  };
+
   const LoginContainer = (
     <View style={styles.Login_container_Style}>
       <Text style={styles.loginText}>Login</Text>
@@ -61,7 +89,7 @@ const Login = () => {
       </View>
 
       <Text style={styles.Error_Style}>{errorMessage && errorMessage}</Text>
-      <TouchableOpacity style={styles.buttonText} onPress={() => dispatch(AuthActions.Continue())}>
+      <TouchableOpacity style={styles.buttonText} onPress={handleContinue}>
         <Text style={styles.buttonText}>Continue</Text>
       </TouchableOpacity>
       <View style={styles.signupContainer}>

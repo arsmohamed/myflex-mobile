@@ -14,27 +14,43 @@ import HP from "../Assets/HP2.jpeg";
 import IMBD from "../Assets/IMBD.png";
 
 const DetailScreen = ({ route }) => {
-  const { Title, img, imbd, rating, screen_Name } = route.params;
+  const {
+    title,
+    screen_Name,
+    overview,
+    poster_path,
+    vote_average,
+    release_date,
+    genre_ids,
+    popularity,
+  } = route.params;
+  const baseUrl = "https://image.tmdb.org/t/p/w500";
 
   return (
     <View style={styles.Container_Style}>
+      {console.log(route)}
       <DetailHeader ReturnedScreen={screen_Name} />
       <ScrollView>
         <View style={styles.Detail_Container_Style}>
-          <Image source={HP} style={styles.Image_Style} />
+          <Image source={{ uri: `${baseUrl}${poster_path}` }} style={styles.Image_Style} />
+
           <View style={styles.Info_Style}>
-            <Text style={[styles.Title_Style, styles.Text_color]}>{Title}</Text>
+            <Text style={[styles.Title_Style, styles.Text_color]}>{title}</Text>
+
             <View style={styles.First_Container_Style}>
               <View style={styles.Rate_Container_Style}>
                 <Image source={IMBD} />
-                <Text style={[styles.Rating_Style, styles.Text_color]}>{rating}</Text>
+                <Text style={[styles.Rating_Style, styles.Text_color]}>
+                  {vote_average.toFixed(1)} / 10
+                </Text>
               </View>
               <TouchableOpacity style={styles.button} onPress={() => console.log(`add to List : `)}>
                 <Text style={styles.Add_Text_Style}>Add to List</Text>
               </TouchableOpacity>
             </View>
             <Text style={styles.Genera_Container_Style}>
-              PG | 1h 57min | Animation, Action, Adventure | 14 December 2018 (USA)
+              {popularity}
+              {/* PG | 1h 57min | Animation, Action, Adventure | 14 December 2018 (USA) */}
             </Text>
             <View style={{ rowGap: 5 }}>
               <Text style={styles.Cast_Container_Style}>
@@ -44,12 +60,7 @@ const DetailScreen = ({ route }) => {
                 Cast: Shameik Moore, Jake Johnson, Hailee Steinfeld
               </Text>
             </View>
-            <Text style={styles.Description_Container_Style}>
-              Miles Morales is a New York teen struggling with school, friends and, on top of that,
-              being the new Spider-Man. When he comes across Peter Parker, the erstwhile saviour of
-              New York, in the multiverse, \Miles must train to become the new protector of his
-              city.
-            </Text>
+            <Text style={styles.Description_Container_Style}>{overview}</Text>
           </View>
         </View>
       </ScrollView>

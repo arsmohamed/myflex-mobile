@@ -18,8 +18,8 @@ const Home = ({ navigation }) => {
 
   useEffect(() => {
     dispatch(setScreen("Home_Screen"));
-    dispatch(getRecommendations(2)).then((response) => {
-      console.log("Received in Home component:", response.payload);
+    dispatch(getRecommendations(1)).then((response) => {
+      // console.log("Received in Home component:", response.payload);
     });
   }, []);
 
@@ -29,13 +29,16 @@ const Home = ({ navigation }) => {
       <ScrollView>
         <View style={styles.Scroll_Container_Style}>
           <FlatList
-            data={SlideInfo}
-            renderItem={({ item }) => <SpotLightModel props={item} />}
+            // data={SlideInfo}
+            data={MovieList.slice(0, 5)}
+            renderItem={({ item, index }) => (
+              <SpotLightModel props={{ ...item, page: (index + 1).toString() }} />
+            )}
             horizontal
             showsHorizontalScrollIndicator
             pagingEnabled
             bounces={false}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.id.toString()}
           />
           {/* <Text style={styles.Text_Style}>Recommendation</Text>
           <FlatList
@@ -53,7 +56,7 @@ const Home = ({ navigation }) => {
               (cardInfo) => (
                 <MovieCardForm key={cardInfo.id} props={cardInfo} ScreenName={"Home_Screen"} />
               ),
-              // console.log(cardInfo),
+              // console.log("cardInfo"),
             )}
           </View>
         </View>
@@ -85,6 +88,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     width: "100%",
-    rowGap: 15,
+    rowGap: 20,
   },
 });

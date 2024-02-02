@@ -18,7 +18,7 @@ const MovieCardModel = ({ props, ScreenName }) => {
   const baseUrl = "https://image.tmdb.org/t/p/w500";
 
   return (
-    <TouchableOpacity onPress={handleCardPress}>
+    <TouchableOpacity onPress={handleCardPress} id={props.id}>
       <View style={styles.Main_V_Card_Style}>
         <View style={styles.Img_Card_Style}>
           <Image
@@ -27,10 +27,13 @@ const MovieCardModel = ({ props, ScreenName }) => {
           />
           <BlurView intensity={20} tint="dark" style={styles.Rank_Container_Style}>
             <Image source={IMDB} style={styles.IMBD_Style} />
-            <Text style={styles.Rank_Text_Style}>{props.vote_average.toFixed(1)} / 10</Text>
+            <Text style={styles.Rank_Text_Style}>{props.vote_average + " / 10"}</Text>
+            {/* <Text style={styles.Rank_Text_Style}>{props.vote_average.toFixed(1) + " / 10"}</Text> */}
           </BlurView>
         </View>
-        <Text style={styles.Name_Style}>{props.title}</Text>
+        <Text style={styles.Name_Style} numberOfLines={2}>
+          {props.title}
+        </Text>
       </View>
     </TouchableOpacity>
   );

@@ -116,7 +116,7 @@ export const getRecommendations = createAsyncThunk(
           },
         },
       );
-      console.log(response.data);
+      // console.log(response);
 
       return response.data;
     } catch (error) {
@@ -149,7 +149,7 @@ const movieSlice = createSlice({
       })
       .addCase(getRecommendations.fulfilled, (state, action) => {
         state.loading = false;
-        console.log("Fulfilled:", action.payload);
+        // console.log("Fulfilled:", action.payload);
         state.movieList = action.payload;
       })
       .addCase(getRecommendations.rejected, (state, action) => {
