@@ -1,9 +1,10 @@
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { loginAsGuest, SingUp, validateEmail, isValidPassword } from "../store/Actions";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useDispatch, useSelector } from "react-redux";
 import { setScreen } from "../store/navigationSlice";
 import OverLayer from "../Assets/OverLay.png";
-import { AuthActions, validateEmail, isValidPassword, SingUp } from "../store/Auth";
+import { AuthActions } from "../store/Auth";
 import React, { useEffect } from "react";
 import { BlurView } from "expo-blur";
 
@@ -20,9 +21,19 @@ const SignUp = () => {
     SecureConfirmPassword,
   } = useSelector((state) => state.Loggedin);
 
+  // Handle the  the screen to switch to
   useEffect(() => {
     dispatch(setScreen("Signup_Screen"));
   }, []);
+  // Handle the "Guest" button press
+  const handleLoginAsGuest = async () => {
+    try {
+      await dispatch(loginAsGuest());
+    } catch (error) {
+      // Handle error if needed
+      console.error(error);
+    }
+  };
   // Handle the "Join " button press
   const handleJoin = async () => {
     if (!username || !ConfirmPassword || !email || !password) {
@@ -31,7 +42,7 @@ const SignUp = () => {
       dispatch(AuthActions.SetErrorMessage("nvalid email format."));
     } else if (password !== ConfirmPassword) {
       dispatch(AuthActions.SetErrorMessage("Password and confirmed password do not match."));
-    } else if (!isValidPassword(state.password)) {
+    } else if (!isValidPassword(password)) {
       dispatch(
         AuthActions.SetErrorMessage(
           "Password must be at least 8 characters long and contain:\n- at least 1 uppercase letter,\n- 1 lowercase letter, and\n- 1 number.",
@@ -110,7 +121,7 @@ const SignUp = () => {
         </TouchableOpacity>
       </View>
       <Text style={styles.Error_Style}>{errorMessage && errorMessage}</Text>
-      <TouchableOpacity style={styles.continueButton} onPress={() => dispatch(AuthActions.Join())}>
+      <TouchableOpacity style={styles.continueButton} onPress={handleJoin}>
         <Text style={styles.buttonText}>Join</Text>
       </TouchableOpacity>
       <View style={styles.signupContainer}>
@@ -123,7 +134,8 @@ const SignUp = () => {
       <View style={styles.signupContainer}>
         <Text style={styles.signupText}>Already have an account? </Text>
 
-        <TouchableOpacity onPress={() => dispatch(AuthActions.LoginModel())}>
+        <TouchableOpacity onPress={handleLoginAsGuest}>
+          {/* <TouchableOpacity onPress={() => dispatch(AuthActions.LoginModel())}> */}
           <Text style={styles.signupButton}>Login </Text>
         </TouchableOpacity>
       </View>

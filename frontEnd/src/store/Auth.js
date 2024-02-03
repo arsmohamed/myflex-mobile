@@ -1,19 +1,7 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { Signin, SingUp, loginAsGuest, Logout } from "./Actions";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
-const LOGIN_GUEST_URL = "http://localhost:5001/myFlex/api/v1/login/guest";
 
-// Add a helper function to validate email
-export const validateEmail = (email) => {
-  var re =
-    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(String(email).toLowerCase());
-};
-// Add a helper function to validate password
-export const isValidPassword = (password) => {
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-  return passwordRegex.test(password);
-};
 const initialState = {
   ShowModel: "Login_Model",
   SecurePassword: true,
@@ -24,60 +12,6 @@ const initialState = {
   email: "",
   errorMessage: " ",
 };
-
-export const loginAsGuest = createAsyncThunk(
-  "auth/loginAsGuest",
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await axios.post(LOGIN_GUEST_URL);
-
-      // Handle AsyncStorage here
-      await AsyncStorage.setItem("token", response.data.token);
-      await AsyncStorage.setItem("user", JSON.stringify(response.data.user));
-      await AsyncStorage.setItem("guest", JSON.stringify(true));
-
-      return response.data;
-    } catch (error) {
-      // Return a rejection with the error payload
-      return rejectWithValue(error.response.data);
-    }
-  },
-);
-
-export const Signin = createAsyncThunk(
-  "auth/login",
-  async ({ loginValue, password }, { rejectWithValue }) => {
-    try {
-      const response = await axios.post(`http://localhost:5001/myFlex/api/v1/login`, {
-        loginValue,
-        password,
-      });
-      await AsyncStorage.setItem("token", response.data.token);
-      await AsyncStorage.setItem("user", JSON.stringify(response.data.user));
-      // onSuccess(response);
-      return response;
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  },
-);
-
-export const SingUp = createAsyncThunk(
-  "auth/signup",
-  async ({ username, email, password }, { rejectWithValue }) => {
-    try {
-      const response = await axios.post("http://localhost:5001/myFlex/api/v1/signgup", {
-        username,
-        email,
-        password,
-      });
-      await AsyncStorage.setItem("tokem", response.data.token);
-      await AsyncStorage.setItem("user", JSON.stringify(response.data.user));
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  },
-);
 
 const AuthSlice = createSlice({
   name: "Auth",
@@ -172,7 +106,8 @@ const AuthSlice = createSlice({
         state.password = "";
       })
       .addCase(loginAsGuest.rejected, (state, action) => {
-        state.errorMessage = action.payload;
+        console.log("our apology an error occured in the server");
+        state.errorMessage = "our apology an error occured in the server";
       })
       .addCase(Signin.fulfilled, (state, action) => {
         state.ShowModel = "MyFlex_Model";
@@ -202,11 +137,14 @@ const AuthSlice = createSlice({
       })
       .addCase(SingUp.rejected, (state, action) => {
         state.ShowModel = "Login_Model";
-
-        // state.ShowModel = "MyFlex_Model";
-        // state.errorMessage = "";
-        // state.username = "";
-        // state.password = "";
+        state.errorMessage = "Invalid username or password";
+      })
+      .addCase(Logout.fulfilled, (state, action) => {
+        state.ShowModel = "Login_Model";
+      })
+      .addCase(Logout.rejected, (state, action) => {
+        state.ShowModel = "Profile_Screen";
+        state.errorMessage = "error occured to Logout";
       });
   },
 });
