@@ -1,19 +1,17 @@
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { AuthActions, loginAsGuest, Signin } from "../store/Auth";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useDispatch, useSelector } from "react-redux";
 import { setScreen } from "../store/navigationSlice";
-import React, { useEffect } from "react";
 import OverLayer from "../Assets/OverLay.png";
-import { AuthActions, loginAsGuest, Signin } from "../store/Auth";
+import React, { useEffect } from "react";
 import { BlurView } from "expo-blur";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const username = useSelector((state) => state.Loggedin.username);
-  const password = useSelector((state) => state.Loggedin.password);
-  const errorMessage = useSelector((state) => state.Loggedin.errorMessage);
-  const SecurePassword = useSelector((state) => state.Loggedin.SecurePassword);
-
+  const { username, password, errorMessage, SecurePassword } = useSelector(
+    (state) => state.Loggedin,
+  );
   useEffect(() => {
     dispatch(setScreen("Login_Screen"));
   }, []);
@@ -29,29 +27,14 @@ const Login = () => {
   // Handle the "Continue" button press
   const handleContinue = async () => {
     if (username.trim() === "" || password.trim() === "") {
-      // Set an appropriate error message or handle it as needed
       dispatch(AuthActions.SetErrorMessage("Username and password are required."));
     } else {
-      try {
-        // Dispatch the Login thunk with the payload
-        await dispatch(
-          Signin({
-            loginValue: username, // Assuming username is the login value
-            password: password,
-            onSuccess: (response) => {
-              // Handle success if needed
-              console.log("User is logged in:", response);
-            },
-            onFail: (error) => {
-              // Handle failure if needed
-              console.error("Login failed:", error);
-            },
-          }),
-        );
-      } catch (error) {
-        // Handle error if needed
-        console.error(error);
-      }
+      await dispatch(
+        Signin({
+          loginValue: username,
+          password: password,
+        }),
+      );
     }
   };
 
@@ -99,7 +82,6 @@ const Login = () => {
         </TouchableOpacity>
         <Text style={styles.signupText}>or Login as </Text>
         <TouchableOpacity onPress={handleLoginAsGuest}>
-          {/* <TouchableOpacity onPress={() => dispatch(AuthActions.loginAsGuest())}> */}
           <Text style={styles.signupButton}>Guest</Text>
         </TouchableOpacity>
       </View>

@@ -89,5 +89,9 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     width: "100%",
     rowGap: 20,
+    alignItems: "center",
+    // justifyContent: "center",
+    // borderWidth: 1,
+    // borderColor: "green",
   },
 });

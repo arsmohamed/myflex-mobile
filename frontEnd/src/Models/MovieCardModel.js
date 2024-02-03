@@ -27,8 +27,8 @@ const MovieCardModel = ({ props, ScreenName }) => {
           />
           <BlurView intensity={20} tint="dark" style={styles.Rank_Container_Style}>
             <Image source={IMDB} style={styles.IMBD_Style} />
-            <Text style={styles.Rank_Text_Style}>{props.vote_average + " / 10"}</Text>
-            {/* <Text style={styles.Rank_Text_Style}>{props.vote_average.toFixed(1) + " / 10"}</Text> */}
+            {/* <Text style={styles.Rank_Text_Style}>{props.vote_average + " / 10"}</Text> */}
+            <Text style={styles.Rank_Text_Style}>{props.vote_average.toFixed(1) + " / 10"}</Text>
           </BlurView>
         </View>
         <Text style={styles.Name_Style} numberOfLines={2}>
@@ -43,13 +43,13 @@ const styles = StyleSheet.create({
   Main_V_Card_Style: {
     flexDirection: "column",
     justifyContent: "space-between",
-    // alignItems: "center",
     width: 120,
     height: 190,
     borderRadius: 10,
-    marginRight: 10,
+    marginRight: 5,
+    marginLeft: 5,
     // borderWidth: 1,
-    // borderColor: "yellow",
+    // borderColor: "red",
   },
   Img_Card_Style: {
     height: "85%",
