@@ -1,25 +1,52 @@
-import React, { useEffect } from "react";
-import { setScreen } from "../store/navigationSlice";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { BlurView } from "expo-blur";
-import OverLayer from "../Assets/OverLay.png";
-import { AuthActions } from "../store/Auth";
 import { useDispatch, useSelector } from "react-redux";
+import { setScreen } from "../store/navigationSlice";
+import OverLayer from "../Assets/OverLay.png";
+import { AuthActions, validateEmail, isValidPassword, SingUp } from "../store/Auth";
+import React, { useEffect } from "react";
+import { BlurView } from "expo-blur";
 
 const SignUp = () => {
   const dispatch = useDispatch();
-  const username = useSelector((state) => state.Loggedin.username);
-  const password = useSelector((state) => state.Loggedin.password);
-  const ConfirmPassword = useSelector((state) => state.Loggedin.ConfirmPassword);
-  const email = useSelector((state) => state.Loggedin.email);
-  const errorMessage = useSelector((state) => state.Loggedin.errorMessage);
-  const SecurePassword = useSelector((state) => state.Loggedin.SecurePassword);
-  const SecureConfirmPassword = useSelector((state) => state.Loggedin.SecureConfirmPassword);
+
+  const {
+    username,
+    password,
+    ConfirmPassword,
+    email,
+    errorMessage,
+    SecurePassword,
+    SecureConfirmPassword,
+  } = useSelector((state) => state.Loggedin);
 
   useEffect(() => {
     dispatch(setScreen("Signup_Screen"));
   }, []);
+  // Handle the "Join " button press
+  const handleJoin = async () => {
+    if (!username || !ConfirmPassword || !email || !password) {
+      dispatch(AuthActions.SetErrorMessage("Username or email or password not provided."));
+    } else if (!validateEmail(email)) {
+      dispatch(AuthActions.SetErrorMessage("nvalid email format."));
+    } else if (password !== ConfirmPassword) {
+      dispatch(AuthActions.SetErrorMessage("Password and confirmed password do not match."));
+    } else if (!isValidPassword(state.password)) {
+      dispatch(
+        AuthActions.SetErrorMessage(
+          "Password must be at least 8 characters long and contain:\n- at least 1 uppercase letter,\n- 1 lowercase letter, and\n- 1 number.",
+        ),
+      );
+    } else {
+      await dispatch(
+        SingUp({
+          username,
+          email,
+          password,
+        }),
+      );
+    }
+  };
 
   const SignUpCntainer = (
     <View style={styles.SignUp_Cntainer_Style}>
@@ -86,13 +113,11 @@ const SignUp = () => {
       <TouchableOpacity style={styles.continueButton} onPress={() => dispatch(AuthActions.Join())}>
         <Text style={styles.buttonText}>Join</Text>
       </TouchableOpacity>
-
       <View style={styles.signupContainer}>
         <Text style={styles.signupText}>Try the app using our </Text>
         <TouchableOpacity onPress={() => dispatch(AuthActions.Guest())}>
           <Text style={styles.signupButton}>Guest </Text>
         </TouchableOpacity>
-        {/* <Text style={styles.signupText}>account.</Text> */}
         <Text style={styles.signupText}>account.</Text>
       </View>
       <View style={styles.signupContainer}>
