@@ -1,9 +1,10 @@
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from "react-native";
-import { AuthActions, loginAsGuest, Signin } from "../store/Auth";
+import { Signin, loginAsGuest } from "../store/Actions";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useDispatch, useSelector } from "react-redux";
 import { setScreen } from "../store/navigationSlice";
 import OverLayer from "../Assets/OverLay.png";
+import { AuthActions } from "../store/Auth";
 import React, { useEffect } from "react";
 import { BlurView } from "expo-blur";
 
@@ -16,6 +17,7 @@ const Login = () => {
     dispatch(setScreen("Login_Screen"));
   }, []);
 
+  // Handle the "Guest" button press
   const handleLoginAsGuest = async () => {
     try {
       await dispatch(loginAsGuest());

@@ -2,13 +2,23 @@ import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { AuthActions } from "../store/Auth";
 import { useDispatch } from "react-redux";
+import { Logout } from "../store/Actions";
+
 const PortfolioModel = ({ props }) => {
   const dispatch = useDispatch();
 
-  const Logout = () => {
-    dispatch(AuthActions.LogOut());
+  // const Logout = () => {
+  //   dispatch(Logout());
+  // };
+  // Handle the "Logout" button press and clear data
+  const handleLogout = async () => {
+    try {
+      await dispatch(Logout());
+    } catch (error) {
+      // Handle error if needed
+      console.error(error);
+    }
   };
-
   const My_Portfolio = (
     <View style={styles.Container_Style}>
       <View style={styles.My_Portfolio_Style}>
@@ -34,7 +44,7 @@ const PortfolioModel = ({ props }) => {
   return (
     <View style={styles.Portfolio_Form_style}>
       {My_Portfolio}
-      <TouchableOpacity onPress={() => Logout()}>
+      <TouchableOpacity onPress={handleLogout}>
         <Text style={styles.logout_Text_Style}>Logout</Text>
       </TouchableOpacity>
     </View>
