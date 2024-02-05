@@ -12,8 +12,15 @@ import {
 import DetailHeader from "../Headers/DetailHeader";
 import HP from "../Assets/HP2.jpeg";
 import IMBD from "../Assets/IMBD.png";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import { useSelector, useDispatch } from "react-redux";
+import { setAddToMyList, setSubFromMyList, setIsWatched, setNotWatched } from "../store/MovieList";
 
 const DetailScreen = ({ route }) => {
+  const dispatch = useDispatch();
+  const selectAddToMyList = useSelector((state) => state.movie.AddToMyList);
+  const SelectWatched = useSelector((state) => state.movie.isWatched);
+
   const {
     title,
     screen_Name,
@@ -25,10 +32,22 @@ const DetailScreen = ({ route }) => {
     popularity,
   } = route.params;
   const baseUrl = "https://image.tmdb.org/t/p/w500";
-
+  const handleAddToMyList = () => {
+    if (!selectAddToMyList) {
+      dispatch(setAddToMyList());
+    } else {
+      dispatch(setSubFromMyList());
+    }
+  };
+  const handleToggleWatched = () => {
+    if (SelectWatched) {
+      dispatch(setNotWatched());
+    } else {
+      dispatch(setIsWatched());
+    }
+  };
   return (
     <View style={styles.Container_Style}>
-      {console.log(route)}
       <DetailHeader ReturnedScreen={screen_Name} />
       <ScrollView>
         <View style={styles.Detail_Container_Style}>
@@ -38,16 +57,28 @@ const DetailScreen = ({ route }) => {
             <Text style={[styles.Title_Style, styles.Text_color]}>{title}</Text>
 
             <View style={styles.First_Container_Style}>
+              <TouchableOpacity style={styles.button} onPress={handleToggleWatched}>
+                <Ionicons name={SelectWatched ? "eye-off" : "eye"} size={30} color={"black"} />
+                <Text style={styles.Add_Text_Style}>{SelectWatched ? "Unwatch" : "Watched"}</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.button} onPress={handleAddToMyList}>
+                <Ionicons
+                  name={selectAddToMyList ? "add-circle" : "remove-circle"}
+                  size={30}
+                  color={"black"}
+                />
+                <Text style={styles.Add_Text_Style}>My List</Text>
+              </TouchableOpacity>
+
               <View style={styles.Rate_Container_Style}>
                 <Image source={IMBD} />
                 <Text style={[styles.Rating_Style, styles.Text_color]}>
                   {vote_average.toFixed(1)} / 10
                 </Text>
               </View>
-              <TouchableOpacity style={styles.button} onPress={() => console.log(`add to List : `)}>
-                <Text style={styles.Add_Text_Style}>Add to List</Text>
-              </TouchableOpacity>
             </View>
+
             <Text style={styles.Genera_Container_Style}>
               {popularity}
               {/* PG | 1h 57min | Animation, Action, Adventure | 14 December 2018 (USA) */}
@@ -95,22 +126,22 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    columnGap: 10,
   },
   Rate_Container_Style: {
-    width: "50%",
     alignItems: "center",
     justifyContent: "flex-start",
     flexDirection: "row",
     columnGap: 10,
   },
   button: {
-    width: 100,
+    width: 110,
     height: 35,
     backgroundColor: "#FFD900",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-evenly",
-    borderRadius: 7,
+    borderRadius: 25,
   },
   Add_Text_Style: {
     fontSize: 18,
@@ -138,6 +169,13 @@ const styles = StyleSheet.create({
   },
   Text_color: {
     color: "white",
+  },
+  Watched_Container_Style: {
+    flexDirection: "row",
+    columnGap: 10,
+    // width: "90%",
+    justifyContent: "space-between",
+    alignSelf: "center",
   },
 });
 

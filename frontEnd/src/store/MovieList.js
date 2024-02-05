@@ -11,93 +11,10 @@ import IMBD from "../Assets/IMBD.png";
 import API from "../API/API";
 
 const initialState = {
-  // movieList: [
-  //   {
-  //     id: "1",
-  //     img: HR1,
-  //     imbd: IMBD,
-  //     rating: "9.8/10",
-  //     Title: "Harry Potter 1",
-  //   },
-  //   {
-  //     id: "2",
-  //     img: HR2,
-  //     imbd: IMBD,
-  //     rating: "9.8/10",
-  //     Title: "Harry Potter 2",
-  //   },
-  //   {
-  //     id: "3",
-  //     img: HR3,
-  //     imbd: IMBD,
-  //     rating: "9.8/10",
-  //     Title: "Harry Potter 3",
-  //   },
-  //   {
-  //     id: "4",
-  //     img: HR4,
-  //     imbd: IMBD,
-  //     rating: "9.8/10",
-  //     Title: "Harry Potter 4",
-  //   },
-  //   {
-  //     id: "5",
-  //     img: HR5,
-  //     imbd: IMBD,
-  //     rating: "9.8/10",
-  //     Title: "Harry Potter 5",
-  //   },
-  //   {
-  //     id: "6",
-  //     img: HR4,
-  //     imbd: IMBD,
-  //     rating: "9.8/10",
-  //     Title: "Harry Potter 6",
-  //   },
-  //   {
-  //     id: "7",
-  //     img: HR5,
-  //     imbd: IMBD,
-  //     rating: "9.8/10",
-  //     Title: "Harry Potter 7",
-  //   },
-  //   {
-  //     id: "8",
-  //     img: HR4,
-  //     imbd: IMBD,
-  //     rating: "9.8/10",
-  //     Title: "Harry Potter 8",
-  //   },
-  //   {
-  //     id: "9",
-  //     img: HR5,
-  //     imbd: IMBD,
-  //     rating: "9.8/10",
-  //     Title: "Harry Potter 9",
-  //   },
-  //   {
-  //     id: "10",
-  //     img: HR4,
-  //     imbd: IMBD,
-  //     rating: "9.8/10",
-  //     Title: "Harry Potter 10",
-  //   },
-  //   {
-  //     id: "11",
-  //     img: HR5,
-  //     imbd: IMBD,
-  //     rating: "9.8/10",
-  //     Title: "Harry Potter 11",
-  //   },
-  //   {
-  //     id: "12",
-  //     img: HR5,
-  //     imbd: IMBD,
-  //     rating: "9.8/10",
-  //     Title: "Harry Potter 12",
-  //   },
-  // ],
   movieList: [],
+  myList: [],
+  AddToMyList: false,
+  isWatched: false,
   loading: false,
   currentPage: 1,
 };
@@ -128,20 +45,20 @@ export const getRecommendations = createAsyncThunk(
 const movieSlice = createSlice({
   name: "MovieList",
   initialState: initialState,
-  // reducers: {
-  //   addMovieCards(state, action) {
-  //     state.movieList.push(action.payload);
-  //   },
-  //   setMovieList: (state, action) => {
-  //     state.movieList = action.payload;
-  //   },
-  //   setLoading: (state, action) => {
-  //     state.loading = action.payload;
-  //   },
-  //   setCurrentPage: (state, action) => {
-  //     state.currentPage = action.payload;
-  //   },
-
+  reducers: {
+    setAddToMyList: (state) => {
+      state.AddToMyList = true;
+    },
+    setSubFromMyList: (state) => {
+      state.AddToMyList = false;
+    },
+    setIsWatched: (state) => {
+      state.isWatched = true;
+    },
+    setNotWatched: (state) => {
+      state.isWatched = false;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getRecommendations.pending, (state) => {
@@ -158,5 +75,5 @@ const movieSlice = createSlice({
       });
   },
 });
-export const { addMovie, setMovieList, setLoading, setCurrentPage } = movieSlice.actions;
+export const { setSubFromMyList, setAddToMyList, setIsWatched, setNotWatched } = movieSlice.actions;
 export default movieSlice.reducer;
