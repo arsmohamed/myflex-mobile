@@ -58,6 +58,10 @@ const movieSlice = createSlice({
     setNotWatched: (state) => {
       state.isWatched = false;
     },
+    addToTheList: (state, action) => {
+      state.myList.push(action.payload);
+      console.log(state.myList);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -75,5 +79,6 @@ const movieSlice = createSlice({
       });
   },
 });
-export const { setSubFromMyList, setAddToMyList, setIsWatched, setNotWatched } = movieSlice.actions;
+export const { setSubFromMyList, setAddToMyList, setIsWatched, setNotWatched, addToTheList } =
+  movieSlice.actions;
 export default movieSlice.reducer;

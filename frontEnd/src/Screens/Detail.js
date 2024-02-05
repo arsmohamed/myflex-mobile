@@ -14,13 +14,20 @@ import HP from "../Assets/HP2.jpeg";
 import IMBD from "../Assets/IMBD.png";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useSelector, useDispatch } from "react-redux";
-import { setAddToMyList, setSubFromMyList, setIsWatched, setNotWatched } from "../store/MovieList";
+import {
+  setAddToMyList,
+  setSubFromMyList,
+  setIsWatched,
+  setNotWatched,
+  addToTheList,
+} from "../store/MovieList";
 
 const DetailScreen = ({ route }) => {
+  // Consts
   const dispatch = useDispatch();
   const selectAddToMyList = useSelector((state) => state.movie.AddToMyList);
   const SelectWatched = useSelector((state) => state.movie.isWatched);
-
+  const myList = useSelector((state) => state.movie.myList);
   const {
     title,
     screen_Name,
@@ -32,9 +39,15 @@ const DetailScreen = ({ route }) => {
     popularity,
   } = route.params;
   const baseUrl = "https://image.tmdb.org/t/p/w500";
+
+  // functions
   const handleAddToMyList = () => {
-    if (!selectAddToMyList) {
+    const movieExists = myList.some((movie) => movie.title === title);
+    if (!selectAddToMyList && !movieExists) {
       dispatch(setAddToMyList());
+      dispatch(
+        addToTheList({ title, screen_Name, overview, poster_path, vote_average, popularity }),
+      );
     } else {
       dispatch(setSubFromMyList());
     }
@@ -46,25 +59,24 @@ const DetailScreen = ({ route }) => {
       dispatch(setIsWatched());
     }
   };
+
+  // return view
   return (
     <View style={styles.Container_Style}>
       <DetailHeader ReturnedScreen={screen_Name} />
       <ScrollView>
         <View style={styles.Detail_Container_Style}>
           <Image source={{ uri: `${baseUrl}${poster_path}` }} style={styles.Image_Style} />
-
           <View style={styles.Info_Style}>
             <Text style={[styles.Title_Style, styles.Text_color]}>{title}</Text>
-
             <View style={styles.First_Container_Style}>
               <TouchableOpacity style={styles.button} onPress={handleToggleWatched}>
                 <Ionicons name={SelectWatched ? "eye-off" : "eye"} size={30} color={"black"} />
                 <Text style={styles.Add_Text_Style}>{SelectWatched ? "Unwatch" : "Watched"}</Text>
               </TouchableOpacity>
-
               <TouchableOpacity style={styles.button} onPress={handleAddToMyList}>
                 <Ionicons
-                  name={selectAddToMyList ? "add-circle" : "remove-circle"}
+                  name={selectAddToMyList ? "remove-circle" : "add-circle"}
                   size={30}
                   color={"black"}
                 />
@@ -78,7 +90,6 @@ const DetailScreen = ({ route }) => {
                 </Text>
               </View>
             </View>
-
             <Text style={styles.Genera_Container_Style}>
               {popularity}
               {/* PG | 1h 57min | Animation, Action, Adventure | 14 December 2018 (USA) */}
