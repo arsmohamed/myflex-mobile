@@ -4,15 +4,20 @@ import { View, Text, ScrollView, StyleSheet } from "react-native";
 import MyListHeader from "../Headers/MyListHeader";
 import MovieCardForm from "../Models/MovieCardModel";
 import MovieCardInfo from "../Info/MovieCardInfo";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setScreen } from "../store/navigationSlice";
 
 const MyListScreen = () => {
+  //Const
   const dispatch = useDispatch();
+  const myList = useSelector((state) => state.movie.myList);
 
+  //Use Effoect
   useEffect(() => {
     dispatch(setScreen("MyList_Screen"));
   }, []);
+
+  //return View
   return (
     <View
       style={{
@@ -30,8 +35,8 @@ const MyListScreen = () => {
             <Text style={styles.MyList_Text_Style}>UnWatched</Text>
           </View>
           <View style={styles.New_Release_Container_Style}>
-            {MovieCardInfo.map((cardInfo) => (
-              <MovieCardForm key={cardInfo.id} props={cardInfo} ScreenName={"MyList_Screen"} />
+            {myList.map((movie) => (
+              <MovieCardForm key={movie.title} props={movie} ScreenName={"MyList_Screen"} />
             ))}
           </View>
         </ScrollView>
@@ -39,6 +44,7 @@ const MyListScreen = () => {
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   MyList_Scroll_Style: {
     height: "75%",
