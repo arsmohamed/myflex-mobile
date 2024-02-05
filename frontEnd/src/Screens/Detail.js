@@ -59,7 +59,6 @@ const DetailScreen = ({ route }) => {
       dispatch(setIsWatched());
     }
   };
-
   // return view
   return (
     <View style={styles.Container_Style}>
