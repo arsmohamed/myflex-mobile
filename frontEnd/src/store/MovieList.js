@@ -13,8 +13,9 @@ import API from "../API/API";
 const initialState = {
   movieList: [],
   myList: [],
-  AddToMyList: false,
-  isWatched: false,
+  movieStates: {}, // Dictionary to store state for each movie
+  // AddToMyList: false,
+  // isWatched: false,
   loading: false,
   currentPage: 1,
 };
@@ -46,21 +47,56 @@ const movieSlice = createSlice({
   name: "MovieList",
   initialState: initialState,
   reducers: {
-    setAddToMyList: (state) => {
-      state.AddToMyList = true;
+    initializeMovieState: (state, action) => {
+      const { movieId } = action.payload;
+
+      // Check if the movie state exists, if not, initialize it
+      if (!state.movieStates[movieId]) {
+        state.movieStates[movieId] = {
+          onMyList: false,
+          isWatched: false,
+        };
+      }
     },
-    setSubFromMyList: (state) => {
-      state.AddToMyList = false;
+    setOnMyList: (state, action) => {
+      const { movieId, movieData } = action.payload;
+
+      // Check if the movie state exists, if not, initialize it
+      if (!state.movieStates[movieId]) {
+        state.movieStates[movieId] = {
+          onMyList: false,
+          isWatched: false,
+        };
+      }
+
+      state.movieStates[movieId].onMyList = true;
+      state.myList.push(movieData);
+      // state.AddToMyList = true;
     },
-    setIsWatched: (state) => {
-      state.isWatched = true;
+    setSubFromMyList: (state, action) => {
+      const { movieId } = action.payload;
+      state.movieStates[movieId].addToMyList = false;
+      // state.AddToMyList = false;
     },
-    setNotWatched: (state) => {
-      state.isWatched = false;
+    setIsWatched: (state, action) => {
+      const { movieId } = action.payload;
+      state.movieStates[movieId].isWatched = true;
+      // state.isWatched = true;
+    },
+    setNotWatched: (state, action) => {
+      const { movieId } = action.payload;
+      state.movieStates[movieId].isWatched = false;
+      // state.isWatched = false;
     },
     addToTheList: (state, action) => {
-      state.myList.push(action.payload);
-      console.log(state.myList);
+      const { movieId, movieData } = action.payload;
+      state.movieStates[movieId] = {
+        addToMyList: true,
+        isWatched: false,
+      };
+      state.myList.push(movieData);
+      // state.myList.push(action.payload);
+      // console.log(state.myList);
     },
   },
   extraReducers: (builder) => {
@@ -72,6 +108,7 @@ const movieSlice = createSlice({
         state.loading = false;
         // console.log("Fulfilled:", action.payload);
         state.movieList = action.payload;
+        console.log(state.movieList);
       })
       .addCase(getRecommendations.rejected, (state, action) => {
         state.loading = false;
@@ -79,6 +116,12 @@ const movieSlice = createSlice({
       });
   },
 });
-export const { setSubFromMyList, setAddToMyList, setIsWatched, setNotWatched, addToTheList } =
-  movieSlice.actions;
+export const {
+  setSubFromMyList,
+  setAddToMyList,
+  setIsWatched,
+  setNotWatched,
+  addToTheList,
+  initializeMovieState,
+} = movieSlice.actions;
 export default movieSlice.reducer;

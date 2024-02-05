@@ -5,12 +5,17 @@ import { BlurView } from "expo-blur";
 import { useDispatch } from "react-redux";
 import { setScreen } from "../store/navigationSlice";
 import IMDB from "../Assets/IMBD.png";
-
+import { initializeMovieState } from "../store/MovieList";
 const MovieCardModel = ({ props, ScreenName }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const handleCardPress = () => {
+    const { id } = props;
+    const movieId = id;
+
+    // Check if the movie state exists, if not, initialize it
+    dispatch(initializeMovieState({ movieId }));
     navigation.navigate("Detail_Screen", { ...props, screen_Name: ScreenName });
     dispatch(setScreen("Detail_Screen"));
   };
