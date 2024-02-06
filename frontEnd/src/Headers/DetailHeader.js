@@ -6,12 +6,14 @@ import { BlurView } from "expo-blur";
 import { useNavigation } from "@react-navigation/native";
 import { setScreen } from "../store/navigationSlice";
 import { useDispatch } from "react-redux";
+import { deleteMovieDetailIfNotOnMyList } from "../store/MovieList";
 
-const DetailHeader = ({ ReturnedScreen }) => {
+const DetailHeader = ({ ReturnedScreen, movieId }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const UpdateState = () => {
+    dispatch(deleteMovieDetailIfNotOnMyList({ movieId }));
     navigation.goBack();
     dispatch(setScreen(ReturnedScreen));
   };

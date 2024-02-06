@@ -20,6 +20,7 @@ import {
   setIsWatched,
   setNotWatched,
   addToTheList,
+  // initializeMovieState,
 } from "../store/MovieList";
 
 const DetailScreen = ({ route }) => {
@@ -39,18 +40,39 @@ const DetailScreen = ({ route }) => {
     popularity,
   } = route.params;
   const baseUrl = "https://image.tmdb.org/t/p/w500";
+  const movieState = useSelector((state) => state.movie.movieStates[title] || {});
+  const { onMyList, isWatched } = movieState;
 
   // functions
   const handleAddToMyList = () => {
     const movieExists = myList.some((movie) => movie.title === title);
     if (!selectAddToMyList && !movieExists) {
-      dispatch(setAddToMyList());
+      dispatch(setAddToMyList({ movieId: title }));
       dispatch(
-        addToTheList({ title, screen_Name, overview, poster_path, vote_average, popularity }),
+        addToTheList({
+          movieId: title,
+          movieData: {
+            title,
+            screen_Name,
+            overview,
+            poster_path,
+            vote_average,
+            popularity,
+          },
+        }),
       );
     } else {
-      dispatch(setSubFromMyList());
+      dispatch(setSubFromMyList({ movieId: title }));
     }
+    // const movieExists = myList.some((movie) => movie.title === title);
+    // if (!selectAddToMyList && !movieExists) {
+    //   dispatch(setAddToMyList());
+    //   dispatch(
+    //     addToTheList({ title, screen_Name, overview, poster_path, vote_average, popularity }),
+    //   );
+    // } else {
+    //   dispatch(setSubFromMyList());
+    // }
   };
   const handleToggleWatched = () => {
     if (SelectWatched) {
@@ -63,7 +85,7 @@ const DetailScreen = ({ route }) => {
   // return view
   return (
     <View style={styles.Container_Style}>
-      <DetailHeader ReturnedScreen={screen_Name} />
+      <DetailHeader ReturnedScreen={screen_Name} movieId={title} />
       <ScrollView>
         <View style={styles.Detail_Container_Style}>
           <Image source={{ uri: `${baseUrl}${poster_path}` }} style={styles.Image_Style} />
@@ -71,12 +93,13 @@ const DetailScreen = ({ route }) => {
             <Text style={[styles.Title_Style, styles.Text_color]}>{title}</Text>
             <View style={styles.First_Container_Style}>
               <TouchableOpacity style={styles.button} onPress={handleToggleWatched}>
-                <Ionicons name={SelectWatched ? "eye-off" : "eye"} size={30} color={"black"} />
+                <Ionicons name={isWatched ? "eye-off" : "eye"} size={30} color={"black"} />
                 <Text style={styles.Add_Text_Style}>{SelectWatched ? "Unwatch" : "Watched"}</Text>
               </TouchableOpacity>
+
               <TouchableOpacity style={styles.button} onPress={handleAddToMyList}>
                 <Ionicons
-                  name={selectAddToMyList ? "remove-circle" : "add-circle"}
+                  name={onMyList ? "remove-circle" : "add-circle"}
                   size={30}
                   color={"black"}
                 />
