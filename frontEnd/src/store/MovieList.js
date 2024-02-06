@@ -13,18 +13,15 @@ import API from "../API/API";
 const initialState = {
   movieList: [],
   myList: [],
-  movieStates: {}, // Dictionary to store state for each movie
-  // AddToMyList: false,
-  // isWatched: false,
+  updateComingMovieStates: {}, // Dictionary to store state for each movie
   loading: false,
   currentPage: 1,
 };
 export const getRecommendations = createAsyncThunk(
   "movies/getRecommendations",
-  async (page, { getState, rejectWithValue }) => {
+  async (page, { rejectWithValue }) => {
     try {
       // Get the token from the state (assuming it is stored there)
-      // const token = getState().auth.token;
       const token = await AsyncStorage.getItem("token");
       const response = await axios.get(
         `http://localhost:5001/myFlex/api/v1/user/recommendations?page=${page}`,
@@ -34,8 +31,6 @@ export const getRecommendations = createAsyncThunk(
           },
         },
       );
-      // console.log(response);
-
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -47,67 +42,19 @@ const movieSlice = createSlice({
   name: "MovieList",
   initialState: initialState,
   reducers: {
-    initializeMovieState: (state, action) => {
-      const { movieId } = action.payload;
-      // Check if the movie state exists, if not, initialize it
-      if (!state.movieStates[movieId]) {
-        state.movieStates[movieId] = {
-          onMyList: false,
-          isWatched: false,
-        };
+    updateOnMyList: (state, action) => {
+      const { id, value } = action.payload;
+      const movieIndex = state.movieList.findIndex((movie) => movie.id === id);
+      if (movieIndex !== -1) {
+        state.movieList[movieIndex].onMyList = value;
       }
     },
-    // New reducer to delete MovieDetail if onMyList is false
-    deleteMovieDetailIfNotOnMyList: (state, action) => {
-      const { movieId } = action.payload;
-
-      // Check if the movie state exists
-      if (state.movieStates[movieId]) {
-        // Check if onMyList is false, then delete the movie state
-        if (state.movieStates[movieId].onMyList) {
-          delete state.movieStates[movieId];
-        }
-      }
+    addToMyList: (state, action) => {
+      state.myList.push(action.payload);
     },
-    setOnMyList: (state, action) => {
-      const { movieId, movieData } = action.payload;
-
-      // Check if the movie state exists, if not, initialize it
-      if (!state.movieStates[movieId]) {
-        state.movieStates[movieId] = {
-          onMyList: false,
-          isWatched: false,
-        };
-      }
-
-      state.movieStates[movieId].onMyList = true;
-      state.myList.push(movieData);
-      // state.AddToMyList = true;
-    },
-    setSubFromMyList: (state, action) => {
-      const { movieId } = action.payload;
-      state.movieStates[movieId].addToMyList = false;
-      // state.AddToMyList = false;
-    },
-    setIsWatched: (state, action) => {
-      const { movieId } = action.payload;
-      state.movieStates[movieId].isWatched = true;
-      // state.isWatched = true;
-    },
-    setNotWatched: (state, action) => {
-      const { movieId } = action.payload;
-      state.movieStates[movieId].isWatched = false;
-      // state.isWatched = false;
-    },
-    addToTheList: (state, action) => {
-      const { movieId, movieData } = action.payload;
-      state.movieStates[movieId] = {
-        addToMyList: true,
-        isWatched: false,
-      };
-      state.myList.push(movieData);
-      // state.myList.push(action.payload);
-      // console.log(state.myList);
+    removeFromMyList: (state, action) => {
+      const idToRemove = action.payload;
+      state.myList = state.myList.filter((movie) => movie.id !== idToRemove);
     },
   },
   extraReducers: (builder) => {
@@ -117,13 +64,11 @@ const movieSlice = createSlice({
       })
       .addCase(getRecommendations.fulfilled, (state, action) => {
         state.loading = false;
-
-        // state.movieList = action.payload;
         // Assuming action.payload is an array of movie data
         const updatedMovieList = action.payload.map((movieData) => {
           // Check if the movie state exists, if not, initialize it
-          if (!state.movieStates[movieData.id]) {
-            state.movieStates[movieData.id] = {
+          if (!state.updateComingMovieStates[movieData.id]) {
+            state.updateComingMovieStates[movieData.id] = {
               onMyList: false,
               isWatched: false,
             };
@@ -131,13 +76,11 @@ const movieSlice = createSlice({
           // Add onMyList and isWatched fields to the movie data
           return {
             ...movieData,
-            onMyList: state.movieStates[movieData.id].onMyList,
-            isWatched: state.movieStates[movieData.id].isWatched,
+            onMyList: state.updateComingMovieStates[movieData.id].onMyList,
+            isWatched: state.updateComingMovieStates[movieData.id].isWatched,
           };
         });
-
         state.movieList = updatedMovieList;
-
         console.log(state.movieList);
       })
       .addCase(getRecommendations.rejected, (state, action) => {
@@ -146,13 +89,5 @@ const movieSlice = createSlice({
       });
   },
 });
-export const {
-  setSubFromMyList,
-  setAddToMyList,
-  setIsWatched,
-  setNotWatched,
-  addToTheList,
-  initializeMovieState,
-  deleteMovieDetailIfNotOnMyList,
-} = movieSlice.actions;
+export const { addToMyList, updateOnMyList, removeFromMyList } = movieSlice.actions;
 export default movieSlice.reducer;

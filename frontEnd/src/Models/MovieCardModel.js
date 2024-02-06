@@ -1,21 +1,16 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { BlurView } from "expo-blur";
-import { useDispatch } from "react-redux";
 import { setScreen } from "../store/navigationSlice";
+import { useDispatch } from "react-redux";
 import IMDB from "../Assets/IMBD.png";
-import { initializeMovieState } from "../store/MovieList";
+import { BlurView } from "expo-blur";
+
 const MovieCardModel = ({ props, ScreenName }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const handleCardPress = () => {
-    const { id } = props;
-    const movieId = id;
-
-    // Check if the movie state exists, if not, initialize it
-    dispatch(initializeMovieState({ movieId }));
     navigation.navigate("Detail_Screen", { ...props, screen_Name: ScreenName });
     dispatch(setScreen("Detail_Screen"));
   };
@@ -32,7 +27,6 @@ const MovieCardModel = ({ props, ScreenName }) => {
           />
           <BlurView intensity={20} tint="dark" style={styles.Rank_Container_Style}>
             <Image source={IMDB} style={styles.IMBD_Style} />
-            {/* <Text style={styles.Rank_Text_Style}>{props.vote_average + " / 10"}</Text> */}
             <Text style={styles.Rank_Text_Style}>{props.vote_average.toFixed(1) + " / 10"}</Text>
           </BlurView>
         </View>

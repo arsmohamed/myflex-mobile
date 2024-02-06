@@ -1,5 +1,8 @@
 // ChatScreen.js
-import React from "react";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import DetailHeader from "../Headers/DetailHeader";
+import { useSelector, useDispatch } from "react-redux";
+import IMBD from "../Assets/IMBD.png";
 import {
   View,
   Text,
@@ -9,92 +12,51 @@ import {
   Dimensions,
   Image,
 } from "react-native";
-import DetailHeader from "../Headers/DetailHeader";
-import HP from "../Assets/HP2.jpeg";
-import IMBD from "../Assets/IMBD.png";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  setAddToMyList,
-  setSubFromMyList,
-  setIsWatched,
-  setNotWatched,
-  addToTheList,
-  // initializeMovieState,
-} from "../store/MovieList";
+import React, { useState } from "react";
+import { addToMyList, updateOnMyList, removeFromMyList } from "../store/MovieList";
 
 const DetailScreen = ({ route }) => {
   // Consts
   const dispatch = useDispatch();
-  const selectAddToMyList = useSelector((state) => state.movie.AddToMyList);
-  const SelectWatched = useSelector((state) => state.movie.isWatched);
-  const myList = useSelector((state) => state.movie.myList);
-  const {
-    title,
-    screen_Name,
-    overview,
-    poster_path,
-    vote_average,
-    release_date,
-    genre_ids,
-    popularity,
-  } = route.params;
-  const baseUrl = "https://image.tmdb.org/t/p/w500";
-  const movieState = useSelector((state) => state.movie.movieStates[title] || {});
-  const { onMyList, isWatched } = movieState;
+  const { title, screen_Name, overview, poster_path, vote_average, popularity, isWatched } =
+    route.params;
 
-  // functions
+  const baseUrl = "https://image.tmdb.org/t/p/w500";
+  const myList = useSelector((state) => state.movie.myList);
+  const [onMyList, setOnMyList] = useState(route.params.onMyList);
+
   const handleAddToMyList = () => {
-    const movieExists = myList.some((movie) => movie.title === title);
-    if (!selectAddToMyList && !movieExists) {
-      dispatch(setAddToMyList({ movieId: title }));
-      dispatch(
-        addToTheList({
-          movieId: title,
-          movieData: {
-            title,
-            screen_Name,
-            overview,
-            poster_path,
-            vote_average,
-            popularity,
-          },
-        }),
-      );
+    const isMovieInList = myList.find((movie) => movie.id === route.params.id);
+
+    if (isMovieInList) {
+      // If the movie is already in myList, remove it and set onMyList to false
+      dispatch(removeFromMyList(route.params.id));
+      dispatch(updateOnMyList({ id: route.params.id, value: false }));
+      setOnMyList(false); // Update local state
     } else {
-      dispatch(setSubFromMyList({ movieId: title }));
-    }
-    // const movieExists = myList.some((movie) => movie.title === title);
-    // if (!selectAddToMyList && !movieExists) {
-    //   dispatch(setAddToMyList());
-    //   dispatch(
-    //     addToTheList({ title, screen_Name, overview, poster_path, vote_average, popularity }),
-    //   );
-    // } else {
-    //   dispatch(setSubFromMyList());
-    // }
-  };
-  const handleToggleWatched = () => {
-    if (SelectWatched) {
-      dispatch(setNotWatched());
-    } else {
-      dispatch(setIsWatched());
+      // If the movie is not in myList, add it and set onMyList to true
+      dispatch(addToMyList(route.params));
+      dispatch(updateOnMyList({ id: route.params.id, value: true }));
+      setOnMyList(true); // Update local state
     }
   };
 
   // return view
   return (
     <View style={styles.Container_Style}>
-      <DetailHeader ReturnedScreen={screen_Name} movieId={title} />
+      <DetailHeader ReturnedScreen={screen_Name} />
       <ScrollView>
         <View style={styles.Detail_Container_Style}>
           <Image source={{ uri: `${baseUrl}${poster_path}` }} style={styles.Image_Style} />
           <View style={styles.Info_Style}>
             <Text style={[styles.Title_Style, styles.Text_color]}>{title}</Text>
             <View style={styles.First_Container_Style}>
-              <TouchableOpacity style={styles.button} onPress={handleToggleWatched}>
+              <TouchableOpacity
+                style={styles.button}
+                // onPress={handleToggleWatched}
+              >
                 <Ionicons name={isWatched ? "eye-off" : "eye"} size={30} color={"black"} />
-                <Text style={styles.Add_Text_Style}>{SelectWatched ? "Unwatch" : "Watched"}</Text>
+                <Text style={styles.Add_Text_Style}>{isWatched ? "Unwatch" : "Watched"}</Text>
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.button} onPress={handleAddToMyList}>
@@ -175,7 +137,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-evenly",
-    borderRadius: 25,
+    borderRadius: 15,
+    padding: 2,
   },
   Add_Text_Style: {
     fontSize: 18,
