@@ -85,7 +85,7 @@ const DetailScreen = ({ route }) => {
   // return view
   return (
     <View style={styles.Container_Style}>
-      <DetailHeader ReturnedScreen={screen_Name} />
+      <DetailHeader ReturnedScreen={screen_Name} movieId={title} />
       <ScrollView>
         <View style={styles.Detail_Container_Style}>
           <Image source={{ uri: `${baseUrl}${poster_path}` }} style={styles.Image_Style} />

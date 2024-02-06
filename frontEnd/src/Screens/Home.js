@@ -15,12 +15,11 @@ import { getRecommendations } from "../store/MovieList";
 const Home = ({ navigation }) => {
   const dispatch = useDispatch();
   const MovieList = useSelector((state) => state.movie.movieList);
+  const MovieStates = useSelector((state) => state.movie.movieStates);
 
   useEffect(() => {
     dispatch(setScreen("Home_Screen"));
-    dispatch(getRecommendations(1)).then((response) => {
-      // console.log("Received in Home component:", response.payload);
-    });
+    dispatch(getRecommendations(1)).then((response) => {});
   }, []);
 
   return (

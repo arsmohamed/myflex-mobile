@@ -49,13 +49,24 @@ const movieSlice = createSlice({
   reducers: {
     initializeMovieState: (state, action) => {
       const { movieId } = action.payload;
-
       // Check if the movie state exists, if not, initialize it
       if (!state.movieStates[movieId]) {
         state.movieStates[movieId] = {
           onMyList: false,
           isWatched: false,
         };
+      }
+    },
+    // New reducer to delete MovieDetail if onMyList is false
+    deleteMovieDetailIfNotOnMyList: (state, action) => {
+      const { movieId } = action.payload;
+
+      // Check if the movie state exists
+      if (state.movieStates[movieId]) {
+        // Check if onMyList is false, then delete the movie state
+        if (state.movieStates[movieId].onMyList) {
+          delete state.movieStates[movieId];
+        }
       }
     },
     setOnMyList: (state, action) => {
@@ -106,8 +117,27 @@ const movieSlice = createSlice({
       })
       .addCase(getRecommendations.fulfilled, (state, action) => {
         state.loading = false;
-        // console.log("Fulfilled:", action.payload);
-        state.movieList = action.payload;
+
+        // state.movieList = action.payload;
+        // Assuming action.payload is an array of movie data
+        const updatedMovieList = action.payload.map((movieData) => {
+          // Check if the movie state exists, if not, initialize it
+          if (!state.movieStates[movieData.id]) {
+            state.movieStates[movieData.id] = {
+              onMyList: false,
+              isWatched: false,
+            };
+          }
+          // Add onMyList and isWatched fields to the movie data
+          return {
+            ...movieData,
+            onMyList: state.movieStates[movieData.id].onMyList,
+            isWatched: state.movieStates[movieData.id].isWatched,
+          };
+        });
+
+        state.movieList = updatedMovieList;
+
         console.log(state.movieList);
       })
       .addCase(getRecommendations.rejected, (state, action) => {
@@ -123,5 +153,6 @@ export const {
   setNotWatched,
   addToTheList,
   initializeMovieState,
+  deleteMovieDetailIfNotOnMyList,
 } = movieSlice.actions;
 export default movieSlice.reducer;
