@@ -56,6 +56,13 @@ const movieSlice = createSlice({
       const idToRemove = action.payload;
       state.myList = state.myList.filter((movie) => movie.id !== idToRemove);
     },
+    updateIsWatched: (state, action) => {
+      const { id, value } = action.payload;
+      const movieIndex = state.myList.findIndex((movie) => movie.id === id);
+      if (movieIndex !== -1) {
+        state.myList[movieIndex].isWatched = value;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -89,5 +96,6 @@ const movieSlice = createSlice({
       });
   },
 });
-export const { addToMyList, updateOnMyList, removeFromMyList } = movieSlice.actions;
+export const { addToMyList, updateOnMyList, removeFromMyList, updateIsWatched } =
+  movieSlice.actions;
 export default movieSlice.reducer;

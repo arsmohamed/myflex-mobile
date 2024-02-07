@@ -1,7 +1,8 @@
-// ChatScreen.js
+import { addToMyList, updateOnMyList, removeFromMyList, updateIsWatched } from "../store/MovieList";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import DetailHeader from "../Headers/DetailHeader";
 import { useSelector, useDispatch } from "react-redux";
+import DetailHeader from "../Headers/DetailHeader";
+import React, { useState } from "react";
 import IMBD from "../Assets/IMBD.png";
 import {
   View,
@@ -12,19 +13,19 @@ import {
   Dimensions,
   Image,
 } from "react-native";
-import React, { useState } from "react";
-import { addToMyList, updateOnMyList, removeFromMyList } from "../store/MovieList";
 
 const DetailScreen = ({ route }) => {
-  // Consts
+  // ---------------------------------  Const ------------------------------------------------------
   const dispatch = useDispatch();
-  const { title, screen_Name, overview, poster_path, vote_average, popularity, isWatched } =
-    route.params;
+  const { title, screen_Name, overview, poster_path, vote_average, popularity } = route.params;
 
   const baseUrl = "https://image.tmdb.org/t/p/w500";
   const myList = useSelector((state) => state.movie.myList);
   const [onMyList, setOnMyList] = useState(route.params.onMyList);
+  const [isWatched, setIsWatched] = useState(route.params.isWatched);
+  const My_List_Screen = "MyList_Screen";
 
+  // ---------------------------------  Functions ------------------------------------------------------
   const handleAddToMyList = () => {
     const isMovieInList = myList.find((movie) => movie.id === route.params.id);
 
@@ -40,8 +41,12 @@ const DetailScreen = ({ route }) => {
       setOnMyList(true); // Update local state
     }
   };
+  const handleToggleWatched = () => {
+    setIsWatched((prevState) => !prevState); // Toggle local state
+    dispatch(updateIsWatched({ id: route.params.id, value: !isWatched })); // Update Redux state
+  };
 
-  // return view
+  // ---------------------------------  Functions ------------------------------------------------------
   return (
     <View style={styles.Container_Style}>
       <DetailHeader ReturnedScreen={screen_Name} />
@@ -51,13 +56,12 @@ const DetailScreen = ({ route }) => {
           <View style={styles.Info_Style}>
             <Text style={[styles.Title_Style, styles.Text_color]}>{title}</Text>
             <View style={styles.First_Container_Style}>
-              <TouchableOpacity
-                style={styles.button}
-                // onPress={handleToggleWatched}
-              >
-                <Ionicons name={isWatched ? "eye-off" : "eye"} size={30} color={"black"} />
-                <Text style={styles.Add_Text_Style}>{isWatched ? "Unwatch" : "Watched"}</Text>
-              </TouchableOpacity>
+              <View style={styles.Rate_Container_Style}>
+                <Image source={IMBD} />
+                <Text style={[styles.Rating_Style, styles.Text_color]}>
+                  {vote_average.toFixed(1)} / 10
+                </Text>
+              </View>
 
               <TouchableOpacity style={styles.button} onPress={handleAddToMyList}>
                 <Ionicons
@@ -67,14 +71,27 @@ const DetailScreen = ({ route }) => {
                 />
                 <Text style={styles.Add_Text_Style}>My List</Text>
               </TouchableOpacity>
-
-              <View style={styles.Rate_Container_Style}>
-                <Image source={IMBD} />
-                <Text style={[styles.Rating_Style, styles.Text_color]}>
-                  {vote_average.toFixed(1)} / 10
-                </Text>
-              </View>
             </View>
+            {onMyList && (
+              <View style={styles.First_Container_Style}>
+                <View style={styles.Watched_Container_Style}>
+                  <Ionicons name={isWatched ? "eye" : "eye-off"} size={30} color={"white"} />
+                  <Text style={styles.Watched_Text_Style}>
+                    {isWatched ? "Watched" : "unWatched"}
+                  </Text>
+                </View>
+
+                <TouchableOpacity style={styles.Watched_button} onPress={handleToggleWatched}>
+                  <Ionicons
+                    name={isWatched ? "add-circle" : "remove-circle"}
+                    size={30}
+                    color={"black"}
+                  />
+                  <Text style={styles.Add_Text_Style}>Watch list</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+
             <Text style={styles.Genera_Container_Style}>
               {popularity}
               {/* PG | 1h 57min | Animation, Action, Adventure | 14 December 2018 (USA) */}
@@ -94,6 +111,8 @@ const DetailScreen = ({ route }) => {
     </View>
   );
 };
+
+// ---------------------------------  Style ------------------------------------------------------
 const styles = StyleSheet.create({
   Container_Style: {
     backgroundColor: "black",
@@ -140,10 +159,36 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     padding: 2,
   },
+  Watched_button: {
+    width: 130,
+    height: 35,
+    backgroundColor: "#FFD900",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    borderRadius: 15,
+    padding: 2,
+  },
+  Watched_Container_Style: {
+    width: 130,
+    height: 35,
+    backgroundColor: "#FFD900",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    borderRadius: 15,
+    padding: 2,
+  },
   Add_Text_Style: {
     fontSize: 18,
     alignSelf: "center",
     justifyContent: "center",
+  },
+  Watched_Text_Style: {
+    fontSize: 18,
+    alignSelf: "center",
+    justifyContent: "center",
+    color: "white",
   },
   Rating_Style: {
     fontSize: 20,
