@@ -1,5 +1,9 @@
-// ChatScreen.js
-import React from "react";
+import { addToMyList, updateOnMyList, removeFromMyList, updateIsWatched } from "../store/MovieList";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import { useSelector, useDispatch } from "react-redux";
+import DetailHeader from "../Headers/DetailHeader";
+import React, { useState } from "react";
+import IMBD from "../Assets/IMBD.png";
 import {
   View,
   Text,
@@ -9,93 +13,55 @@ import {
   Dimensions,
   Image,
 } from "react-native";
-import DetailHeader from "../Headers/DetailHeader";
-import HP from "../Assets/HP2.jpeg";
-import IMBD from "../Assets/IMBD.png";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  setAddToMyList,
-  setSubFromMyList,
-  setIsWatched,
-  setNotWatched,
-  addToTheList,
-  // initializeMovieState,
-} from "../store/MovieList";
 
 const DetailScreen = ({ route }) => {
-  // Consts
+  // ---------------------------------  Const ------------------------------------------------------
   const dispatch = useDispatch();
-  const selectAddToMyList = useSelector((state) => state.movie.AddToMyList);
-  const SelectWatched = useSelector((state) => state.movie.isWatched);
-  const myList = useSelector((state) => state.movie.myList);
-  const {
-    title,
-    screen_Name,
-    overview,
-    poster_path,
-    vote_average,
-    release_date,
-    genre_ids,
-    popularity,
-  } = route.params;
-  const baseUrl = "https://image.tmdb.org/t/p/w500";
-  const movieState = useSelector((state) => state.movie.movieStates[title] || {});
-  const { onMyList, isWatched } = movieState;
+  const { title, screen_Name, overview, poster_path, vote_average, popularity } = route.params;
 
-  // functions
+  const baseUrl = "https://image.tmdb.org/t/p/w500";
+  const myList = useSelector((state) => state.movie.myList);
+  const [onMyList, setOnMyList] = useState(route.params.onMyList);
+  const [isWatched, setIsWatched] = useState(route.params.isWatched);
+  const My_List_Screen = "MyList_Screen";
+
+  // ---------------------------------  Functions ------------------------------------------------------
   const handleAddToMyList = () => {
-    const movieExists = myList.some((movie) => movie.title === title);
-    if (!selectAddToMyList && !movieExists) {
-      dispatch(setAddToMyList({ movieId: title }));
-      dispatch(
-        addToTheList({
-          movieId: title,
-          movieData: {
-            title,
-            screen_Name,
-            overview,
-            poster_path,
-            vote_average,
-            popularity,
-          },
-        }),
-      );
+    const isMovieInList = myList.find((movie) => movie.id === route.params.id);
+
+    if (isMovieInList) {
+      // If the movie is already in myList, remove it and set onMyList to false
+      dispatch(removeFromMyList(route.params.id));
+      dispatch(updateOnMyList({ id: route.params.id, value: false }));
+      setOnMyList(false); // Update local state
     } else {
-      dispatch(setSubFromMyList({ movieId: title }));
+      // If the movie is not in myList, add it and set onMyList to true
+      dispatch(addToMyList(route.params));
+      dispatch(updateOnMyList({ id: route.params.id, value: true }));
+      setOnMyList(true); // Update local state
     }
-    // const movieExists = myList.some((movie) => movie.title === title);
-    // if (!selectAddToMyList && !movieExists) {
-    //   dispatch(setAddToMyList());
-    //   dispatch(
-    //     addToTheList({ title, screen_Name, overview, poster_path, vote_average, popularity }),
-    //   );
-    // } else {
-    //   dispatch(setSubFromMyList());
-    // }
   };
   const handleToggleWatched = () => {
-    if (SelectWatched) {
-      dispatch(setNotWatched());
-    } else {
-      dispatch(setIsWatched());
-    }
+    setIsWatched((prevState) => !prevState); // Toggle local state
+    dispatch(updateIsWatched({ id: route.params.id, value: !isWatched })); // Update Redux state
   };
 
-  // return view
+  // ---------------------------------  Functions ------------------------------------------------------
   return (
     <View style={styles.Container_Style}>
-      <DetailHeader ReturnedScreen={screen_Name} movieId={title} />
+      <DetailHeader ReturnedScreen={screen_Name} />
       <ScrollView>
         <View style={styles.Detail_Container_Style}>
           <Image source={{ uri: `${baseUrl}${poster_path}` }} style={styles.Image_Style} />
           <View style={styles.Info_Style}>
             <Text style={[styles.Title_Style, styles.Text_color]}>{title}</Text>
             <View style={styles.First_Container_Style}>
-              <TouchableOpacity style={styles.button} onPress={handleToggleWatched}>
-                <Ionicons name={isWatched ? "eye-off" : "eye"} size={30} color={"black"} />
-                <Text style={styles.Add_Text_Style}>{SelectWatched ? "Unwatch" : "Watched"}</Text>
-              </TouchableOpacity>
+              <View style={styles.Rate_Container_Style}>
+                <Image source={IMBD} />
+                <Text style={[styles.Rating_Style, styles.Text_color]}>
+                  {vote_average.toFixed(1)} / 10
+                </Text>
+              </View>
 
               <TouchableOpacity style={styles.button} onPress={handleAddToMyList}>
                 <Ionicons
@@ -105,14 +71,27 @@ const DetailScreen = ({ route }) => {
                 />
                 <Text style={styles.Add_Text_Style}>My List</Text>
               </TouchableOpacity>
-
-              <View style={styles.Rate_Container_Style}>
-                <Image source={IMBD} />
-                <Text style={[styles.Rating_Style, styles.Text_color]}>
-                  {vote_average.toFixed(1)} / 10
-                </Text>
-              </View>
             </View>
+            {onMyList && (
+              <View style={styles.First_Container_Style}>
+                <View style={styles.Watched_Container_Style}>
+                  <Ionicons name={isWatched ? "eye" : "eye-off"} size={30} color={"white"} />
+                  <Text style={styles.Watched_Text_Style}>
+                    {isWatched ? "Watched" : "unWatched"}
+                  </Text>
+                </View>
+
+                <TouchableOpacity style={styles.Watched_button} onPress={handleToggleWatched}>
+                  <Ionicons
+                    name={isWatched ? "add-circle" : "remove-circle"}
+                    size={30}
+                    color={"black"}
+                  />
+                  <Text style={styles.Add_Text_Style}>Watch list</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+
             <Text style={styles.Genera_Container_Style}>
               {popularity}
               {/* PG | 1h 57min | Animation, Action, Adventure | 14 December 2018 (USA) */}
@@ -132,6 +111,8 @@ const DetailScreen = ({ route }) => {
     </View>
   );
 };
+
+// ---------------------------------  Style ------------------------------------------------------
 const styles = StyleSheet.create({
   Container_Style: {
     backgroundColor: "black",
@@ -175,12 +156,39 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-evenly",
-    borderRadius: 25,
+    borderRadius: 15,
+    padding: 2,
+  },
+  Watched_button: {
+    width: 130,
+    height: 35,
+    backgroundColor: "#FFD900",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    borderRadius: 15,
+    padding: 2,
+  },
+  Watched_Container_Style: {
+    width: 130,
+    height: 35,
+    backgroundColor: "#FFD900",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    borderRadius: 15,
+    padding: 2,
   },
   Add_Text_Style: {
     fontSize: 18,
     alignSelf: "center",
     justifyContent: "center",
+  },
+  Watched_Text_Style: {
+    fontSize: 18,
+    alignSelf: "center",
+    justifyContent: "center",
+    color: "white",
   },
   Rating_Style: {
     fontSize: 20,

@@ -8,25 +8,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { setScreen } from "../store/navigationSlice";
 
 const MyListScreen = () => {
-  //Const
+  // ---------------------------------  Const ------------------------------------------------------
   const dispatch = useDispatch();
   const myList = useSelector((state) => state.movie.myList);
 
-  //Use Effoect
+  // ---------------------------------  UseEffect ------------------------------------------------------
   useEffect(() => {
     dispatch(setScreen("MyList_Screen"));
   }, []);
-
-  //return View
+  // ---------------------------------  Return ------------------------------------------------------
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: "black",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <View style={styles.Main_Container_Style}>
       <MyListHeader />
       <View style={styles.MyList_Scroll_Style}>
         <ScrollView>
@@ -46,6 +38,12 @@ const MyListScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  Main_Container_Style: {
+    flex: 1,
+    backgroundColor: "black",
+    justifyContent: "center",
+    alignItems: "flex-start",
+  },
   MyList_Scroll_Style: {
     height: "75%",
   },
