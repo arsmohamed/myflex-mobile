@@ -106,7 +106,7 @@ const AuthSlice = createSlice({
         state.password = "";
       })
       .addCase(loginAsGuest.rejected, (state, action) => {
-        console.log("our apology an error occured in the server");
+        // console.log("our apology an error occured in the server");
         state.errorMessage = "our apology an error occured in the server";
       })
       .addCase(Signin.fulfilled, (state, action) => {

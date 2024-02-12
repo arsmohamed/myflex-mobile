@@ -2,21 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
-import HR1 from "../Assets/HR.jpeg";
-import HR2 from "../Assets/HP2.jpeg";
-import HR3 from "../Assets/HP3.jpeg";
-import HR4 from "../Assets/HP1.jpeg";
-import HR5 from "../Assets/HP5.jpeg";
-import IMBD from "../Assets/IMBD.png";
-import API from "../API/API";
-
-const initialState = {
-  movieList: [],
-  myList: [],
-  updateComingMovieStates: {}, // Dictionary to store state for each movie
-  loading: false,
-  currentPage: 1,
-};
 export const getRecommendations = createAsyncThunk(
   "movies/getRecommendations",
   async (page, { rejectWithValue }) => {
@@ -38,23 +23,39 @@ export const getRecommendations = createAsyncThunk(
   },
 );
 
+const initialState = {
+  movieList: [],
+  myList: [],
+  updateComingMovieStates: {}, // Dictionary to store state for each movie
+  loading: false,
+  currentPage: 1,
+};
+
 const movieSlice = createSlice({
   name: "MovieList",
   initialState: initialState,
   reducers: {
-    updateOnMyList: (state, action) => {
-      const { id, value } = action.payload;
-      const movieIndex = state.movieList.findIndex((movie) => movie.id === id);
-      if (movieIndex !== -1) {
-        state.movieList[movieIndex].onMyList = value;
-      }
-    },
     addToMyList: (state, action) => {
       state.myList.push(action.payload);
     },
     removeFromMyList: (state, action) => {
       const idToRemove = action.payload;
       state.myList = state.myList.filter((movie) => movie.id !== idToRemove);
+    },
+    addToMyListAndUpdate: (state, action) => {
+      const moviesToAdd = action.payload;
+      moviesToAdd.forEach((movieToAdd) => {
+        const { id } = movieToAdd;
+        const movieIndex = state.movieList.findIndex((movie) => movie.id === id);
+        // if (movieIndex === -1) {
+        // If the movie is not already in the list, update onMyList to true and push to myList
+        movieToAdd.onMyList = true;
+        state.myList.push(movieToAdd);
+        // } else {
+        //   // If the movie is already in the list, update onMyList to true
+        //   state.movieList[movieIndex].onMyList = true;
+        // }
+      });
     },
     updateIsWatched: (state, action) => {
       const { id, value } = action.payload;
@@ -88,7 +89,7 @@ const movieSlice = createSlice({
           };
         });
         state.movieList = updatedMovieList;
-        console.log(state.movieList);
+        // console.log(state.movieList);
       })
       .addCase(getRecommendations.rejected, (state, action) => {
         state.loading = false;
@@ -96,6 +97,11 @@ const movieSlice = createSlice({
       });
   },
 });
-export const { addToMyList, updateOnMyList, removeFromMyList, updateIsWatched } =
-  movieSlice.actions;
+export const {
+  addToMyList,
+  updateOnMyList,
+  removeFromMyList,
+  updateIsWatched,
+  addToMyListAndUpdate,
+} = movieSlice.actions;
 export default movieSlice.reducer;
