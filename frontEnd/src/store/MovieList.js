@@ -2,21 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
-import HR1 from "../Assets/HR.jpeg";
-import HR2 from "../Assets/HP2.jpeg";
-import HR3 from "../Assets/HP3.jpeg";
-import HR4 from "../Assets/HP1.jpeg";
-import HR5 from "../Assets/HP5.jpeg";
-import IMBD from "../Assets/IMBD.png";
-import API from "../API/API";
-
-const initialState = {
-  movieList: [],
-  myList: [],
-  updateComingMovieStates: {}, // Dictionary to store state for each movie
-  loading: false,
-  currentPage: 1,
-};
 export const getRecommendations = createAsyncThunk(
   "movies/getRecommendations",
   async (page, { rejectWithValue }) => {
@@ -37,6 +22,23 @@ export const getRecommendations = createAsyncThunk(
     }
   },
 );
+// Define a thunk action creator that dispatches both addToMyList and updateOnMyList actions
+export const addToMyListAndUpdate = createAsyncThunk(
+  "movies/addToMyListAndUpdate",
+  async (payload, { dispatch }) => {
+    const { movieData } = payload;
+    // Dispatch both actions
+    dispatch(addToMyList(movieData));
+    dispatch(updateOnMyList({ id: movieData.id, value: true }));
+  },
+);
+const initialState = {
+  movieList: [],
+  myList: [],
+  updateComingMovieStates: {}, // Dictionary to store state for each movie
+  loading: false,
+  currentPage: 1,
+};
 
 const movieSlice = createSlice({
   name: "MovieList",
@@ -47,6 +49,7 @@ const movieSlice = createSlice({
       const movieIndex = state.movieList.findIndex((movie) => movie.id === id);
       if (movieIndex !== -1) {
         state.movieList[movieIndex].onMyList = value;
+        // console.log(state.movieList[movieIndex]);
       }
     },
     addToMyList: (state, action) => {
@@ -80,6 +83,7 @@ const movieSlice = createSlice({
               isWatched: false,
             };
           }
+
           // Add onMyList and isWatched fields to the movie data
           return {
             ...movieData,
@@ -88,7 +92,7 @@ const movieSlice = createSlice({
           };
         });
         state.movieList = updatedMovieList;
-        console.log(state.movieList);
+        // console.log(state.movieList);
       })
       .addCase(getRecommendations.rejected, (state, action) => {
         state.loading = false;

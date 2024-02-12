@@ -51,12 +51,9 @@ const Home = ({ navigation }) => {
           /> */}
           <Text style={styles.Text_Style}>New Release</Text>
           <View style={styles.New_Release_Container_Style}>
-            {MovieList.map(
-              (cardInfo) => (
-                <MovieCardForm key={cardInfo.id} props={cardInfo} ScreenName={"Home_Screen"} />
-              ),
-              // console.log("cardInfo"),
-            )}
+            {MovieList.map((cardInfo) => (
+              <MovieCardForm key={cardInfo.id} props={cardInfo} ScreenName={"Home_Screen"} />
+            ))}
           </View>
         </View>
       </ScrollView>
