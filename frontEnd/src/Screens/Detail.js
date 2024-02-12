@@ -2,7 +2,6 @@ import {
   addToMyList,
   updateOnMyList,
   removeFromMyList,
-  updateIsWatched,
   addToMyListAndUpdate,
 } from "../store/MovieList";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -23,43 +22,30 @@ import {
 const DetailScreen = ({ route }) => {
   // Update localOnMyList when route.params.onMyList changes
   useEffect(() => {
-    console.log(`Value : ${route.params.onMyList}`);
+    console.log(route.params.onMyList);
     setOnMyList(route.params.onMyList);
   }, [route.params.onMyList]);
 
   // ---------------------------------  Const ------------------------------------------------------
   const dispatch = useDispatch();
-  const { title, screen_Name, overview, poster_path, vote_average, popularity, onMyList } =
+  const { title, screen_Name, overview, poster_path, vote_average, popularity, onMyList, id } =
     route.params;
   const baseUrl = "https://image.tmdb.org/t/p/w500";
   const myList = useSelector((state) => state.movie.myList);
   const [LocalOnMyList, setOnMyList] = useState(onMyList);
   const [isWatched, setIsWatched] = useState(route.params.isWatched);
-  const My_List_Screen = "MyList_Screen";
-
+  const moviesToAdd = [route.params];
   // ---------------------------------  Functions ------------------------------------------------------
   const handleAddToMyList = () => {
-    const isMovieInList = myList.find((movie) => movie.id === route.params.id);
+    const isMovieInList = myList.find((movie) => movie.id === id);
     if (isMovieInList) {
-      // If the movie is already in myList, remove it and set onMyList to false
-      dispatch(removeFromMyList(route.params.id));
-      dispatch(updateOnMyList({ id: route.params.id, value: false }));
-      // setOnMyList(false); // Update local state
-      // console.log(`fasle: ${route.params.onMyList}`);
+      dispatch(removeFromMyList(id));
     } else {
-      dispatch(addToMyListAndUpdate({ movieData: route.params }));
-      // If the movie is not in myList, add it and set onMyList to true
+      console.log("Route params:", route.params); // Debugging
+      dispatch(addToMyListAndUpdate(moviesToAdd));
       // dispatch(addToMyList(route.params));
-      // dispatch(updateOnMyList({ id: route.params.id, value: true }));
-      // setOnMyList(true); // Update local state
-      // console.log(`true: ${route.params.onMyList}`);
     }
   };
-  const handleToggleWatched = () => {
-    setIsWatched((prevState) => !prevState); // Toggle local state
-    dispatch(updateIsWatched({ id: route.params.id, value: !isWatched })); // Update Redux state
-  };
-
   // ---------------------------------  Functions ------------------------------------------------------
   return (
     <View style={styles.Container_Style}>
@@ -95,7 +81,10 @@ const DetailScreen = ({ route }) => {
                   </Text>
                 </View>
 
-                <TouchableOpacity style={styles.Watched_button} onPress={handleToggleWatched}>
+                <TouchableOpacity
+                  style={styles.Watched_button}
+                  onPress={() => console.log("Clicked")}
+                >
                   <Ionicons
                     name={isWatched ? "add-circle" : "remove-circle"}
                     size={30}

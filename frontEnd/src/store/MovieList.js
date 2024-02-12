@@ -22,16 +22,7 @@ export const getRecommendations = createAsyncThunk(
     }
   },
 );
-// Define a thunk action creator that dispatches both addToMyList and updateOnMyList actions
-export const addToMyListAndUpdate = createAsyncThunk(
-  "movies/addToMyListAndUpdate",
-  async (payload, { dispatch }) => {
-    const { movieData } = payload;
-    // Dispatch both actions
-    dispatch(addToMyList(movieData));
-    dispatch(updateOnMyList({ id: movieData.id, value: true }));
-  },
-);
+
 const initialState = {
   movieList: [],
   myList: [],
@@ -44,20 +35,27 @@ const movieSlice = createSlice({
   name: "MovieList",
   initialState: initialState,
   reducers: {
-    updateOnMyList: (state, action) => {
-      const { id, value } = action.payload;
-      const movieIndex = state.movieList.findIndex((movie) => movie.id === id);
-      if (movieIndex !== -1) {
-        state.movieList[movieIndex].onMyList = value;
-        // console.log(state.movieList[movieIndex]);
-      }
-    },
     addToMyList: (state, action) => {
       state.myList.push(action.payload);
     },
     removeFromMyList: (state, action) => {
       const idToRemove = action.payload;
       state.myList = state.myList.filter((movie) => movie.id !== idToRemove);
+    },
+    addToMyListAndUpdate: (state, action) => {
+      const moviesToAdd = action.payload;
+      moviesToAdd.forEach((movieToAdd) => {
+        const { id } = movieToAdd;
+        const movieIndex = state.movieList.findIndex((movie) => movie.id === id);
+        // if (movieIndex === -1) {
+        // If the movie is not already in the list, update onMyList to true and push to myList
+        movieToAdd.onMyList = true;
+        state.myList.push(movieToAdd);
+        // } else {
+        //   // If the movie is already in the list, update onMyList to true
+        //   state.movieList[movieIndex].onMyList = true;
+        // }
+      });
     },
     updateIsWatched: (state, action) => {
       const { id, value } = action.payload;
@@ -83,7 +81,6 @@ const movieSlice = createSlice({
               isWatched: false,
             };
           }
-
           // Add onMyList and isWatched fields to the movie data
           return {
             ...movieData,
@@ -100,6 +97,11 @@ const movieSlice = createSlice({
       });
   },
 });
-export const { addToMyList, updateOnMyList, removeFromMyList, updateIsWatched } =
-  movieSlice.actions;
+export const {
+  addToMyList,
+  updateOnMyList,
+  removeFromMyList,
+  updateIsWatched,
+  addToMyListAndUpdate,
+} = movieSlice.actions;
 export default movieSlice.reducer;
