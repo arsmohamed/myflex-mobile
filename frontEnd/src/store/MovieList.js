@@ -26,7 +26,7 @@ export const getRecommendations = createAsyncThunk(
 const initialState = {
   movieList: [],
   myList: [],
-  updateComingMovieStates: {}, // Dictionary to store state for each movie
+  updateComingMovieStates: {}, // Dictionary to store state for each movie, it is not used else where but here to help add other values to each movie
   loading: false,
   currentPage: 1,
 };
@@ -36,25 +36,32 @@ const movieSlice = createSlice({
   initialState: initialState,
   reducers: {
     addToMyList: (state, action) => {
-      state.myList.push(action.payload);
-    },
-    removeFromMyList: (state, action) => {
-      const idToRemove = action.payload;
-      // Find the index of the movie to remove
-      const movieToRemoveIndex = state.myList.findIndex((movie) => movie.id === idToRemove);
-      if (movieToRemoveIndex !== -1) {
-        // Set onMyList to false for the found movie
-        state.myList[movieToRemoveIndex].onMyList = false;
-        // Remove the movie from the list
-        state.myList.splice(movieToRemoveIndex, 1);
-      }
-    },
-    addToMyListAndUpdate: (state, action) => {
       const moviesToAdd = action.payload;
       moviesToAdd.forEach((movieToAdd) => {
         movieToAdd.onMyList = true;
         state.myList.push(movieToAdd);
       });
+      state.movieList.forEach((movie) => {
+        if (movie.id === action.payload.id) {
+          movie.onMyList = true;
+        }
+      });
+    },
+    removeFromMyList: (state, action) => {
+      const idToRemove = action.payload;
+      // Find the index of the movie to remove
+      const movieIndex = state.myList.findIndex((movie) => movie.id === idToRemove);
+      if (movieIndex !== -1) {
+        // Set onMyList to false for the found movie
+        state.myList[movieIndex].onMyList = false;
+        // Remove the movie from the list
+        state.myList.splice(movieIndex, 1);
+        state.movieList.forEach((movie) => {
+          if (movie.id === idToRemove) {
+            movie.onMyList = false;
+          }
+        });
+      }
     },
     updateIsWatched: (state, action) => {
       const { id, value } = action.payload;

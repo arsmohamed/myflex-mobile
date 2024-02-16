@@ -15,7 +15,6 @@ import { getRecommendations } from "../store/MovieList";
 const Home = ({ navigation }) => {
   const dispatch = useDispatch();
   const MovieList = useSelector((state) => state.movie.movieList);
-  const MovieStates = useSelector((state) => state.movie.movieStates);
 
   useEffect(() => {
     dispatch(setScreen("Home_Screen"));
