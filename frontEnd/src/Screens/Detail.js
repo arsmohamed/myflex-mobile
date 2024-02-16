@@ -20,32 +20,15 @@ import {
 } from "react-native";
 
 const DetailScreen = ({ route }) => {
-  // Update localOnMyList when route.params.onMyList changes
-  useEffect(() => {
-    console.log(route.params.onMyList);
-    setOnMyList(route.params.onMyList);
-  }, [route.params.onMyList]);
-
   // ---------------------------------  Const ------------------------------------------------------
   const dispatch = useDispatch();
   const { title, screen_Name, overview, poster_path, vote_average, popularity, onMyList, id } =
     route.params;
   const baseUrl = "https://image.tmdb.org/t/p/w500";
-  const myList = useSelector((state) => state.movie.myList);
-  const [LocalOnMyList, setOnMyList] = useState(onMyList);
   const [isWatched, setIsWatched] = useState(route.params.isWatched);
   const moviesToAdd = [route.params];
   // ---------------------------------  Functions ------------------------------------------------------
-  const handleAddToMyList = () => {
-    const isMovieInList = myList.find((movie) => movie.id === id);
-    if (isMovieInList) {
-      dispatch(removeFromMyList(id));
-    } else {
-      console.log("Route params:", route.params); // Debugging
-      dispatch(addToMyListAndUpdate(moviesToAdd));
-      // dispatch(addToMyList(route.params));
-    }
-  };
+
   // ---------------------------------  Functions ------------------------------------------------------
   return (
     <View style={styles.Container_Style}>
@@ -63,16 +46,25 @@ const DetailScreen = ({ route }) => {
                 </Text>
               </View>
 
-              <TouchableOpacity style={styles.button} onPress={handleAddToMyList}>
-                <Ionicons
-                  name={LocalOnMyList ? "remove-circle" : "add-circle"}
-                  size={30}
-                  color={"black"}
-                />
-                <Text style={styles.Add_Text_Style}>My List</Text>
-              </TouchableOpacity>
+              {onMyList ? (
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => dispatch(removeFromMyList(id))}
+                >
+                  <Ionicons name={"remove-circle"} size={30} color={"black"} />
+                  <Text style={styles.Add_Text_Style}>Sub My List </Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => dispatch(addToMyListAndUpdate(moviesToAdd))}
+                >
+                  <Ionicons name={"add-circle"} size={30} color={"black"} />
+                  <Text style={styles.Add_Text_Style}> Add My List </Text>
+                </TouchableOpacity>
+              )}
             </View>
-            {LocalOnMyList && (
+            {onMyList && (
               <View style={styles.First_Container_Style}>
                 <View style={styles.Watched_Container_Style}>
                   <Ionicons name={isWatched ? "eye" : "eye-off"} size={30} color={"white"} />
@@ -153,7 +145,8 @@ const styles = StyleSheet.create({
     columnGap: 10,
   },
   button: {
-    width: 110,
+    // width: 110,
+    width: 210,
     height: 35,
     backgroundColor: "#FFD900",
     flexDirection: "row",
@@ -163,7 +156,7 @@ const styles = StyleSheet.create({
     padding: 2,
   },
   Watched_button: {
-    width: 130,
+    width: 170,
     height: 35,
     backgroundColor: "#FFD900",
     flexDirection: "row",

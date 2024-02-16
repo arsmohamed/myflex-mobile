@@ -40,21 +40,20 @@ const movieSlice = createSlice({
     },
     removeFromMyList: (state, action) => {
       const idToRemove = action.payload;
-      state.myList = state.myList.filter((movie) => movie.id !== idToRemove);
+      // Find the index of the movie to remove
+      const movieToRemoveIndex = state.myList.findIndex((movie) => movie.id === idToRemove);
+      if (movieToRemoveIndex !== -1) {
+        // Set onMyList to false for the found movie
+        state.myList[movieToRemoveIndex].onMyList = false;
+        // Remove the movie from the list
+        state.myList.splice(movieToRemoveIndex, 1);
+      }
     },
     addToMyListAndUpdate: (state, action) => {
       const moviesToAdd = action.payload;
       moviesToAdd.forEach((movieToAdd) => {
-        const { id } = movieToAdd;
-        const movieIndex = state.movieList.findIndex((movie) => movie.id === id);
-        // if (movieIndex === -1) {
-        // If the movie is not already in the list, update onMyList to true and push to myList
         movieToAdd.onMyList = true;
         state.myList.push(movieToAdd);
-        // } else {
-        //   // If the movie is already in the list, update onMyList to true
-        //   state.movieList[movieIndex].onMyList = true;
-        // }
       });
     },
     updateIsWatched: (state, action) => {
