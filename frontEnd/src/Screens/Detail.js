@@ -27,8 +27,32 @@ const DetailScreen = ({ route }) => {
   const baseUrl = "https://image.tmdb.org/t/p/w500";
   const [isWatched, setIsWatched] = useState(route.params.isWatched);
   const moviesToAdd = [route.params];
+  const [rerenderKey, setRerenderKey] = useState(0);
   // ---------------------------------  Functions ------------------------------------------------------
+  // Function to handle adding to My List
+  const handleAddToMyList = () => {
+    dispatch(addToMyList([route.params]));
+    setRerenderKey((prevKey) => prevKey + 1); // Increment the key to trigger rerender
+    console.log(rerenderKey);
+  };
 
+  // Function to handle removing from My List
+  const handleRemoveFromMyList = () => {
+    dispatch(removeFromMyList(id));
+    setRerenderKey((prevKey) => prevKey + 1); // Increment the key to trigger rerender
+    console.log(rerenderKey);
+  };
+  const MYLIST_Container = onMyList ? (
+    <TouchableOpacity style={styles.button} onPress={handleRemoveFromMyList}>
+      <Ionicons name={"remove-circle"} size={30} color={"black"} />
+      <Text style={styles.Add_Text_Style}>Sub My List </Text>
+    </TouchableOpacity>
+  ) : (
+    <TouchableOpacity style={styles.button} onPress={handleAddToMyList}>
+      <Ionicons name={"add-circle"} size={30} color={"black"} />
+      <Text style={styles.Add_Text_Style}> Add My List </Text>
+    </TouchableOpacity>
+  );
   // ---------------------------------  Functions ------------------------------------------------------
   return (
     <View style={styles.Container_Style}>
@@ -46,23 +70,7 @@ const DetailScreen = ({ route }) => {
                 </Text>
               </View>
 
-              {onMyList ? (
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={() => dispatch(removeFromMyList(id))}
-                >
-                  <Ionicons name={"remove-circle"} size={30} color={"black"} />
-                  <Text style={styles.Add_Text_Style}>Sub My List </Text>
-                </TouchableOpacity>
-              ) : (
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={() => dispatch(addToMyListAndUpdate(moviesToAdd))}
-                >
-                  <Ionicons name={"add-circle"} size={30} color={"black"} />
-                  <Text style={styles.Add_Text_Style}> Add My List </Text>
-                </TouchableOpacity>
-              )}
+              {MYLIST_Container}
             </View>
             {onMyList && (
               <View style={styles.First_Container_Style}>
