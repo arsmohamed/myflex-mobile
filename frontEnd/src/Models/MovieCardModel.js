@@ -11,7 +11,6 @@ const MovieCardModel = ({ props, ScreenName }) => {
   const navigation = useNavigation();
 
   const handleCardPress = () => {
-    console.log("everytime detail screen open", props);
     navigation.navigate("Detail_Screen", { ...props, screen_Name: ScreenName });
     dispatch(setScreen("Detail_Screen"));
   };

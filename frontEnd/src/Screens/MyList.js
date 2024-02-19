@@ -6,6 +6,9 @@ import MovieCardForm from "../Models/MovieCardModel";
 import MovieCardInfo from "../Info/MovieCardInfo";
 import { useDispatch, useSelector } from "react-redux";
 import { setScreen } from "../store/navigationSlice";
+import ProfileHeader from "../Headers/ProfileHeader";
+import PortfolioInfo from "../Info/PortfolioInfo";
+import PortfolioForm from "../Models/PortfolioModel";
 
 const MyListScreen = () => {
   // ---------------------------------  Const ------------------------------------------------------
@@ -19,6 +22,10 @@ const MyListScreen = () => {
   // ---------------------------------  Return ------------------------------------------------------
   return (
     <View style={styles.Main_Container_Style}>
+      {/* <ProfileHeader /> */}
+      {/* {PortfolioInfo.map((Info) => (
+        <PortfolioForm key={Info.id} props={Info} />
+      ))} */}
       <MyListHeader />
       <View style={styles.MyList_Scroll_Style}>
         <ScrollView>

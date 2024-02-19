@@ -12,6 +12,8 @@ const ProfileHeader = () => {
 };
 const styles = StyleSheet.create({
   Main_Container_Style: {
+    top: 0,
+    left: 0,
     height: "12%",
     width: "100%",
     flexDirection: "column-reverse",
