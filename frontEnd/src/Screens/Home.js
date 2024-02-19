@@ -15,12 +15,6 @@ const Home = ({ navigation }) => {
   useEffect(() => {
     dispatch(setScreen("Home_Screen"));
     dispatch(getRecommendations(2)).then(() => {});
-    // Adding listener for navigation focus
-    const unsubscribe = navigation.addListener("focus", () => {
-      console.log("MovieList:", MovieList);
-    });
-
-    return unsubscribe;
   }, []);
 
   return (

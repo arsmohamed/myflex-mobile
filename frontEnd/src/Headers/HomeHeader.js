@@ -3,11 +3,12 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { BlurView } from "expo-blur";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setScreen } from "../store/navigationSlice";
 
 const HomerHeader = ({ navigation }) => {
   const dispatch = useDispatch();
+  const MovieList = useSelector((state) => state.movie.movieList);
 
   const handleOptionPress = () => {
     console.log("clicked");
@@ -15,6 +16,7 @@ const HomerHeader = ({ navigation }) => {
   const handleSearch = () => {
     navigation.navigate("Search_Screen");
     dispatch(setScreen("Search_Screen"));
+    console.log(MovieList);
   };
   const renderOption = (option) => (
     <TouchableOpacity
