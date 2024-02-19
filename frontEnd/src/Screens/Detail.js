@@ -26,21 +26,18 @@ const DetailScreen = ({ route }) => {
     route.params;
   const baseUrl = "https://image.tmdb.org/t/p/w500";
   const [isWatched, setIsWatched] = useState(route.params.isWatched);
-  const moviesToAdd = [route.params];
   const [rerenderKey, setRerenderKey] = useState(0);
   // ---------------------------------  Functions ------------------------------------------------------
   // Function to handle adding to My List
   const handleAddToMyList = () => {
     dispatch(addToMyList([route.params]));
     setRerenderKey((prevKey) => prevKey + 1); // Increment the key to trigger rerender
-    console.log(rerenderKey);
   };
 
   // Function to handle removing from My List
   const handleRemoveFromMyList = () => {
     dispatch(removeFromMyList(id));
     setRerenderKey((prevKey) => prevKey + 1); // Increment the key to trigger rerender
-    console.log(rerenderKey);
   };
   const MYLIST_Container = onMyList ? (
     <TouchableOpacity style={styles.button} onPress={handleRemoveFromMyList}>

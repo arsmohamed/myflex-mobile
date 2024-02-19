@@ -26,7 +26,8 @@ export const getRecommendations = createAsyncThunk(
 const initialState = {
   movieList: [],
   myList: [],
-  updateComingMovieStates: {}, // Dictionary to store state for each movie, it is not used else where but here to help add other values to each movie
+  // Dictionary to store state for each movie, it is not used else where but here to help add other values to each movie
+  updateComingMovieStates: {},
   loading: false,
   currentPage: 1,
 };

@@ -4,10 +4,6 @@ import { View, Text, StyleSheet, FlatList, ScrollView } from "react-native";
 import SpotLightModel from "../Models/SpotLightModel";
 import MovieCardForm from "../Models/MovieCardModel";
 import HomeHeader from "../Headers/HomeHeader";
-import MovieCardInfo from "../Info/MovieCardInfo";
-import HomeCardInfo from "../Info/MovieCardInfo";
-import HomeCard from "../Models/MovieCardModel";
-import SlideInfo from "../Info/SlideInfo";
 import { useDispatch, useSelector } from "react-redux";
 import { setScreen } from "../store/navigationSlice";
 import { getRecommendations } from "../store/MovieList";
@@ -18,7 +14,13 @@ const Home = ({ navigation }) => {
 
   useEffect(() => {
     dispatch(setScreen("Home_Screen"));
-    dispatch(getRecommendations(1)).then((response) => {});
+    dispatch(getRecommendations(2)).then(() => {});
+    // Adding listener for navigation focus
+    const unsubscribe = navigation.addListener("focus", () => {
+      console.log("MovieList:", MovieList);
+    });
+
+    return unsubscribe;
   }, []);
 
   return (
@@ -27,7 +29,6 @@ const Home = ({ navigation }) => {
       <ScrollView>
         <View style={styles.Scroll_Container_Style}>
           <FlatList
-            // data={SlideInfo}
             data={MovieList.slice(0, 5)}
             renderItem={({ item, index }) => (
               <SpotLightModel props={{ ...item, page: (index + 1).toString() }} />
