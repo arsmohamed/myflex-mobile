@@ -6,7 +6,7 @@ import MovieCardForm from "../Models/MovieCardModel";
 import HomeHeader from "../Headers/HomeHeader";
 import { useDispatch, useSelector } from "react-redux";
 import { setScreen } from "../store/navigationSlice";
-import { getRecommendations } from "../store/MovieList";
+import { getRecommendations } from "../store/Actions";
 
 const Home = ({ navigation }) => {
   const dispatch = useDispatch();

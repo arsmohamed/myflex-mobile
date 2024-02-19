@@ -1,27 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
-
-export const getRecommendations = createAsyncThunk(
-  "movies/getRecommendations",
-  async (page, { rejectWithValue }) => {
-    try {
-      // Get the token from the state (assuming it is stored there)
-      const token = await AsyncStorage.getItem("token");
-      const response = await axios.get(
-        `http://localhost:5001/myFlex/api/v1/user/recommendations?page=${page}`,
-        {
-          headers: {
-            Authorization: token,
-          },
-        },
-      );
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  },
-);
+import { getRecommendations } from "./Actions";
 
 const initialState = {
   movieList: [],

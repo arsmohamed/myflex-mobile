@@ -100,13 +100,13 @@ const ScreenContainer = () => {
             tabPress: () => dispatch(setScreen("MyList_Screen")),
           }}
         />
-        <Tab.Screen
+        {/* <Tab.Screen
           name="SearchScreen"
           component={SearchScreen}
           listeners={{
             tabPress: () => dispatch(setScreen("Search_Screen")),
           }}
-        />
+        /> */}
         <Tab.Screen
           name="Profile"
           component={ProfileScreen}
