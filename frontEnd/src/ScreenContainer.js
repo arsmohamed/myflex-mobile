@@ -58,8 +58,8 @@ const ScreenContainer = () => {
       overflow: "hidden",
       borderTopWidth: 1,
       borderTopColor: "white",
-      display:
-        ActiveScreen === "Search_Screen" || ActiveScreen === "Detail_Screen" ? "none" : "flex",
+      display: ActiveScreen === "Detail_Screen" ? "none" : "flex",
+      // ActiveScreen === "Search_Screen" || ActiveScreen === "Detail_Screen" ? "none" : "flex",
       // borderTopEndRadius: 45,
     },
     tabBarIcon: ({ focused }) => {
@@ -68,6 +68,8 @@ const ScreenContainer = () => {
         iconName = "home";
       } else if (route.name === "MyList") {
         iconName = "play-circle";
+      } else if (route.name === "SearchScreen") {
+        iconName = "search";
       } else if (route.name === "Profile") {
         iconName = "person";
       }
@@ -90,11 +92,19 @@ const ScreenContainer = () => {
             tabPress: () => dispatch(setScreen("Home_Screen")),
           }}
         />
+
         <Tab.Screen
           name="MyList"
           component={MyListStack}
           listeners={{
             tabPress: () => dispatch(setScreen("MyList_Screen")),
+          }}
+        />
+        <Tab.Screen
+          name="SearchScreen"
+          component={SearchScreen}
+          listeners={{
+            tabPress: () => dispatch(setScreen("Search_Screen")),
           }}
         />
         <Tab.Screen
