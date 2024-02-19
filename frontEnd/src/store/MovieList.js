@@ -15,16 +15,12 @@ const movieSlice = createSlice({
   initialState: initialState,
   reducers: {
     addToMyList: (state, action) => {
-      const moviesToAdd = action.payload;
-      moviesToAdd.forEach((movieToAdd) => {
-        movieToAdd.onMyList = true;
-        state.myList.push(movieToAdd);
-      });
-      state.movieList.forEach((movie) => {
-        if (movie.id === action.payload.id) {
-          movie.onMyList = true;
-        }
-      });
+      const movie = action.payload;
+      movie.onMyList = true;
+      state.myList.push(movie);
+
+      const movieToUpdate = state.movieList.find((innerMovie) => innerMovie.id === movie.id);
+      if (movieToUpdate) movieToUpdate.onMyList = true;
     },
     removeFromMyList: (state, action) => {
       const idToRemove = action.payload;
