@@ -16,6 +16,7 @@ const DetailHeader = ({ ReturnedScreen, movieId }) => {
     navigation.goBack();
     dispatch(setScreen(ReturnedScreen));
   };
+
   const LeftContainer = (
     <TouchableOpacity onPress={() => UpdateState()} activeOpacity={0.9} style={{ marginRight: 10 }}>
       <Ionicons name="arrow-back" size={25} style={{ color: "white" }} />
