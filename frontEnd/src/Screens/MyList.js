@@ -13,9 +13,8 @@ import PortfolioForm from "../Models/PortfolioModel";
 const MyListScreen = () => {
   // ---------------------------------  Const ------------------------------------------------------
   const dispatch = useDispatch();
-  const myList = useSelector((state) => state.movie.myList);
-  // Filter myList to only include items where onMyList is true
-  const filteredList = myList.filter((movie) => movie.onMyList);
+  const movieList = useSelector((state) => state.movie.movieList);
+  const filteredList = movieList.filter((movie) => movie.onMyList);
   // ---------------------------------  UseEffect ------------------------------------------------------
   useEffect(() => {
     dispatch(setScreen("MyList_Screen"));

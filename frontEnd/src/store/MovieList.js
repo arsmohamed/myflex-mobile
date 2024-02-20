@@ -16,27 +16,19 @@ const movieSlice = createSlice({
   reducers: {
     addToMyList: (state, action) => {
       const movie = action.payload;
-      movie.onMyList = true;
-      state.myList.push(movie);
+      // movie.onMyList = true;
+      // state.myList.push(movie);
 
       const movieToUpdate = state.movieList.find((innerMovie) => innerMovie.id === movie.id);
       if (movieToUpdate) movieToUpdate.onMyList = true;
     },
     removeFromMyList: (state, action) => {
-      const idToRemove = action.payload;
+      const movie = action.payload;
       // Find the index of the movie to remove
-      const movieIndex = state.myList.findIndex((movie) => movie.id === idToRemove);
-      if (movieIndex !== -1) {
-        // Set onMyList to false for the found movie
-        state.myList[movieIndex].onMyList = false;
-        // Remove the movie from the list
-        state.myList.splice(movieIndex, 1);
-        state.movieList.forEach((movie) => {
-          if (movie.id === idToRemove) {
-            movie.onMyList = false;
-          }
-        });
-      }
+      const movieToUpdate = state.movieList.find((innerMovie) => innerMovie.id === movie.id);
+
+      if (movieToUpdate) movieToUpdate.onMyList = false;
+      console.log(state.movieList);
     },
     updateIsWatched: (state, action) => {
       const { id, value } = action.payload;

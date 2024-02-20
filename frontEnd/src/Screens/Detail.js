@@ -35,10 +35,9 @@ const DetailScreen = ({ route }) => {
     dispatch(addToMyList(route.params));
     setRerenderKey((prevKey) => prevKey + 1); // Increment the key to trigger rerender
   };
-
   // Function to handle removing from My List
   const handleRemoveFromMyList = () => {
-    dispatch(removeFromMyList(id));
+    dispatch(removeFromMyList(route.params));
     setRerenderKey((prevKey) => prevKey + 1); // Increment the key to trigger rerender
   };
   const MYLIST_Container = onMyList ? (
