@@ -14,7 +14,8 @@ const MyListScreen = () => {
   // ---------------------------------  Const ------------------------------------------------------
   const dispatch = useDispatch();
   const myList = useSelector((state) => state.movie.myList);
-
+  // Filter myList to only include items where onMyList is true
+  const filteredList = myList.filter((movie) => movie.onMyList);
   // ---------------------------------  UseEffect ------------------------------------------------------
   useEffect(() => {
     dispatch(setScreen("MyList_Screen"));
@@ -34,7 +35,7 @@ const MyListScreen = () => {
             <Text style={styles.MyList_Text_Style}>UnWatched</Text>
           </View>
           <View style={styles.New_Release_Container_Style}>
-            {myList.map((movie) => (
+            {filteredList.map((movie) => (
               <MovieCardForm key={movie.title} props={movie} ScreenName={"MyList_Screen"} />
             ))}
           </View>

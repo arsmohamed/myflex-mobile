@@ -24,11 +24,7 @@ const DetailScreen = ({ route }) => {
   const dispatch = useDispatch();
   const { title, screen_Name, overview, poster_path, vote_average, popularity, onMyList, id } =
     route.params;
-  // const MovieList = useSelector((state) => state.movie.movieList);
-  // const movie = MovieList.find((movie) => movie.id === id);
-  // console.log(MovieList);
-  // MovieList.forEach((movie, index) => {
-  //   console.log(movie.title + index + "");
+
   // });
   const baseUrl = "https://image.tmdb.org/t/p/w500";
   const [isWatched, setIsWatched] = useState(route.params.isWatched);

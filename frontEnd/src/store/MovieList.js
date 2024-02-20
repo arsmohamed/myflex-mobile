@@ -70,7 +70,7 @@ const movieSlice = createSlice({
           };
         });
         state.movieList = updatedMovieList;
-        // console.log(state.movieList);
+        console.log(state.movieList);
       })
       .addCase(getRecommendations.rejected, (state, action) => {
         state.loading = false;
