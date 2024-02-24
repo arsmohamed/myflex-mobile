@@ -10,11 +10,6 @@ const PortfolioModel = ({ props }) => {
   const movieList = useSelector((state) => state.movie.movieList);
   const filteredList = movieList.filter((movie) => movie.onMyList);
 
-  // ---------------------------------  UseEffect ------------------------------------------------------
-  useEffect(() => {
-    dispatch(setScreen("MyList_Screen"));
-  }, []);
-
   //Top Profile Container
   const My_Portfolio = (
     <View style={styles.Top_Container_Style}>
@@ -39,7 +34,7 @@ const PortfolioModel = ({ props }) => {
   const MyListContainer = (
     <View style={styles.New_Release_Container_Style}>
       {filteredList.map((movie) => (
-        <MovieCardModel key={movie.title} props={movie} ScreenName={"MyList_Screen"} />
+        <MovieCardModel key={movie.title} props={movie} ScreenName={"Profile_Screen"} />
       ))}
     </View>
   );
