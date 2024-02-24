@@ -1,24 +1,7 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import { AuthActions } from "../store/Auth";
-import { useDispatch } from "react-redux";
-import { Logout } from "../store/Actions";
+import { View, Text, StyleSheet, Image } from "react-native";
 
 const PortfolioModel = ({ props }) => {
-  const dispatch = useDispatch();
-
-  // const Logout = () => {
-  //   dispatch(Logout());
-  // };
-  // Handle the "Logout" button press and clear data
-  const handleLogout = async () => {
-    try {
-      await dispatch(Logout());
-    } catch (error) {
-      // Handle error if needed
-      console.error(error);
-    }
-  };
   const My_Portfolio = (
     <View style={styles.Container_Style}>
       <View style={styles.My_Portfolio_Style}>
@@ -41,14 +24,7 @@ const PortfolioModel = ({ props }) => {
     </View>
   );
 
-  return (
-    <View style={styles.Portfolio_Form_style}>
-      {My_Portfolio}
-      <TouchableOpacity onPress={handleLogout}>
-        <Text style={styles.logout_Text_Style}>Logout</Text>
-      </TouchableOpacity>
-    </View>
-  );
+  return <View style={styles.Portfolio_Form_style}>{My_Portfolio}</View>;
 };
 const styles = StyleSheet.create({
   Portfolio_Form_style: {
@@ -58,6 +34,7 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: "center",
     justifyContent: "space-between",
+
     // borderWidth: 1,
     // borderColor: "blue",
   },
@@ -65,7 +42,8 @@ const styles = StyleSheet.create({
     height: "25%",
     flexDirection: "column",
     justifyContent: "space-between",
-    alignItems: "flex-start",
+    alignItems: "center",
+
     // borderWidth: 1,
     // borderColor: "red",
   },
@@ -100,6 +78,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "space-around",
+
     // borderWidth: 1,
     // borderColor: "red",
   },
@@ -111,11 +90,6 @@ const styles = StyleSheet.create({
   Watch_text_Style: {
     color: "white",
     fontSize: 18,
-  },
-  logout_Text_Style: {
-    color: "#FF3B3B",
-    fontSize: 25,
-    marginBottom: 10,
   },
 });
 
