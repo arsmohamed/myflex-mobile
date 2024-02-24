@@ -2,25 +2,25 @@ import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 
 const PortfolioModel = ({ props }) => {
+  //Top Profile Container
   const My_Portfolio = (
-    <View style={styles.Container_Style}>
+    <View style={styles.Top_Container_Style}>
       <View style={styles.My_Portfolio_Style}>
         <View style={styles.circle_Container_Style}>
           <Image source={props.Portfolio_img} style={styles.circle_Image_Style} />
         </View>
         <Text style={styles.text_Style}>{props.UserName}</Text>
       </View>
-      <View style={styles.Number_Movie_container}>
-        <View style={styles.Watched_Container_Style}>
-          <Text style={styles.Watch_text_Style}>Watched</Text>
-          <Text style={styles.Watch_text_Style}>{props.Watched}</Text>
-        </View>
-        <Text style={{ fontSize: 40, color: "white" }}>|</Text>
-        <View style={styles.Watched_Container_Style}>
-          <Text style={styles.Watch_text_Style}>Plane 2 Watch</Text>
-          <Text style={styles.Watch_text_Style}>{props.Plan2Watch}</Text>
-        </View>
+      {/* <View style={styles.Number_Movie_container}> */}
+      <View style={styles.Watched_Container_Style}>
+        <Text style={styles.Watch_text_Style}>My List</Text>
+        <Text style={styles.Watch_text_Style}>{props.Watched}</Text>
       </View>
+      <View style={styles.Watched_Container_Style}>
+        <Text style={styles.Watch_text_Style}>Watched</Text>
+        <Text style={styles.Watch_text_Style}>{props.Plan2Watch}</Text>
+      </View>
+      {/* </View> */}
     </View>
   );
 
@@ -31,27 +31,28 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     width: "100%",
     height: "80%",
-    padding: 20,
     alignItems: "center",
     justifyContent: "space-between",
 
     // borderWidth: 1,
     // borderColor: "blue",
   },
-  Container_Style: {
+  Top_Container_Style: {
     height: "25%",
-    flexDirection: "column",
-    justifyContent: "space-between",
+    width: "90%",
+    flexDirection: "row",
+    justifyContent: "space-around",
     alignItems: "center",
 
-    // borderWidth: 1,
-    // borderColor: "red",
+    borderWidth: 1,
+    borderBottomColor: "grey",
+    // borderColor: "white",
   },
   My_Portfolio_Style: {
-    flexDirection: "row",
-    width: "100%",
+    flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-around",
+
     // borderWidth: 1,
     // borderColor: "red",
   },
@@ -75,7 +76,6 @@ const styles = StyleSheet.create({
   },
   Number_Movie_container: {
     flexDirection: "row",
-    width: "100%",
     alignItems: "center",
     justifyContent: "space-around",
 
@@ -84,8 +84,12 @@ const styles = StyleSheet.create({
   },
   Watched_Container_Style: {
     flexDirection: "column",
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
+    height: "40%",
+
+    // borderWidth: 1,
+    // borderColor: "blue",
   },
   Watch_text_Style: {
     color: "white",
