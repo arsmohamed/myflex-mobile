@@ -1,14 +1,10 @@
 // ChatScreen.js
-import React, { useEffect } from "react";
 import { View, Text, ScrollView, StyleSheet } from "react-native";
-import MyListHeader from "../Headers/MyListHeader";
-import MovieCardForm from "../Models/MovieCardModel";
-import MovieCardInfo from "../Info/MovieCardInfo";
 import { useDispatch, useSelector } from "react-redux";
+import MovieCardForm from "../Models/MovieCardModel";
 import { setScreen } from "../store/navigationSlice";
-import ProfileHeader from "../Headers/ProfileHeader";
-import PortfolioInfo from "../Info/PortfolioInfo";
-import PortfolioForm from "../Models/PortfolioModel";
+import MyListHeader from "../Headers/MyListHeader";
+import React, { useEffect } from "react";
 
 const MyListScreen = () => {
   // ---------------------------------  Const ------------------------------------------------------
