@@ -1,7 +1,20 @@
-import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { setScreen } from "../store/navigationSlice";
+import MovieCardModel from "./MovieCardModel";
+import React, { useEffect } from "react";
 
 const PortfolioModel = ({ props }) => {
+  // ---------------------------------  Const ----------------------------------------------------------
+  const dispatch = useDispatch();
+  const movieList = useSelector((state) => state.movie.movieList);
+  const filteredList = movieList.filter((movie) => movie.onMyList);
+
+  // ---------------------------------  UseEffect ------------------------------------------------------
+  useEffect(() => {
+    dispatch(setScreen("MyList_Screen"));
+  }, []);
+
   //Top Profile Container
   const My_Portfolio = (
     <View style={styles.Top_Container_Style}>
@@ -11,7 +24,6 @@ const PortfolioModel = ({ props }) => {
         </View>
         <Text style={styles.text_Style}>{props.UserName}</Text>
       </View>
-      {/* <View style={styles.Number_Movie_container}> */}
       <View style={styles.Watched_Container_Style}>
         <Text style={styles.Watch_text_Style}>My List</Text>
         <Text style={styles.Watch_text_Style}>{props.Watched}</Text>
@@ -20,25 +32,39 @@ const PortfolioModel = ({ props }) => {
         <Text style={styles.Watch_text_Style}>Watched</Text>
         <Text style={styles.Watch_text_Style}>{props.Plan2Watch}</Text>
       </View>
-      {/* </View> */}
     </View>
   );
 
-  return <View style={styles.Portfolio_Form_style}>{My_Portfolio}</View>;
+  // MyList Container
+  const MyListContainer = (
+    <View style={styles.New_Release_Container_Style}>
+      {filteredList.map((movie) => (
+        <MovieCardModel key={movie.title} props={movie} ScreenName={"MyList_Screen"} />
+      ))}
+    </View>
+  );
+  //returned View
+  return (
+    <View style={styles.Portfolio_Form_style}>
+      {My_Portfolio}
+      {MyListContainer}
+    </View>
+  );
 };
 const styles = StyleSheet.create({
   Portfolio_Form_style: {
     flexDirection: "column",
     width: "100%",
-    height: "80%",
+    height: "100%",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
+    rowGap: 20,
 
     // borderWidth: 1,
     // borderColor: "blue",
   },
   Top_Container_Style: {
-    height: "25%",
+    height: "15%",
     width: "90%",
     flexDirection: "row",
     justifyContent: "space-around",
@@ -94,6 +120,12 @@ const styles = StyleSheet.create({
   Watch_text_Style: {
     color: "white",
     fontSize: 18,
+  },
+  New_Release_Container_Style: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    width: "100%",
+    rowGap: 15,
   },
 });
 
