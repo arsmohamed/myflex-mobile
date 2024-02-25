@@ -16,7 +16,6 @@ const HomerHeader = ({ navigation }) => {
   const handleSearch = () => {
     navigation.navigate("Search_Screen");
     dispatch(setScreen("Search_Screen"));
-    console.log(MovieList);
   };
   const renderOption = (option) => (
     <TouchableOpacity
