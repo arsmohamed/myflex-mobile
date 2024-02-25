@@ -15,7 +15,6 @@ const DetailHeader = ({ ReturnedScreen, movieId }) => {
   const UpdateState = () => {
     navigation.goBack();
     dispatch(setScreen(ReturnedScreen));
-    console.log(ReturnedScreen);
   };
 
   const LeftContainer = (

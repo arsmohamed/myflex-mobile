@@ -28,7 +28,6 @@ const movieSlice = createSlice({
       const movieToUpdate = state.movieList.find((innerMovie) => innerMovie.id === movie.id);
 
       if (movieToUpdate) movieToUpdate.onMyList = false;
-      console.log(state.movieList);
     },
     updateIsWatched: (state, action) => {
       const { id, value } = action.payload;
@@ -62,7 +61,6 @@ const movieSlice = createSlice({
           };
         });
         state.movieList = updatedMovieList;
-        console.log(state.movieList);
       })
       .addCase(getRecommendations.rejected, (state, action) => {
         state.loading = false;
