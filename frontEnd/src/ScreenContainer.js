@@ -45,6 +45,19 @@ const MyListStack = () => {
     </Stack.Navigator>
   );
 };
+const ProfileStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        gestureEnabled: false,
+      }}
+    >
+      <Stack.Screen name="Profile_Screen" component={ProfileScreen} />
+      <Stack.Screen name="Detail_Screen" component={DetailScreen} />
+    </Stack.Navigator>
+  );
+};
 const ScreenContainer = () => {
   const dispatch = useDispatch();
   const ActiveScreen = useSelector((state) => state.screen.activeScreen);
@@ -92,14 +105,13 @@ const ScreenContainer = () => {
             tabPress: () => dispatch(setScreen("Home_Screen")),
           }}
         />
-
-        <Tab.Screen
+        {/* <Tab.Screen
           name="MyList"
           component={MyListStack}
           listeners={{
             tabPress: () => dispatch(setScreen("MyList_Screen")),
           }}
-        />
+        /> */}
         {/* <Tab.Screen
           name="SearchScreen"
           component={SearchScreen}
@@ -109,7 +121,7 @@ const ScreenContainer = () => {
         /> */}
         <Tab.Screen
           name="Profile"
-          component={ProfileScreen}
+          component={ProfileStack}
           listeners={{
             tabPress: () => dispatch(setScreen("Profile_Screen")),
           }}
