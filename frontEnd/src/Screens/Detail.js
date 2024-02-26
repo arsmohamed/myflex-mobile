@@ -64,7 +64,7 @@ const DetailScreen = ({ route }) => {
               <View style={styles.Rate_Container_Style}>
                 <Image source={IMBD} />
                 <Text style={[styles.Rating_Style, styles.Text_color]}>
-                  {vote_average.toFixed(1)} / 10
+                  {vote_average ? vote_average.toFixed(1) : ".."} / 10
                 </Text>
               </View>
 

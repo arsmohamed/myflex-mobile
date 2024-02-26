@@ -8,7 +8,6 @@ import { setScreen } from "../store/navigationSlice";
 
 const HomerHeader = ({ navigation }) => {
   const dispatch = useDispatch();
-  const MovieList = useSelector((state) => state.movie.movieList);
 
   const handleOptionPress = () => {
     console.log("clicked");
