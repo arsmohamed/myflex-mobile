@@ -27,18 +27,29 @@ const SearchHeader = () => {
     </View>
   );
 
-  return <View style={styles.MainContainerStyle}>{RightContainer}</View>;
+  const LeftContainer = (
+    <TouchableOpacity onPress={() => UpdateState()} activeOpacity={0.9} style={{ marginRight: 10 }}>
+      <Ionicons name="arrow-back" size={25} style={{ color: "white" }} />
+    </TouchableOpacity>
+  );
+
+  return (
+    <View style={styles.MainContainerStyle}>
+      {LeftContainer}
+      {RightContainer}
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
   MainContainerStyle: {
     flexDirection: "row",
     width: "90%",
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
   },
   SearchingContainerStyle: {
-    width: "90%",
+    width: "80%",
     height: 40,
     borderWidth: 1,
     borderRadius: 15,

@@ -12,6 +12,10 @@ const HomerHeader = ({ navigation }) => {
   const handleOptionPress = () => {
     console.log("clicked");
   };
+  const handleSearch = () => {
+    navigation.navigate("Search_Screen");
+    dispatch(setScreen("Search_Screen"));
+  };
   const renderOption = (option) => (
     <TouchableOpacity
       key={option}
@@ -37,8 +41,16 @@ const HomerHeader = ({ navigation }) => {
       {renderOption("Anime")}
     </View>
   );
+  const RightContainer = (
+    <TouchableOpacity onPress={() => handleSearch()}>
+      <Ionicons name="search" size={30} style={{ color: "white" }} />
+    </TouchableOpacity>
+  );
   const NavigationContainer = (
-    <View style={styles.Navigation_Container_Style}>{LeftContainer}</View>
+    <View style={styles.Navigation_Container_Style}>
+      {LeftContainer}
+      {RightContainer}
+    </View>
   );
   return (
     <BlurView intensity={20} tint="dark" style={styles.Main_Container_Style}>

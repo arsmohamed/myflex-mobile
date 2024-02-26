@@ -32,7 +32,7 @@ function HomeStack() {
     </Stack.Navigator>
   );
 }
-const SearchStack = () => {
+const MyListStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -40,7 +40,7 @@ const SearchStack = () => {
         gestureEnabled: false,
       }}
     >
-      <Stack.Screen name="MyList_Screen" component={SearchScreen} />
+      <Stack.Screen name="MyList_Screen" component={MylistScreen} />
       <Stack.Screen name="Detail_Screen" component={DetailScreen} />
     </Stack.Navigator>
   );
@@ -112,13 +112,13 @@ const ScreenContainer = () => {
             tabPress: () => dispatch(setScreen("MyList_Screen")),
           }}
         /> */}
-        <Tab.Screen
+        {/* <Tab.Screen
           name="SearchScreen"
           component={SearchScreen}
           listeners={{
             tabPress: () => dispatch(setScreen("Search_Screen")),
           }}
-        />
+        /> */}
         <Tab.Screen
           name="Profile"
           component={ProfileStack}
