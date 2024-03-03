@@ -32,19 +32,6 @@ function HomeStack() {
     </Stack.Navigator>
   );
 }
-const MyListStack = () => {
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-        gestureEnabled: false,
-      }}
-    >
-      <Stack.Screen name="MyList_Screen" component={MylistScreen} />
-      <Stack.Screen name="Detail_Screen" component={DetailScreen} />
-    </Stack.Navigator>
-  );
-};
 const ProfileStack = () => {
   return (
     <Stack.Navigator
@@ -105,20 +92,6 @@ const ScreenContainer = () => {
             tabPress: () => dispatch(setScreen("Home_Screen")),
           }}
         />
-        {/* <Tab.Screen
-          name="MyList"
-          component={MyListStack}
-          listeners={{
-            tabPress: () => dispatch(setScreen("MyList_Screen")),
-          }}
-        /> */}
-        {/* <Tab.Screen
-          name="SearchScreen"
-          component={SearchScreen}
-          listeners={{
-            tabPress: () => dispatch(setScreen("Search_Screen")),
-          }}
-        /> */}
         <Tab.Screen
           name="Profile"
           component={ProfileStack}
