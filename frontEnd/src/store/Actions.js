@@ -99,3 +99,24 @@ export const getRecommendations = createAsyncThunk(
     }
   },
 );
+// Handle Search
+export const Search = createAsyncThunk(
+  "movies/Search",
+  async ({ searchValue, page = 1 }, { rejectWithValue }) => {
+    try {
+      // Get the token from the state (assuming it is stored there)
+      const token = await AsyncStorage.getItem("token");
+      const responce = await axios.get(
+        `http://localhost:5001/myFlex/api/v1/search/movie?searchQuery=${searchValue}&page=${page}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        },
+      );
+      return responce;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  },
+);
