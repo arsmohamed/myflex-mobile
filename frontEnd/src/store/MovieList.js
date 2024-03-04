@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getRecommendations } from "./Actions";
+import { getRecommendations, Search } from "./Actions";
 
 const initialState = {
   movieList: [],
   myList: [],
+  SearchValue: "",
+  searchList: [],
   // Dictionary to store state for each movie, it is not used else where but here to help add other values to each movie
   updateComingMovieStates: {},
   loading: false,
@@ -36,6 +38,14 @@ const movieSlice = createSlice({
         state.myList[movieIndex].isWatched = value;
       }
     },
+    setSearchValue: (state, action) => {
+      const value = action.payload;
+      state.SearchValue = value;
+      console.log(value);
+    },
+    clearSearchValue: (state) => {
+      state.SearchValue = "";
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -65,7 +75,8 @@ const movieSlice = createSlice({
       .addCase(getRecommendations.rejected, (state, action) => {
         state.loading = false;
         // Handle the error, you can add an error field to the state
-      });
+      })
+      .addCase(Search.fulfilled, (state, action) => {});
   },
 });
 export const {
@@ -74,5 +85,6 @@ export const {
   removeFromMyList,
   updateIsWatched,
   addToMyListAndUpdate,
+  setSearchValue,
 } = movieSlice.actions;
 export default movieSlice.reducer;

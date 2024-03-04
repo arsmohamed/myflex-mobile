@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { View, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setScreen } from "../store/navigationSlice";
 import { useNavigation } from "@react-navigation/native";
 
 const SearchHeader = () => {
-  const [searchValue, setSearchValue] = useState("");
+  // const [searchValue, setSearchValue] = useState("");
   const dispatch = useDispatch();
+  const searchValue = useSelector((state) => state.movie.SearchValue);
   const navigation = useNavigation();
 
   const UpdateState = () => {
@@ -22,7 +23,7 @@ const SearchHeader = () => {
         placeholder="Search"
         placeholderTextColor="white"
         value={searchValue}
-        onChangeText={(text) => setSearchValue(text)}
+        // onChangeText={(text) => setSearchValue(text)}
       />
     </View>
   );
