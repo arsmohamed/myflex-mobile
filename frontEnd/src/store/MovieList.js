@@ -41,7 +41,6 @@ const movieSlice = createSlice({
     setSearchValue: (state, action) => {
       const value = action.payload;
       state.SearchValue = value;
-      console.log(value);
     },
     clearSearchValue: (state) => {
       state.SearchValue = "";
@@ -86,5 +85,6 @@ export const {
   updateIsWatched,
   addToMyListAndUpdate,
   setSearchValue,
+  clearSearchValue,
 } = movieSlice.actions;
 export default movieSlice.reducer;
