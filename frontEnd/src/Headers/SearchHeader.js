@@ -4,6 +4,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { setScreen } from "../store/navigationSlice";
+import { searhcMovie } from "../store/Actions";
 import React from "react";
 
 const SearchHeader = () => {
@@ -16,7 +17,9 @@ const SearchHeader = () => {
     dispatch(clearSearchValue());
     navigation.goBack();
   };
-
+  const handleSearch = (text) => {
+    dispatch(searhcMovie({ searchValue: text, page: 1 }));
+  };
   const RightContainer = (
     <View style={styles.SearchingContainerStyle}>
       <Ionicons name="search" size={25} style={styles.SearchIconStyle} />
@@ -26,6 +29,7 @@ const SearchHeader = () => {
         placeholderTextColor="white"
         value={searchValue}
         onChangeText={(text) => dispatch(setSearchValue(text))}
+        onSubmitEditing={handleSearch}
       />
     </View>
   );

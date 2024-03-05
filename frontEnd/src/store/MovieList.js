@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getRecommendations, Search } from "./Actions";
+import { getRecommendations, searhcMovie } from "./Actions";
 
 const initialState = {
   movieList: [],
@@ -75,7 +75,11 @@ const movieSlice = createSlice({
         state.loading = false;
         // Handle the error, you can add an error field to the state
       })
-      .addCase(Search.fulfilled, (state, action) => {});
+      .addCase(searhcMovie.fulfilled, (state, action) => {
+        state.loading = false;
+        const searchResult = action.payload.data;
+        state.searchList = searchResult;
+      });
   },
 });
 export const {
