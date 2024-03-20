@@ -14,7 +14,7 @@ const Home = ({ navigation }) => {
 
   useEffect(() => {
     dispatch(setScreen("Home_Screen"));
-    dispatch(getRecommendations(2)).then(() => {});
+    dispatch(getRecommendations(1)).then(() => {});
   }, []);
 
   return (
