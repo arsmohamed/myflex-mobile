@@ -100,13 +100,14 @@ export const getRecommendations = createAsyncThunk(
   },
 );
 // Handle Search
-export const Search = createAsyncThunk(
+export const searhcMovie = createAsyncThunk(
   "movies/Search",
-  async ({ searchValue, page = 1 }, { rejectWithValue }) => {
+  async ({ searchValue, page }, { rejectWithValue }) => {
     try {
       // Get the token from the state (assuming it is stored there)
       const token = await AsyncStorage.getItem("token");
-      const responce = await axios.get(
+      console.log(searchValue, page);
+      const response = await axios.get(
         `http://localhost:5001/myFlex/api/v1/search/movie?searchQuery=${searchValue}&page=${page}`,
         {
           headers: {
@@ -114,9 +115,21 @@ export const Search = createAsyncThunk(
           },
         },
       );
-      return responce;
+      return response;
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
   },
 );
+// Handle Movie Detail
+export const Detail = createAsyncThunk("movies/Details", async (movieID, { rejectWithValue }) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:5001/myFlex/api/v1/movie?searchQuery=${movieID}`,
+    );
+
+    return response;
+  } catch (error) {
+    return rejectWithValue(error.response.data);
+  }
+});

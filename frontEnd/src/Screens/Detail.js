@@ -1,13 +1,8 @@
-import {
-  addToMyList,
-  updateOnMyList,
-  removeFromMyList,
-  addToMyListAndUpdate,
-} from "../store/MovieList";
+import { addToMyList, removeFromMyList } from "../store/MovieList";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useSelector, useDispatch } from "react-redux";
 import DetailHeader from "../Headers/DetailHeader";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import IMBD from "../Assets/IMBD.png";
 import {
   View,

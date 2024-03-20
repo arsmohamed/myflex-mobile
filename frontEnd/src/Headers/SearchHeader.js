@@ -1,19 +1,24 @@
-import React, { useState } from "react";
 import { View, TextInput, StyleSheet, TouchableOpacity } from "react-native";
+import { setSearchValue, clearSearchValue } from "../store/MovieList";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { setScreen } from "../store/navigationSlice";
-import { useNavigation } from "@react-navigation/native";
+import { searhcMovie } from "../store/Actions";
+import React from "react";
 
 const SearchHeader = () => {
-  // const [searchValue, setSearchValue] = useState("");
   const dispatch = useDispatch();
   const searchValue = useSelector((state) => state.movie.SearchValue);
   const navigation = useNavigation();
 
   const UpdateState = () => {
     dispatch(setScreen("Home_Screen"));
+    dispatch(clearSearchValue());
     navigation.goBack();
+  };
+  const handleSearch = (text) => {
+    dispatch(searhcMovie({ searchValue: text, page: 1 }));
   };
   const RightContainer = (
     <View style={styles.SearchingContainerStyle}>
@@ -23,7 +28,8 @@ const SearchHeader = () => {
         placeholder="Search"
         placeholderTextColor="white"
         value={searchValue}
-        // onChangeText={(text) => setSearchValue(text)}
+        onChangeText={(text) => dispatch(setSearchValue(text))}
+        onSubmitEditing={handleSearch}
       />
     </View>
   );
