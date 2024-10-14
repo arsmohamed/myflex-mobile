@@ -1,20 +1,22 @@
 // ChatScreen.js
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, FlatList, ScrollView } from "react-native";
-import SpotLightModel from "../Models/SpotLightModel";
-import MovieCardForm from "../Models/MovieCardModel";
-import HomeHeader from "../Headers/HomeHeader";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import { useDispatch, useSelector } from "react-redux";
-import { setScreen } from "../store/navigationSlice";
+import SpotLightModel from "../Models/SpotLightModel";
 import { getRecommendations } from "../store/Actions";
+import MovieCardForm from "../Models/MovieCardModel";
+import { setScreen } from "../store/navigationSlice";
+import HomeHeader from "../Headers/HomeHeader";
 
+{/* <ion-icon name="arrow-back-circle-outline"></ion-icon> */ }
 const Home = ({ navigation }) => {
   const dispatch = useDispatch();
   const MovieList = useSelector((state) => state.movie.movieList);
 
   useEffect(() => {
     dispatch(setScreen("Home_Screen"));
-    dispatch(getRecommendations(1)).then(() => {});
+    dispatch(getRecommendations(2)).then(() => { });
   }, []);
 
   return (
@@ -49,6 +51,19 @@ const Home = ({ navigation }) => {
               <MovieCardForm key={cardInfo.id} props={cardInfo} ScreenName={"Home_Screen"} />
             ))}
           </View>
+          <View style={styles.Change_Recommendation_Container_Style}>
+            <Ionicons
+              name="arrow-back-circle-outline"
+              size={50}
+              color="#D68D4A"
+            />
+            <Text style={styles.Children_Text_Style}>1</Text>
+            <Ionicons
+              name="arrow-forward-circle-outline"
+              size={50}
+              color="#D68D4A"
+            />
+          </View>
         </View>
       </ScrollView>
     </View>
@@ -63,6 +78,7 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     zIndex: 1,
     paddingBottom: "20%",
+    marginBottom: 5
   },
   Scroll_Container_Style: {
     rowGap: 25,
@@ -83,5 +99,17 @@ const styles = StyleSheet.create({
     // justifyContent: "center",
     // borderWidth: 1,
     // borderColor: "green",
+  },
+  Change_Recommendation_Container_Style: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "center",
+    columnGap: 10,
+  },
+  Children_Text_Style: {
+    fontSize: 18,
+    color: "white",
+    alignSelf: "center",
+    marginRight: 10,
   },
 });
