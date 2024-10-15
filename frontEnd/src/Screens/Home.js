@@ -9,6 +9,7 @@ import MovieCardForm from "../Models/MovieCardModel";
 import { setScreen } from "../store/navigationSlice";
 import HomeCard from "../Models/MovieCardModel";
 import HomeHeader from "../Headers/HomeHeader";
+
 const Home = ({ navigation }) => {
   // Using Dispatch 
   const dispatch = useDispatch();
@@ -29,11 +30,13 @@ const Home = ({ navigation }) => {
     }
   }, [recommendedPageNumber]); // Run effect when recommendedPageNumber changes
 
-  //Functions 
+  // --------------------------------------------------- Functions -------------------------------------------------------
+  //Prev Page 
   const PrevPage = () => {
     if (!isBackArrowDisabled) return;
     setRecommendedPageNumber(prev => Math.max(prev - 1, 1)); // Decrease but not below 1
   }
+  //Next Page 
   const NextPage = () => (
     setRecommendedPageNumber(prev => prev + 1)
   )
