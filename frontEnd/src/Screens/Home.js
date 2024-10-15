@@ -63,7 +63,8 @@ const Home = ({ navigation }) => {
     data={MovieList}
     // data={MovieInfo}
     // renderItem={({ item }) => <Text style={styles.Text_Style}>Recommendation</Text>}
-    renderItem={({ item }) => <HomeCard props={item} ScreenName={"Home_Screen"} />}
+    renderItem={({ item }) => <View style={styles.Recommendation_Container_Style}>
+      <HomeCard props={item} ScreenName={"Home_Screen"} /></View>}
     horizontal
     pagingEnabled
     showsHorizontalScrollIndicator={false}
@@ -149,6 +150,12 @@ const styles = StyleSheet.create({
   Text_Style: {
     color: "white",
     fontSize: 22,
+    marginLeft: 5,
+  },
+  Recommendation_Container_Style: {
+    marginRight: 5,
+    marginLeft: 10,
+    height: 200
   },
   New_Release_Container_Style: {
     flexDirection: "row",
@@ -171,6 +178,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "white",
     alignSelf: "center",
-    marginRight: 10,
   },
 });
