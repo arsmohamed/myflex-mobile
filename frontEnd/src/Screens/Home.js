@@ -7,19 +7,14 @@ import SpotLightModel from "../Models/SpotLightModel";
 import { getRecommendations } from "../store/Actions";
 import MovieCardForm from "../Models/MovieCardModel";
 import { setScreen } from "../store/navigationSlice";
+import HomeCard from "../Models/MovieCardModel";
 import HomeHeader from "../Headers/HomeHeader";
-
 const Home = ({ navigation }) => {
   // Using Dispatch 
   const dispatch = useDispatch();
   const MovieList = useSelector((state) => state.movie.movieList);
   const [recommendedPageNumber, setRecommendedPageNumber] = useState(1)
   const isBackArrowDisabled = recommendedPageNumber !== 1;
-
-  // useEffect(() => {
-  //   dispatch(setScreen("Home_Screen"));
-  //   dispatch(getRecommendations(recommendedPageNumber)).then(() => { });
-  // }, [recommendedPageNumber]);
 
   // Create a reference to the ScrollView
   const scrollViewRef = useRef(null);
@@ -56,6 +51,19 @@ const Home = ({ navigation }) => {
     bounces={false}
     keyExtractor={(item) => item.id.toString()}
   />
+
+  //Recommended List Container 
+  const RecommendedListContainer = <FlatList
+    data={MovieList}
+    // data={MovieInfo}
+    renderItem={({ item }) => <HomeCard props={item} ScreenName={"Home_Screen"} />}
+    horizontal
+    pagingEnabled
+    showsHorizontalScrollIndicator={false}
+    bounces={false}
+    keyExtractor={(item) => item.id}
+  />
+
 
   //movies list container 
   const movieListContainer = <View style={styles.New_Release_Container_Style}>
@@ -100,19 +108,10 @@ const Home = ({ navigation }) => {
         ref={scrollViewRef}
       >
         <View style={styles.Scroll_Container_Style}>
-
           {spotLightContainer}
 
-          {/* <Text style={styles.Text_Style}>Recommendation</Text>
-          <FlatList
-            data={MovieInfo}
-            renderItem={({ item }) => <HomeCard props={item} ScreenName={"Home_Screen"} />}
-            horizontal
-            pagingEnabled
-            showsHorizontalScrollIndicator={false}
-            bounces={false}
-            keyExtractor={(item) => item.id}
-          /> */}
+          <Text style={styles.Text_Style}>Recommendation</Text>
+          {RecommendedListContainer}
 
           <Text style={styles.Text_Style}>New Release</Text>
           {movieListContainer}
