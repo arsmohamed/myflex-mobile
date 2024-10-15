@@ -14,6 +14,8 @@ const Home = ({ navigation }) => {
   // Using Dispatch 
   const dispatch = useDispatch();
   const MovieList = useSelector((state) => state.movie.movieList);
+  const SpotLightList = useSelector(state => state.movie.SpotLightList);
+
   const [recommendedPageNumber, setRecommendedPageNumber] = useState(1)
   const isBackArrowDisabled = recommendedPageNumber !== 1;
 
@@ -44,7 +46,8 @@ const Home = ({ navigation }) => {
   // --------------------------------------------------- Components -------------------------------------------------------
   //spotlight container 
   const spotLightContainer = <FlatList
-    data={MovieList.slice(0, 5)}
+    // data={MovieList.slice(0, 5)}
+    data={SpotLightList}
     renderItem={({ item, index }) => (
       <SpotLightModel props={{ ...item, page: (index + 1).toString() }} />
     )}
@@ -59,6 +62,7 @@ const Home = ({ navigation }) => {
   const RecommendedListContainer = <FlatList
     data={MovieList}
     // data={MovieInfo}
+    // renderItem={({ item }) => <Text style={styles.Text_Style}>Recommendation</Text>}
     renderItem={({ item }) => <HomeCard props={item} ScreenName={"Home_Screen"} />}
     horizontal
     pagingEnabled

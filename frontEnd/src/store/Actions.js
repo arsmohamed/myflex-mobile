@@ -18,7 +18,7 @@ export const loginAsGuest = createAsyncThunk(
   "auth/loginAsGuest",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.post("http://localhost:5001/myFlex/api/v1/login/guest");
+      const response = await axios.post("http://10.0.0.21:5001/myFlex/api/v1/login/guest");
 
       // Handle AsyncStorage here
       await AsyncStorage.setItem("token", response.data.token);
@@ -37,7 +37,7 @@ export const Signin = createAsyncThunk(
   "auth/login",
   async ({ loginValue, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`http://localhost:5001/myFlex/api/v1/login`, {
+      const response = await axios.post(`http://10.0.0.21:5001/myFlex/api/v1/login`, {
         loginValue,
         password,
       });
@@ -55,7 +55,7 @@ export const SingUp = createAsyncThunk(
   "auth/signup",
   async ({ username, email, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.post("http://localhost:5001/myFlex/api/v1/signgup", {
+      const response = await axios.post("http://10.0.0.21:5001/myFlex/api/v1/signgup", {
         username,
         email,
         password,
@@ -86,7 +86,7 @@ export const getRecommendations = createAsyncThunk(
       // Get the token from the state (assuming it is stored there)
       const token = await AsyncStorage.getItem("token");
       const response = await axios.get(
-        `http://localhost:5001/myFlex/api/v1/user/recommendations?page=${page}`,
+        `http://10.0.0.21:5001/myFlex/api/v1/user/recommendations?page=${page}`,
         {
           headers: {
             Authorization: token,
@@ -108,7 +108,7 @@ export const searhcMovie = createAsyncThunk(
       const token = await AsyncStorage.getItem("token");
       console.log(searchValue, page);
       const response = await axios.get(
-        `http://localhost:5001/myFlex/api/v1/search/movie?searchQuery=${searchValue}&page=${page}`,
+        `http://10.0.0.21:5001/myFlex/api/v1/search/movie?searchQuery=${searchValue}&page=${page}`,
         {
           headers: {
             Authorization: token,
@@ -125,7 +125,7 @@ export const searhcMovie = createAsyncThunk(
 export const Detail = createAsyncThunk("movies/Details", async (movieID, { rejectWithValue }) => {
   try {
     const response = await axios.get(
-      `http://localhost:5001/myFlex/api/v1/movie?searchQuery=${movieID}`,
+      `http://10.0.0.21:5001/myFlex/api/v1/movie?searchQuery=${movieID}`,
     );
 
     return response;
