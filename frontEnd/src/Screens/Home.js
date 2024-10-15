@@ -1,5 +1,5 @@
 // ChatScreen.js
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { View, Text, StyleSheet, FlatList, ScrollView, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,31 +10,99 @@ import { setScreen } from "../store/navigationSlice";
 import HomeHeader from "../Headers/HomeHeader";
 
 const Home = ({ navigation }) => {
+  // Using Dispatch 
   const dispatch = useDispatch();
   const MovieList = useSelector((state) => state.movie.movieList);
   const [recommendedPageNumber, setRecommendedPageNumber] = useState(1)
   const isBackArrowDisabled = recommendedPageNumber !== 1;
+
+  // useEffect(() => {
+  //   dispatch(setScreen("Home_Screen"));
+  //   dispatch(getRecommendations(recommendedPageNumber)).then(() => { });
+  // }, [recommendedPageNumber]);
+
+  // Create a reference to the ScrollView
+  const scrollViewRef = useRef(null);
+  // updating the store and rerending the page
   useEffect(() => {
     dispatch(setScreen("Home_Screen"));
-    dispatch(getRecommendations(recommendedPageNumber)).then(() => { });
-  }, [recommendedPageNumber]);
+    dispatch(getRecommendations(recommendedPageNumber));
 
+    // Scroll back to the top when the recommendedPageNumber changes
+    if (scrollViewRef.current) {
+      scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
+    }
+  }, [recommendedPageNumber]); // Run effect when recommendedPageNumber changes
+
+  //Functions 
+  const PrevPage = () => {
+    if (!isBackArrowDisabled) return;
+    setRecommendedPageNumber(prev => Math.max(prev - 1, 1)); // Decrease but not below 1
+  }
+  const NextPage = () => (
+    setRecommendedPageNumber(prev => prev + 1)
+  )
+
+  // --------------------------------------------------- Components -------------------------------------------------------
+  //spotlight container 
+  const spotLightContainer = <FlatList
+    data={MovieList.slice(0, 5)}
+    renderItem={({ item, index }) => (
+      <SpotLightModel props={{ ...item, page: (index + 1).toString() }} />
+    )}
+    horizontal
+    showsHorizontalScrollIndicator
+    pagingEnabled
+    bounces={false}
+    keyExtractor={(item) => item.id.toString()}
+  />
+
+  //movies list container 
+  const movieListContainer = <View style={styles.New_Release_Container_Style}>
+    {MovieList.map((cardInfo) => (
+      <MovieCardForm key={cardInfo.id} props={cardInfo} ScreenName={"Home_Screen"} />
+    ))}
+  </View>
+
+  //page controlling buttons 
+  const PagesControl = <View style={styles.Change_Recommendation_Container_Style}>
+    <TouchableOpacity
+      onPress={PrevPage}
+      disabled={isBackArrowDisabled && false}
+      style={{ opacity: isBackArrowDisabled ? 1 : 0.5 }} // Optional: change the opacity for visual feedback
+      activeOpacity={isBackArrowDisabled ? 1 : 0.7}
+    >
+      <Ionicons
+        name="arrow-back-circle-outline"
+        size={50}
+        color={isBackArrowDisabled ? "#FFD900" : "white"}
+      />
+    </TouchableOpacity>
+    <Text style={styles.Children_Text_Style}>{recommendedPageNumber}</Text>
+    <TouchableOpacity
+      onPress={NextPage}
+    >
+      <Ionicons
+        name="arrow-forward-circle-outline"
+        size={50}
+        color="#FFD900"
+      />
+    </TouchableOpacity>
+  </View>
+
+  // --------------------------------------------------- returning View -------------------------------------------------------
   return (
     <View style={styles.Main_Contain_Style}>
       <HomeHeader navigation={navigation} />
-      <ScrollView>
+
+      <ScrollView
+        //reference to scroll back whenever there is a change in recommendedPageNumber changes 
+        ref={scrollViewRef}
+      >
         <View style={styles.Scroll_Container_Style}>
-          <FlatList
-            data={MovieList.slice(0, 5)}
-            renderItem={({ item, index }) => (
-              <SpotLightModel props={{ ...item, page: (index + 1).toString() }} />
-            )}
-            horizontal
-            showsHorizontalScrollIndicator
-            pagingEnabled
-            bounces={false}
-            keyExtractor={(item) => item.id.toString()}
-          />
+
+          {spotLightContainer}
+
           {/* <Text style={styles.Text_Style}>Recommendation</Text>
           <FlatList
             data={MovieInfo}
@@ -45,39 +113,11 @@ const Home = ({ navigation }) => {
             bounces={false}
             keyExtractor={(item) => item.id}
           /> */}
+
           <Text style={styles.Text_Style}>New Release</Text>
-          <View style={styles.New_Release_Container_Style}>
-            {MovieList.map((cardInfo) => (
-              <MovieCardForm key={cardInfo.id} props={cardInfo} ScreenName={"Home_Screen"} />
-            ))}
-          </View>
-          <View style={styles.Change_Recommendation_Container_Style}>
-            <TouchableOpacity
-              onPress={() => {
-                if (!isBackArrowDisabled) return;
-                setRecommendedPageNumber(prev => Math.max(prev - 1, 1)); // Decrease but not below 1
-              }}
-              disabled={isBackArrowDisabled && false}
-              style={{ opacity: isBackArrowDisabled ? 1 : 0.5 }} // Optional: change the opacity for visual feedback
-              activeOpacity={isBackArrowDisabled ? 1 : 0.7}
-            >
-              <Ionicons
-                name="arrow-back-circle-outline"
-                size={50}
-                color={isBackArrowDisabled ? "#D68D4A" : "white"}
-              />
-            </TouchableOpacity>
-            <Text style={styles.Children_Text_Style}>{recommendedPageNumber}</Text>
-            <TouchableOpacity
-              onPress={() => setRecommendedPageNumber(prev => prev + 1)}
-            >
-              <Ionicons
-                name="arrow-forward-circle-outline"
-                size={50}
-                color="#D68D4A"
-              />
-            </TouchableOpacity>
-          </View>
+          {movieListContainer}
+
+          {PagesControl}
         </View>
       </ScrollView>
     </View>
