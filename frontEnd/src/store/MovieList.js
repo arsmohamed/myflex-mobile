@@ -10,6 +10,7 @@ const initialState = {
   updateComingMovieStates: {},
   loading: false,
   currentPage: 1,
+  SpotLightList: [],
 };
 
 const movieSlice = createSlice({
@@ -70,6 +71,8 @@ const movieSlice = createSlice({
           };
         });
         state.movieList = updatedMovieList;
+        // Set SpotLightList to the first 5 movies
+        state.SpotLightList = updatedMovieList.slice(0, 5);
       })
       .addCase(getRecommendations.rejected, (state, action) => {
         state.loading = false;

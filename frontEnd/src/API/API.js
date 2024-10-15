@@ -4,7 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 class API {
   static signUp(username, email, password, onSuccess, onFail) {
     return axios
-      .post("http://localhost:5001/myFlex/api/v1/signgup", {
+      .post("http://10.0.0.21:5001/myFlex/api/v1/signgup", {
         username: username,
         email,
         password,
@@ -22,7 +22,7 @@ class API {
   static isLoggedIn() {
     console.log(localStorage.getItem("token"));
     return axios
-      .get("http://localhost:5001/myFlex/api/v1/user", {
+      .get("http://10.0.0.21:5001/myFlex/api/v1/user", {
         headers: { Authorization: localStorage.getItem("token") },
       })
       .then((res) => {
@@ -42,7 +42,7 @@ class API {
   static getRecommendations(page) {
     console.log(page);
     return axios
-      .get(`http://localhost:5001/myFlex/api/v1/user/recommendations?page=${page}`, {
+      .get(`http://10.0.0.21:5001/myFlex/api/v1/user/recommendations?page=${page}`, {
         headers: { Authorization: localStorage.getItem("token") },
       })
       .then((res) => console.log(res.data))
@@ -51,7 +51,7 @@ class API {
 
   static login(loginValue, password, onSuccess, onFail) {
     return axios
-      .post("http://localhost:5001/myFlex/api/v1/login", {
+      .post("http://10.0.0.21:5001/myFlex/api/v1/login", {
         loginValue,
         password,
       })
@@ -67,7 +67,7 @@ class API {
 
   // static loginAsGuest(onSuccess, onFail) {
   //   return axios
-  //     .post("http://localhost:5001/myFlex/api/v1/login/guest")
+  //     .post("http://10.0.0.21:5001/myFlex/api/v1/login/guest")
   //     .then((res) => {
   //       console.log(res);
   //       AsyncStorage.setItem("token", res.data.token);
@@ -85,7 +85,7 @@ class API {
     return (
       axios
         .get(
-          `http://localhost:5001/myFlex/api/v1/search/movie?searchQuery=${searchValue}&page=${page}`,
+          `http://10.0.0.21:5001/myFlex/api/v1/search/movie?searchQuery=${searchValue}&page=${page}`,
           {
             headers: { Authorization: localStorage.getItem("token") },
           },
@@ -98,7 +98,7 @@ class API {
   static movieDetails(movieID) {
     return (
       axios
-        .get(`http://localhost:5001/myFlex/api/v1/movie?searchQuery=${movieID}`)
+        .get(`http://10.0.0.21:5001/myFlex/api/v1/movie?searchQuery=${movieID}`)
         // .then((res) => console.log(res.data))
         .catch((e) => console.log(e))
     );
@@ -106,7 +106,7 @@ class API {
 
   static addMovieToMyList(id) {
     return axios.patch(
-      "http://localhost:5001/myFlex/api/v1/user/list",
+      "http://10.0.0.21:5001/myFlex/api/v1/user/list",
       {
         id,
       },
@@ -119,7 +119,7 @@ class API {
   }
 
   static removeMovieFromMyList(id) {
-    return axios.delete("http://localhost:5001/myFlex/api/v1/user/list", {
+    return axios.delete("http://10.0.0.21:5001/myFlex/api/v1/user/list", {
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -131,7 +131,7 @@ class API {
 
   static watched(id, watched) {
     return axios.patch(
-      "http://localhost:5001/myFlex/api/v1/user/list",
+      "http://10.0.0.21:5001/myFlex/api/v1/user/list",
       { id, watched },
       {
         headers: { Authorization: localStorage.getItem("token") },
@@ -141,7 +141,7 @@ class API {
 
   static getMyList() {
     return axios
-      .get("http://localhost:5001/myFlex/api/v1/user/list", {
+      .get("http://10.0.0.21:5001/myFlex/api/v1/user/list", {
         headers: {
           Authorization: localStorage.getItem("token"),
         },

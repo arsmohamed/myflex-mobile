@@ -14,6 +14,8 @@ const Home = ({ navigation }) => {
   // Using Dispatch 
   const dispatch = useDispatch();
   const MovieList = useSelector((state) => state.movie.movieList);
+  const SpotLightList = useSelector(state => state.movie.SpotLightList);
+
   const [recommendedPageNumber, setRecommendedPageNumber] = useState(1)
   const isBackArrowDisabled = recommendedPageNumber !== 1;
 
@@ -44,7 +46,8 @@ const Home = ({ navigation }) => {
   // --------------------------------------------------- Components -------------------------------------------------------
   //spotlight container 
   const spotLightContainer = <FlatList
-    data={MovieList.slice(0, 5)}
+    // data={MovieList.slice(0, 5)}
+    data={SpotLightList}
     renderItem={({ item, index }) => (
       <SpotLightModel props={{ ...item, page: (index + 1).toString() }} />
     )}
@@ -59,7 +62,9 @@ const Home = ({ navigation }) => {
   const RecommendedListContainer = <FlatList
     data={MovieList}
     // data={MovieInfo}
-    renderItem={({ item }) => <HomeCard props={item} ScreenName={"Home_Screen"} />}
+    // renderItem={({ item }) => <Text style={styles.Text_Style}>Recommendation</Text>}
+    renderItem={({ item }) => <View style={styles.Recommendation_Container_Style}>
+      <HomeCard props={item} ScreenName={"Home_Screen"} /></View>}
     horizontal
     pagingEnabled
     showsHorizontalScrollIndicator={false}
@@ -145,14 +150,21 @@ const styles = StyleSheet.create({
   Text_Style: {
     color: "white",
     fontSize: 22,
+    marginLeft: 5,
+  },
+  Recommendation_Container_Style: {
+    marginRight: 5,
+    marginLeft: 10,
+    height: 200
   },
   New_Release_Container_Style: {
     flexDirection: "row",
     flexWrap: "wrap",
     width: "100%",
-    rowGap: 20,
+    rowGap: 25,
+    columnGap: 5,
     alignItems: "center",
-    // justifyContent: "center",
+    justifyContent: "center",
     // borderWidth: 1,
     // borderColor: "green",
   },
@@ -166,6 +178,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "white",
     alignSelf: "center",
-    marginRight: 10,
   },
 });
