@@ -1,6 +1,6 @@
 // ChatScreen.js
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, FlatList, ScrollView } from "react-native";
+import { View, Text, StyleSheet, FlatList, ScrollView, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useDispatch, useSelector } from "react-redux";
 import SpotLightModel from "../Models/SpotLightModel";
@@ -9,15 +9,15 @@ import MovieCardForm from "../Models/MovieCardModel";
 import { setScreen } from "../store/navigationSlice";
 import HomeHeader from "../Headers/HomeHeader";
 
-{/* <ion-icon name="arrow-back-circle-outline"></ion-icon> */ }
 const Home = ({ navigation }) => {
   const dispatch = useDispatch();
   const MovieList = useSelector((state) => state.movie.movieList);
-
+  const [recommendedPageNumber, setRecommendedPageNumber] = useState(1)
+  const isBackArrowDisabled = recommendedPageNumber !== 1;
   useEffect(() => {
     dispatch(setScreen("Home_Screen"));
-    dispatch(getRecommendations(2)).then(() => { });
-  }, []);
+    dispatch(getRecommendations(recommendedPageNumber)).then(() => { });
+  }, [recommendedPageNumber]);
 
   return (
     <View style={styles.Main_Contain_Style}>
@@ -52,17 +52,31 @@ const Home = ({ navigation }) => {
             ))}
           </View>
           <View style={styles.Change_Recommendation_Container_Style}>
-            <Ionicons
-              name="arrow-back-circle-outline"
-              size={50}
-              color="#D68D4A"
-            />
-            <Text style={styles.Children_Text_Style}>1</Text>
-            <Ionicons
-              name="arrow-forward-circle-outline"
-              size={50}
-              color="#D68D4A"
-            />
+            <TouchableOpacity
+              onPress={() => {
+                if (!isBackArrowDisabled) return;
+                setRecommendedPageNumber(prev => Math.max(prev - 1, 1)); // Decrease but not below 1
+              }}
+              disabled={isBackArrowDisabled && false}
+              style={{ opacity: isBackArrowDisabled ? 1 : 0.5 }} // Optional: change the opacity for visual feedback
+              activeOpacity={isBackArrowDisabled ? 1 : 0.7}
+            >
+              <Ionicons
+                name="arrow-back-circle-outline"
+                size={50}
+                color={isBackArrowDisabled ? "#D68D4A" : "white"}
+              />
+            </TouchableOpacity>
+            <Text style={styles.Children_Text_Style}>{recommendedPageNumber}</Text>
+            <TouchableOpacity
+              onPress={() => setRecommendedPageNumber(prev => prev + 1)}
+            >
+              <Ionicons
+                name="arrow-forward-circle-outline"
+                size={50}
+                color="#D68D4A"
+              />
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
