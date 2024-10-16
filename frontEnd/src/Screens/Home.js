@@ -1,6 +1,6 @@
 // ChatScreen.js
 import React, { useEffect, useState, useRef } from "react";
-import { View, Text, StyleSheet, FlatList, ScrollView, TouchableOpacity, ActivityIndicator } from "react-native";
+import { View, Text, StyleSheet, FlatList, ScrollView, TouchableOpacity, ActivityIndicator, Animated } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useDispatch, useSelector } from "react-redux";
 import SpotLightModel from "../Models/SpotLightModel";
@@ -16,12 +16,16 @@ const Home = ({ navigation }) => {
   const MovieList = useSelector((state) => state.movie.movieList);
   const SpotLightList = useSelector(state => state.movie.SpotLightList);
   const [recommendedPageNumber, setRecommendedPageNumber] = useState(1)
-  const [loading, setLoading] = useState(true); // Loading state
+  const [loading, setLoading] = useState(true);
   const isBackArrowDisabled = recommendedPageNumber !== 1;
 
-  // Create a reference to the ScrollView
+  // Create a reference
   const scrollViewRef = useRef(null);
-  // updating the store and rerending the page
+  const flatListRef = useRef(null); // Reference for FlatList
+  const currentIndex = useRef(0); // Current index for spotlight rotation
+
+  // --------------------------------------------------- UseEffect -------------------------------------------------------
+  // updating the store and re-rending the page
   useEffect(() => {
     dispatch(setScreen("Home_Screen"));
     dispatch(getRecommendations(recommendedPageNumber));
@@ -30,13 +34,31 @@ const Home = ({ navigation }) => {
     if (scrollViewRef.current) {
       scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
     }
-    // Display loading for 10 seconds
+
+    // Display loading for 0.5 seconds
     const timer = setTimeout(() => {
       setLoading(false); // Set loading to false after 10 seconds
     }, 500); // 0.5 seconds
 
     return () => clearTimeout(timer); // Cleanup timer on unmount
   }, [recommendedPageNumber]); // Run effect when recommendedPageNumber changes
+
+  // Function for rotating the spotlight items
+  useEffect(() => {
+    const length = SpotLightList.length;
+    const interval = setInterval(() => {
+      currentIndex.current = (currentIndex.current + 1) % length; // Increment and wrap around index
+      if (flatListRef.current) {
+        flatListRef.current.scrollToIndex({
+          animated: true,
+          index: currentIndex.current,
+          viewPosition: 0.5, // Center the item in the view
+        });
+      }
+    }, 3000); // Change the item every 3 seconds
+
+    return () => clearInterval(interval); // Clear interval on unmount
+  }, [SpotLightList]);
 
   // --------------------------------------------------- Functions -------------------------------------------------------
   //Prev Page 
@@ -53,6 +75,7 @@ const Home = ({ navigation }) => {
   //spotlight container 
   const spotLightContainer = <FlatList
     // data={MovieList.slice(0, 5)}
+    ref={flatListRef}
     data={SpotLightList}
     renderItem={({ item, index }) => (
       <SpotLightModel props={{ ...item, page: (index + 1).toString() }} />
