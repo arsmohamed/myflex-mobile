@@ -48,7 +48,7 @@ const HomerHeader = ({ navigation }) => {
   );
   const NavigationContainer = (
     <View style={styles.Navigation_Container_Style}>
-      {LeftContainer}
+      {/* {LeftContainer} */}
       {RightContainer}
     </View>
   );
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,0.5)", //till i find a solution to the blur thing
   },
   Navigation_Container_Style: {
-    flexDirection: "row",
+    flexDirection: "row-reverse",
     width: "90%",
     justifyContent: "space-between",
     alignItems: "center",
