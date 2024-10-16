@@ -33,7 +33,7 @@ const Home = ({ navigation }) => {
     // Display loading for 10 seconds
     const timer = setTimeout(() => {
       setLoading(false); // Set loading to false after 10 seconds
-    }, 2000); // 2 seconds
+    }, 500); // 2 seconds
 
     return () => clearTimeout(timer); // Cleanup timer on unmount
   }, [recommendedPageNumber]); // Run effect when recommendedPageNumber changes
