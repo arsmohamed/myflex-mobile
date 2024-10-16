@@ -16,6 +16,7 @@ const Home = ({ navigation }) => {
   const MovieList = useSelector((state) => state.movie.movieList);
   const SpotLightList = useSelector(state => state.movie.SpotLightList);
   const [recommendedPageNumber, setRecommendedPageNumber] = useState(1)
+  const [RecommendedListStatus, setRecommendedListStatus] = useState(false)
   const [loading, setLoading] = useState(true);
   const isBackArrowDisabled = recommendedPageNumber !== 1;
 
@@ -92,8 +93,10 @@ const Home = ({ navigation }) => {
     data={MovieList}
     // data={MovieInfo}
     // renderItem={({ item }) => <Text style={styles.Text_Style}>Recommendation</Text>}
-    renderItem={({ item }) => <View style={styles.Recommendation_Container_Style}>
-      <HomeCard props={item} ScreenName={"Home_Screen"} /></View>}
+    renderItem={({ item }) => <HomeCard props={item} ScreenName={"Home_Screen"} />}
+    //  <View style={styles.Recommendation_Container_Style}>
+
+    // </View>}
     horizontal
     pagingEnabled
     showsHorizontalScrollIndicator={false}
@@ -150,7 +153,9 @@ const Home = ({ navigation }) => {
           <View style={styles.Scroll_Container_Style}>
             {spotLightContainer}
             <Text style={styles.Text_Style}>Recommendation</Text>
-            {RecommendedListContainer}
+            <View style={[styles.Recommendation_Container_Style, { height: RecommendedListStatus ? 200 : 50 }]}>
+              {RecommendedListStatus ? RecommendedListContainer : <Text style={styles.Recommendation_Text_Style}>Please Add Movies to your List !!</Text>}
+            </View>
             <Text style={styles.Text_Style}>New Release</Text>
             {movieListContainer}
             {PagesControl}
@@ -195,7 +200,10 @@ const styles = StyleSheet.create({
   Recommendation_Container_Style: {
     marginRight: 5,
     marginLeft: 10,
-    height: 200
+    // height: 200,
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center"
   },
   New_Release_Container_Style: {
     flexDirection: "row",
@@ -218,5 +226,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "white",
     alignSelf: "center",
+  },
+  Recommendation_Text_Style: {
+    color: "rgba(255, 255, 255, 0.5)",
+    fontSize: 18,
   },
 });
