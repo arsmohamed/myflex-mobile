@@ -1,6 +1,6 @@
 // ChatScreen.js
 import React, { useEffect, useState, useRef } from "react";
-import { View, Text, StyleSheet, FlatList, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, FlatList, ScrollView, TouchableOpacity, ActivityIndicator } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useDispatch, useSelector } from "react-redux";
 import SpotLightModel from "../Models/SpotLightModel";
@@ -15,8 +15,8 @@ const Home = ({ navigation }) => {
   const dispatch = useDispatch();
   const MovieList = useSelector((state) => state.movie.movieList);
   const SpotLightList = useSelector(state => state.movie.SpotLightList);
-
   const [recommendedPageNumber, setRecommendedPageNumber] = useState(1)
+  const [loading, setLoading] = useState(true); // Loading state
   const isBackArrowDisabled = recommendedPageNumber !== 1;
 
   // Create a reference to the ScrollView
@@ -30,6 +30,12 @@ const Home = ({ navigation }) => {
     if (scrollViewRef.current) {
       scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
     }
+    // Display loading for 10 seconds
+    const timer = setTimeout(() => {
+      setLoading(false); // Set loading to false after 10 seconds
+    }, 2000); // 2 seconds
+
+    return () => clearTimeout(timer); // Cleanup timer on unmount
   }, [recommendedPageNumber]); // Run effect when recommendedPageNumber changes
 
   // --------------------------------------------------- Functions -------------------------------------------------------
@@ -110,23 +116,24 @@ const Home = ({ navigation }) => {
   return (
     <View style={styles.Main_Contain_Style}>
       <HomeHeader navigation={navigation} />
-
-      <ScrollView
-        //reference to scroll back whenever there is a change in recommendedPageNumber changes 
-        ref={scrollViewRef}
-      >
-        <View style={styles.Scroll_Container_Style}>
-          {spotLightContainer}
-
-          <Text style={styles.Text_Style}>Recommendation</Text>
-          {RecommendedListContainer}
-
-          <Text style={styles.Text_Style}>New Release</Text>
-          {movieListContainer}
-
-          {PagesControl}
+      {loading ? (
+        // Show loading indicator while loading
+        <View style={styles.loading_Container_Style}>
+          <ActivityIndicator size="large" color="#FFD900" />
+          <Text style={styles.loading_Text_Style}>Loading...</Text>
         </View>
-      </ScrollView>
+      ) : (
+        <ScrollView ref={scrollViewRef} >
+          <View style={styles.Scroll_Container_Style}>
+            {spotLightContainer}
+            <Text style={styles.Text_Style}>Recommendation</Text>
+            {RecommendedListContainer}
+            <Text style={styles.Text_Style}>New Release</Text>
+            {movieListContainer}
+            {PagesControl}
+          </View>
+        </ScrollView>
+      )}
     </View>
   );
 };
@@ -146,6 +153,16 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     // borderWidth: 1,
     // borderColor: "yellow",
+  },
+  loading_Container_Style: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "black",
+  },
+  loading_Text_Style: {
+    color: "white",
+    marginTop: 10,
   },
   Text_Style: {
     color: "white",
