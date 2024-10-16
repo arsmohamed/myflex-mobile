@@ -56,7 +56,7 @@ const ScreenContainer = () => {
       padding: 10,
       backgroundColor: "#31302E",
       overflow: "hidden",
-      borderTopWidth: 1,
+      borderTopWidth: 0.5,
       borderTopColor: "white",
       display: ActiveScreen === "Detail_Screen" ? "none" : "flex",
       // ActiveScreen === "Search_Screen" || ActiveScreen === "Detail_Screen" ? "none" : "flex",

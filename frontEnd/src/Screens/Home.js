@@ -1,6 +1,6 @@
 // ChatScreen.js
 import React, { useEffect, useState, useRef } from "react";
-import { View, Text, StyleSheet, FlatList, ScrollView, TouchableOpacity, ActivityIndicator, Animated } from "react-native";
+import { View, Text, StyleSheet, FlatList, ScrollView, TouchableOpacity, ActivityIndicator } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useDispatch, useSelector } from "react-redux";
 import SpotLightModel from "../Models/SpotLightModel";

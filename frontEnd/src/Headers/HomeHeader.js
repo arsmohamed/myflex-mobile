@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "column-reverse",
     alignItems: "center",
-    borderBottomWidth: 1,
+    borderBottomWidth: 0.5,
     borderBottomColor: "white",
     paddingBottom: 5,
     zIndex: 2,
