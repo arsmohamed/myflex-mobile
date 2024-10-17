@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "myFlex App",
-    "slug": "myFlex-App",
+    "name": "myFlix",
+    "slug": "myflix",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/Logo.png",
@@ -25,6 +25,18 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "9c12eae1-ab98-4a1e-b71b-75f508e02535"
+      }
+    },
+    "owner": "meromo",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/9c12eae1-ab98-4a1e-b71b-75f508e02535"
     }
   }
 }
