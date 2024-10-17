@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "myFlex App",
-    "slug": "myflex",
+    "name": "myFlix",
+    "slug": "myflix",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/Logo.png",
